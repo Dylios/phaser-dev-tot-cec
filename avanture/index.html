@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>EXPEDITION 2028 — Prototype</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game-shell">
+    <div id="game-root"></div>
+
+    <div id="dialogue" class="hidden">
+      <div id="dialogue-name"></div>
+      <div id="dialogue-text"></div>
+      <div class="dialogue-arrow">▼</div>
+    </div>
+
+    <div id="interaction-hint" class="hidden">E — Interagir</div>
+
+    <div id="mobile-controls">
+      <div id="joystick">
+        <div id="joystick-knob"></div>
+      </div>
+      <button id="action-button" type="button">A</button>
+    </div>
+  </main>
+
+  <!-- Phaser 4.2.1: CDN officiel, aucun build / npm nécessaire. -->
+  <script src="https://cdn.jsdelivr.net/npm/[email protected]/dist/phaser.min.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
