@@ -1,0 +1,230 @@
+{
+ "id": "bibliotheque",
+ "tile": 32,
+ "width": 384,
+ "height": 288,
+ "wallHeight": 96,
+ "floorTiles": [
+  "floor_chevron_01"
+ ],
+ "bounds": {
+  "minX": 10,
+  "maxX": 374,
+  "minY": 104,
+  "maxY": 282
+ },
+ "player": {
+  "x": 192,
+  "y": 272,
+  "speed": 75
+ },
+ "lights": [
+  {
+   "x": 192,
+   "y": 76,
+   "r": 86,
+   "a": 0.75,
+   "flicker": true
+  },
+  {
+   "x": 88,
+   "y": 50,
+   "r": 44,
+   "a": 0.6
+  },
+  {
+   "x": 232,
+   "y": 50,
+   "r": 44,
+   "a": 0.6
+  },
+  {
+   "x": 100,
+   "y": 176,
+   "r": 50,
+   "a": 0.6
+  }
+ ],
+ "objects": [
+  {
+   "key": "bookcase_06_narrow",
+   "x": 22,
+   "y": 96
+  },
+  {
+   "key": "bookcase_04_arch_niche",
+   "x": 62,
+   "y": 96
+  },
+  {
+   "key": "lantern_wall_01",
+   "x": 88,
+   "y": 66,
+   "layer": "floor",
+   "solid": false
+  },
+  {
+   "key": "bookcase_07_tall",
+   "x": 120,
+   "y": 96
+  },
+  {
+   "key": "fireplace_01",
+   "x": 192,
+   "y": 96,
+   "talk": [
+    {
+     "text": [
+      "La cheminée crépite doucement.",
+      "Quelqu'un était là il y a peu de temps…"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "lantern_wall_01",
+   "x": 232,
+   "y": 66,
+   "layer": "floor",
+   "solid": false
+  },
+  {
+   "key": "bookcase_03_globe",
+   "x": 268,
+   "y": 96
+  },
+  {
+   "key": "bookcase_08_tall_ivy",
+   "x": 328,
+   "y": 96,
+   "talk": [
+    {
+     "not": "page",
+     "sets": "page",
+     "text": [
+      "Entre deux livres, une page cornée !",
+      "Tu l'empoches : c'est « La page manquante »."
+     ]
+    },
+    {
+     "text": [
+      "Rien d'autre ici que des livres poussiéreux."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "desk_study_01",
+   "x": 258,
+   "y": 152,
+   "talk": [
+    {
+     "needs": "page",
+     "not": "fini",
+     "sets": "fini",
+     "text": [
+      "Tu replaces la page dans le registre.",
+      "Quête terminée : « La page manquante » !"
+     ]
+    },
+    {
+     "not": "page",
+     "text": [
+      "Le registre de l'expédition. Une page a été arrachée…",
+      "Elle doit traîner quelque part dans la bibliothèque."
+     ]
+    },
+    {
+     "text": [
+      "Le registre est complet. Bravo, explorateur !"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "rug_red_wide_01",
+   "x": 192,
+   "y": 258,
+   "layer": "floor",
+   "solid": false
+  },
+  {
+   "key": "chair_green_01",
+   "x": 160,
+   "y": 198
+  },
+  {
+   "key": "chair_green_01",
+   "x": 224,
+   "y": 198
+  },
+  {
+   "key": "table_large_study_01",
+   "x": 192,
+   "y": 230
+  },
+  {
+   "key": "armchair_blue_01",
+   "x": 56,
+   "y": 214
+  },
+  {
+   "key": "pouf_blue_01",
+   "x": 56,
+   "y": 246
+  },
+  {
+   "key": "lamp_table_shade_01",
+   "x": 100,
+   "y": 198
+  },
+  {
+   "key": "armchair_red_01",
+   "x": 336,
+   "y": 208
+  },
+  {
+   "key": "chest_large_01",
+   "x": 350,
+   "y": 264
+  },
+  {
+   "key": "book_stack_red_01",
+   "x": 318,
+   "y": 276
+  },
+  {
+   "key": "cat_01",
+   "x": 296,
+   "y": 252,
+   "talk": [
+    {
+     "text": [
+      "Miaou.",
+      "Le chat te regarde comme s'il en savait long."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "plant_palm_01",
+   "x": 20,
+   "y": 150
+  },
+  {
+   "key": "plant_fern_03",
+   "x": 366,
+   "y": 150
+  },
+  {
+   "key": "plant_fern_04",
+   "x": 28,
+   "y": 268
+  },
+  {
+   "key": "plant_fern_02",
+   "x": 110,
+   "y": 278
+  }
+ ]
+}
