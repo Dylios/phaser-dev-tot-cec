@@ -1,0 +1,8 @@
+EXPEDITION 2028 - socle de la première pièce (bibliothèque)
+- Copier le dossier "aventure" dans le dépôt GitHub, puis ouvrir aventure/index.html via GitHub Pages.
+- En local, ne pas ouvrir le fichier directement : lancer "python -m http.server" dans le dossier puis aller sur http://localhost:8000/aventure/
+- La pièce est décrite dans data/bibliotheque.json (objets, positions, dialogues, drapeaux de quête).
+- Pour remplacer un sprite : déposer un PNG du même nom dans assets/objects/ ou assets/tiles/.
+- Le joueur utilise un carré provisoire tant que assets/characters/player.png n'existe pas.
+
+Version HD : sprites à 2x la résolution (tuiles 64 px), jeu rendu en 768x576 avec une caméra en zoom x2. Les positions du JSON restent en unités logiques 384x288.

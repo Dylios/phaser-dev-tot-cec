@@ -1,0 +1,28 @@
+{
+ "id":"bibliotheque","tile":32,"width":384,"height":288,"wallHeight":96,
+ "floorTiles":["floor_wood_01","floor_wood_02","floor_wood_03","floor_wood_04"],
+ "bounds":{"minX":10,"maxX":374,"minY":104,"maxY":282},
+ "player":{"x":192,"y":262,"speed":75},
+ "objects":[
+  {"key":"bookcase_06_narrow","x":22,"y":96},
+  {"key":"bookcase_04_arch_niche","x":62,"y":96},
+  {"key":"bookcase_07_tall","x":120,"y":96},
+  {"key":"fireplace_01","x":192,"y":96,"talk":[{"text":["La cheminée crépite doucement.","Quelqu'un était là il y a peu de temps…"]}]},
+  {"key":"bookcase_03_globe","x":268,"y":96},
+  {"key":"bookcase_08_tall_ivy","x":328,"y":96,"talk":[
+    {"not":"page","sets":"page","text":["Entre deux livres, une page cornée !","Tu l'empoches : c'est « La page manquante »."]},
+    {"text":["Rien d'autre ici que des livres poussiéreux."]}]},
+  {"key":"rug_red_large_01","x":192,"y":214,"layer":"floor","solid":false},
+  {"key":"armchair_blue_01","x":148,"y":214},
+  {"key":"armchair_red_01","x":236,"y":214},
+  {"key":"desk_study_01","x":66,"y":204,"talk":[
+    {"needs":"page","not":"fini","sets":"fini","text":["Tu replaces la page dans le registre.","Quête terminée : « La page manquante » !"]},
+    {"not":"page","text":["Le registre de l'expédition. Une page a été arrachée…","Elle doit traîner quelque part dans la bibliothèque."]},
+    {"text":["Le registre est complet. Bravo, explorateur !"]}]},
+  {"key":"table_large_study_01","x":322,"y":206},
+  {"key":"chair_green_01","x":322,"y":240},
+  {"key":"plant_palm_01","x":20,"y":150},
+  {"key":"plant_fern_03","x":366,"y":150},
+  {"key":"chest_01","x":44,"y":268}
+ ]
+}
