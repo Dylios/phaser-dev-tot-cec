@@ -317,10 +317,7 @@
    "key": "table_reading_long_front_01",
    "x": 516,
    "y": 358,
-   "fp": [
-    250,
-    14
-   ]
+   "fp": [176, 14]
   },
   {
    "key": "lamp_table_shade_02",
@@ -348,12 +345,12 @@
   },
   {
    "key": "chair_green_right_01",
-   "x": 362,
+   "x": 404,
    "y": 350
   },
   {
    "key": "chair_green_left_01",
-   "x": 670,
+   "x": 628,
    "y": 350
   },
   {
