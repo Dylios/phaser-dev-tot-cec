@@ -117,6 +117,8 @@ ou la teinte : `python tools/make_wall_tops.py 80` puis `python tools/make_asset
 
 ## Mobile
 
+**Plein écran** : sur Android, le premier toucher passe en plein écran et verrouille le paysage. Sur iPhone, Safari ne permet pas de masquer sa barre : il faut installer le jeu sur l'écran d'accueil (Partager → « Sur l'écran d'accueil »). Il s'ouvre alors sans aucune barre (`manifest.webmanifest`, `icons/`).
+
 En portrait sur un appareil tactile, un écran « Tourne ton téléphone » met le jeu en pause (`js/orientation.js`) ; il disparaît tout seul en paysage. Pour le voir sur ordinateur : `index.html?forceportrait`. L'éditeur (`?edit`) n'est pas concerné.
 
 Le jeu occupe tout l'écran et s'adapte : sur ordinateur et téléphone en paysage on voit toute la

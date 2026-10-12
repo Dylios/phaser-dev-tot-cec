@@ -34,3 +34,24 @@
     } else if (++tries > 80) clearInterval(t);
   }, 250);
 })();
+
+/* Plein écran (Android / tablettes) : au premier toucher, on passe en plein écran et on tente de
+   verrouiller le paysage. Sur iPhone Safari, ce n'est pas possible : il faut installer le jeu sur
+   l'écran d'accueil (« Partager » → « Sur l'écran d'accueil »), il s'ouvre alors sans barre. */
+(function () {
+  if (new URLSearchParams(location.search).has('edit')) return;
+  const de = document.documentElement;
+  const req = de.requestFullscreen || de.webkitRequestFullscreen;
+  const standalone = window.matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches || navigator.standalone;
+  if (!req || standalone) return;
+  function go() {
+    window.removeEventListener('pointerup', go, true);
+    if (document.fullscreenElement) return;
+    try {
+      const pr = req.call(de, { navigationUI: 'hide' });
+      const lock = function () { try { screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(function () {}); } catch (e) {} };
+      if (pr && pr.then) pr.then(lock).catch(function () {}); else lock();
+    } catch (e) { /* refusé : tant pis */ }
+  }
+  if (window.matchMedia('(pointer: coarse)').matches) window.addEventListener('pointerup', go, true);
+})();
