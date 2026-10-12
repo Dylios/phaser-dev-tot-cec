@@ -2,23 +2,49 @@
  "thomas_01": {
   "sheet": "sheets/thomas_01.png",
   "cell": [
-   100,
-   144
+   116,
+   201
   ],
-  "frames": 4,
+  "frames": 11,
+  "counts": {
+   "down": 11,
+   "up": 10,
+   "left": 10,
+   "right": 10
+  },
   "rows": {
    "down": 0,
    "up": 1,
    "left": 2,
-   "right": 3
+   "right": 3,
+   "stand_up": 4
   },
   "walk": {
-   "fps": 8,
+   "fps": 9,
    "flipAlt": [
-    "down",
-    "up"
+    "down"
    ],
    "bob": 2
+  },
+  "idle": {
+   "fps": 2,
+   "faces": [
+    "down"
+   ]
+  },
+  "stand": {
+   "up": [
+    "stand_up",
+    0
+   ],
+   "left": [
+    "left",
+    9
+   ],
+   "right": [
+    "right",
+    9
+   ]
   }
  },
  "cecile_01": {
