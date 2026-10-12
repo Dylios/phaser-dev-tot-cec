@@ -10,21 +10,20 @@
    "down": 11,
    "up": 10,
    "left": 10,
-   "right": 10
+   "right": 10,
+   "walk_down": 8
   },
   "rows": {
    "down": 0,
    "up": 1,
    "left": 2,
    "right": 3,
-   "stand_up": 4
+   "stand_up": 4,
+   "walk_down": 5
   },
   "walk": {
-   "fps": 9,
-   "flipAlt": [
-    "down"
-   ],
-   "bob": 2
+   "fps": 10,
+   "bob": 0
   },
   "idle": {
    "fps": 2,
@@ -45,6 +44,9 @@
     "right",
     9
    ]
+  },
+  "walkRows": {
+   "down": "walk_down"
   }
  },
  "cecile_01": {
@@ -58,21 +60,20 @@
    "down": 10,
    "up": 10,
    "left": 9,
-   "right": 9
+   "right": 9,
+   "walk_down": 8
   },
   "rows": {
    "down": 0,
    "up": 1,
    "left": 2,
    "right": 3,
-   "stand_up": 4
+   "stand_up": 4,
+   "walk_down": 5
   },
   "walk": {
-   "fps": 9,
-   "flipAlt": [
-    "down"
-   ],
-   "bob": 2
+   "fps": 10,
+   "bob": 0
   },
   "idle": {
    "fps": 2,
@@ -93,6 +94,9 @@
     "right",
     6
    ]
+  },
+  "walkRows": {
+   "down": "walk_down"
   }
  },
  "tichat_01": {

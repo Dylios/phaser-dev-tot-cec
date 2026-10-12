@@ -214,8 +214,10 @@
       const idleOn = d.idle && d.idle.fps && (!d.idle.faces || d.idle.faces.indexOf(face) >= 0);
       if (A.moving && d.walk) {
         const w = d.walk, st = A.t * w.fps / 1000, si = Math.floor(st);
-        f = si % n;
-        if ((w.flipAlt || []).indexOf(face) >= 0) { flip = (si % 2) === 1; bob = (w.bob || 0) * Math.sin(Math.PI * (st - si)); }
+        const wr = d.walkRows && d.walkRows[face];          // rangée de marche dédiée à cette direction
+        if (wr) { row = d.rows[wr]; f = si % ((d.counts && d.counts[wr]) || cols); }
+        else f = si % n;
+        if (!wr && (w.flipAlt || []).indexOf(face) >= 0) { flip = (si % 2) === 1; bob = (w.bob || 0) * Math.sin(Math.PI * (st - si)); }
       } else if (idleOn) {
         f = Math.floor(A.t * d.idle.fps / 1000) % n;
       } else if (d.stand && d.stand[face]) {
