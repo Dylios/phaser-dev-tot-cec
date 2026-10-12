@@ -46,6 +46,10 @@
   }
  ],
  "assetScale": {
+    "map_scrolls_compass_01": 0.12,
+    "satchel_leather_01": 0.14,
+    "potions_herbs_01": 0.12,
+    "candelabra_inkwell_01": 0.12,
     "wall_top_h_long_01": 0.25,
     "wall_top_h_short_01": 0.25,
     "wall_top_v_long_01": 0.25,
