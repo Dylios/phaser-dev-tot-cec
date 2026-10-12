@@ -19,10 +19,25 @@
 <div id="joy" aria-label="Joystick"><div id="stick"></div></div>
 <button id="act" type="button">Agir</button>
 
+<div id="rotate" role="alert" hidden>
+  <div class="rot-card">
+    <svg class="rot-phone" viewBox="0 0 64 64" width="84" height="84" aria-hidden="true">
+      <rect x="20" y="6" width="24" height="46" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="32" cy="45" r="2" fill="currentColor"/>
+      <path d="M14 58 q18 8 36 0" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+      <path d="M47 55 l4 3 l-5 2" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+    </svg>
+    <h2>Tourne ton téléphone</h2>
+    <p>L’expédition se joue en mode paysage.</p>
+    <small>Si rien ne se passe, désactive le verrouillage de l’orientation.</small>
+  </div>
+</div>
+
 <script src="phaser.min.js"></script>
 <script src="js/controls.js"></script>
 <script src="js/room.js"></script>
 <script src="js/editor.js"></script>
+<script src="js/orientation.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

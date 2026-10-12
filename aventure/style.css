@@ -164,3 +164,21 @@ body.edit #quest, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dl
   #ed.collapsed{height:auto}
   #ed .ed-grid{grid-template-columns:repeat(4,1fr)}
 }
+
+/* ---- écran « Tourne ton téléphone » (portrait sur appareil tactile) ---- */
+#rotate{
+  position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 40%,#2a1608 0%,#120a05 70%,#0b0705 100%);
+  color:#f3e9d2;text-align:center;padding:24px;
+}
+#rotate[hidden]{display:none}
+#rotate .rot-card{
+  max-width:320px;padding:28px 24px;border:2px solid #e5a139;border-radius:10px;
+  background:rgba(20,10,5,.75);box-shadow:0 0 0 4px #0b0705,0 0 0 6px #6b4a1c,0 10px 40px rgba(0,0,0,.6);
+}
+#rotate .rot-phone{color:#e5a139;animation:rot-turn 2.6s ease-in-out infinite;transform-origin:50% 50%}
+#rotate h2{margin:14px 0 6px;font-size:22px;letter-spacing:.04em;color:#f7dc6e;font-family:Georgia,'Times New Roman',serif}
+#rotate p{margin:0 0 10px;font-size:15px;line-height:1.4}
+#rotate small{display:block;font-size:12px;opacity:.65;line-height:1.35}
+@keyframes rot-turn{0%,15%{transform:rotate(0)}55%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+@media (prefers-reduced-motion:reduce){#rotate .rot-phone{animation:none}}

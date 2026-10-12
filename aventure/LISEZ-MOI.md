@@ -117,6 +117,8 @@ ou la teinte : `python tools/make_wall_tops.py 80` puis `python tools/make_asset
 
 ## Mobile
 
+En portrait sur un appareil tactile, un écran « Tourne ton téléphone » met le jeu en pause (`js/orientation.js`) ; il disparaît tout seul en paysage. Pour le voir sur ordinateur : `index.html?forceportrait`. L'éditeur (`?edit`) n'est pas concerné.
+
 Le jeu occupe tout l'écran et s'adapte : sur ordinateur et téléphone en paysage on voit toute la
 pièce ; en portrait la caméra suit le joueur. Le joystick et le bouton « Agir » apparaissent
 seulement sur écran tactile. Au clavier : flèches ou WASD pour bouger, Espace / Entrée / E pour agir.
