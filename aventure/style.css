@@ -1,0 +1,165 @@
+/* EXPEDITION 2028 - interface du jeu (HUD, joystick, dialogues) */
+:root{
+  --bois:#2a1b14;
+  --bois-clair:#4a3426;
+  --or:#c9a24a;
+  --ivoire:#f3e9d2;
+  --bordeaux:#8b2a35;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;height:100%;background:#0b0705;overflow:hidden;
+  touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+  font-family:Georgia,"Times New Roman",serif;color:var(--ivoire);
+}
+#game{position:fixed;inset:0}
+#game canvas{display:block}
+
+/* assombrissement des bords, façon lumière de bibliothèque */
+#vignette{
+  position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,0) 58%,rgba(5,3,2,.55) 100%);
+}
+
+#quest{
+  position:fixed;top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left));
+  background:#2a1b14cc;border:1px solid var(--or);border-radius:4px;
+  padding:5px 10px;font-size:13px;letter-spacing:.2px;
+}
+
+#hint{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:max(26px,calc(env(safe-area-inset-bottom) + 18px));
+  display:flex;align-items:center;gap:8px;padding:6px 12px;
+  background:#2a1b14dd;border:1px solid var(--or);border-radius:6px;font-size:15px;
+}
+#hint[hidden]{display:none}
+#hint .key{
+  display:inline-grid;place-items:center;width:22px;height:22px;border-radius:4px;
+  background:var(--bois-clair);border:1px solid var(--or);font:bold 13px Georgia,serif;
+}
+
+#dlg{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:max(150px,calc(env(safe-area-inset-bottom) + 140px));
+  width:min(92vw,560px);padding:12px 16px;
+  background:#2a1b14ee;border:2px solid var(--or);border-radius:6px;
+  font-size:16px;line-height:1.45;
+}
+#dlg[hidden]{display:none}
+#dlg .who{display:block;color:var(--or);font-weight:bold;margin-bottom:2px;font-size:14px}
+
+/* contrôles tactiles (cachés sur ordinateur) */
+#joy,#act{display:none}
+@media (pointer:coarse){
+  #joy,#act{display:block}
+  #hint{display:none !important}
+}
+#joy{
+  position:fixed;left:max(18px,env(safe-area-inset-left));
+  bottom:max(18px,env(safe-area-inset-bottom));
+  width:124px;height:124px;border-radius:50%;
+  background:#2a1b1488;border:2px solid var(--or);
+}
+#stick{
+  position:absolute;left:37px;top:37px;width:50px;height:50px;border-radius:50%;
+  background:var(--bordeaux);border:2px solid var(--ivoire);
+}
+#act{
+  position:fixed;right:max(18px,env(safe-area-inset-right));
+  bottom:max(34px,calc(env(safe-area-inset-bottom) + 16px));
+  width:86px;height:86px;border-radius:50%;
+  background:#2a1b1488;border:2px solid var(--or);
+  color:var(--ivoire);font:bold 15px Georgia,serif;
+}
+#act.on{background:var(--bordeaux);box-shadow:0 0 14px var(--or)}
+
+#debug{
+  position:fixed;right:8px;top:8px;max-width:48vw;padding:6px 8px;border-radius:4px;
+  background:#000a;color:#9f9;font:11px/1.4 monospace;white-space:pre;
+}
+#debug[hidden]{display:none}
+
+/* ---------- bandeau « brouillon » ---------- */
+#draftbar{
+  position:fixed;left:50%;transform:translateX(-50%);top:max(8px,env(safe-area-inset-top));
+  background:#2a1b14dd;border:1px solid var(--or);border-radius:4px;padding:3px 10px;font-size:12px;z-index:5;
+}
+#draftbar a{color:var(--or)}
+
+/* ---------- éditeur (?edit) ---------- */
+body.edit #quest, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dlg, body.edit #vignette{display:none !important}
+#ed{
+  position:fixed;z-index:20;top:0;right:0;bottom:0;width:340px;display:flex;flex-direction:column;
+  background:#1d130e;border-left:2px solid var(--or);color:var(--ivoire);font:14px/1.35 system-ui,Georgia,serif;
+  touch-action:pan-y;user-select:text;-webkit-user-select:text;
+}
+#ed button,#ed select,#ed input{font:inherit;color:inherit}
+#ed button{
+  background:var(--bois-clair);border:1px solid #7a5a3a;border-radius:5px;padding:6px 9px;cursor:pointer;min-height:34px;
+}
+#ed button:hover{border-color:var(--or)}
+#ed button:disabled{opacity:.4;cursor:default}
+#ed button.on{background:var(--bordeaux);border-color:var(--or)}
+#ed .ed-primary{background:var(--bordeaux);border-color:var(--or)}
+#ed .ed-danger{border-color:#b04a4a}
+#ed .ed-head{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid #4a3426;background:#2a1b14}
+#ed .ed-grow{flex:1}
+#ed .ed-sel{color:var(--or);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:140px}
+#ed .ed-mini{min-width:34px;padding:4px 6px}
+#ed .ed-body{flex:1;overflow-y:auto;padding:8px 10px 24px;-webkit-overflow-scrolling:touch}
+#ed .ed-bar,#ed .ed-modes,#ed .ed-opts,#ed .ed-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
+#ed .ed-modes button{flex:1}
+#ed .ed-status{font-size:12px;color:#b9a98c;min-height:16px}
+#ed .ed-chk{display:inline-flex;align-items:center;gap:5px;font-size:13px}
+#ed .ed-chk input{width:18px;height:18px}
+#ed .ed-num{display:flex;align-items:center;gap:5px;font-size:13px;flex:1}
+#ed .ed-num input,#ed select,#ed input[type=search]{
+  background:#0f0905;border:1px solid #5a4330;border-radius:4px;padding:5px 6px;min-width:0;width:100%;font-size:16px;
+}
+#ed select{width:auto;max-width:100%}
+#ed input[type=range]{flex:1;min-width:90px;padding:0}
+#ed .ed-val{min-width:44px;text-align:right;font-size:13px}
+#ed .ed-title{margin:8px 0 2px;font-size:15px;color:var(--or)}
+#ed .ed-title small{color:#b9a98c}
+#ed .ed-help{font-size:12.5px;color:#cbbd9f;margin:6px 0}
+#ed .ed-wide{width:100%;margin:4px 0}
+#ed #ed-insp{border-top:1px solid #4a3426;border-bottom:1px solid #4a3426;margin:6px 0;padding:2px 0 6px}
+#ed .ed-list{margin:6px 0;font-size:13px}
+#ed .ed-list button{display:block;width:100%;text-align:left;margin:2px 0;min-height:28px;padding:3px 8px;font-size:12px}
+#ed .ed-pal-head{display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+#ed .ed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+#ed .ed-item{position:relative;display:flex;flex-direction:column;align-items:center;padding:4px;min-height:92px}
+#ed .ed-item img{width:100%;height:64px;object-fit:contain;pointer-events:none}
+#ed .ed-item .ed-name{font-size:10.5px;line-height:1.1;text-align:center;word-break:break-word;margin-top:2px;color:#d9ccb0}
+#ed .ed-item.used{border-color:#6f8f5a}
+#ed .ed-badge{position:absolute;top:2px;right:3px;font-size:10px;color:#9fd18a}
+#ed.collapsed .ed-body{display:none}
+
+#ed-nav{position:fixed;z-index:19;left:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+#ed-nav button{
+  width:42px;height:42px;font-size:20px;border-radius:8px;background:#2a1b14e8;color:var(--ivoire);
+  border:1px solid var(--or);touch-action:manipulation;
+}
+#ed-nav button.on{background:var(--bordeaux)}
+#ed-coord{position:fixed;z-index:19;left:10px;bottom:10px;font:11px monospace;color:#d8c9a8;background:#000a;padding:2px 6px;border-radius:3px;pointer-events:none}
+
+#ed-modal{position:fixed;inset:0;z-index:40;background:#000b;display:flex;align-items:center;justify-content:center;touch-action:auto}
+#ed-modal[hidden]{display:none}
+#ed-modal .ed-box{
+  width:min(94vw,720px);max-height:88vh;background:#1d130e;border:2px solid var(--or);border-radius:8px;padding:12px;
+  display:flex;flex-direction:column;gap:8px;font:14px system-ui,sans-serif;color:var(--ivoire);
+}
+#ed-modal textarea{
+  flex:1;min-height:40vh;background:#0f0905;color:#e9dcc0;border:1px solid #5a4330;border-radius:4px;
+  font:12px/1.35 monospace;padding:8px;user-select:text;-webkit-user-select:text;
+}
+#ed-modal .ed-bar{display:flex;gap:6px;flex-wrap:wrap}
+#ed-modal button{background:var(--bois-clair);border:1px solid #7a5a3a;color:var(--ivoire);border-radius:5px;padding:8px 12px;font:inherit}
+#ed-modal .ed-primary{background:var(--bordeaux);border-color:var(--or)}
+
+@media (max-width:759px){
+  #ed{top:auto;left:0;right:0;width:auto;height:48vh;border-left:0;border-top:2px solid var(--or)}
+  #ed.collapsed{height:auto}
+  #ed .ed-grid{grid-template-columns:repeat(4,1fr)}
+}

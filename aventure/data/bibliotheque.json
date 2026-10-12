@@ -1,0 +1,558 @@
+{
+ "id": "bibliotheque",
+ "world": {
+  "width": 960,
+  "height": 540
+ },
+ "background": "#0b0705",
+ "camera": {
+  "minZoom": 0.85,
+  "maxZoom": 3.2
+ },
+ "floors": [
+  {
+   "key": "floor_chevron_01",
+   "x": 40,
+   "y": 170,
+   "w": 880,
+   "h": 215
+  },
+  {
+   "key": "floor_chevron_01",
+   "x": 300,
+   "y": 385,
+   "w": 400,
+   "h": 105
+  }
+ ],
+ "walkable": [
+  {
+   "x": 56,
+   "y": 186,
+   "w": 848,
+   "h": 114
+  },
+  {
+   "x": 150,
+   "y": 300,
+   "w": 660,
+   "h": 72
+  },
+  {
+   "x": 310,
+   "y": 372,
+   "w": 380,
+   "h": 116
+  }
+ ],
+ "assetScale": {
+  "wall_back_plain_01": 0.5,
+  "wall_back_alcove_01": 0.5,
+  "wall_low_01": 0.5,
+  "wall_step_left_01": 0.5,
+  "wall_step_right_01": 0.5,
+  "doorway_steps_01": 0.5,
+  "wall_side_left_01": 0.5,
+  "wall_side_right_01": 0.5,
+  "wall_corner_inner_01": 0.5,
+  "wall_corner_inner_02": 0.5,
+  "bookcase_side_right_01": 0.34,
+  "bookcase_side_left_01": 0.34,
+  "fireplace_side_right_01": 0.4,
+  "fireplace_side_left_01": 0.4,
+  "armchair_blue_right_01": 0.4,
+  "armchair_blue_left_01": 0.4,
+  "chair_green_left_01": 0.27,
+  "chair_green_right_01": 0.27,
+  "table_reading_long_01": 0.4,
+  "desk_small_01": 0.5,
+  "table_round_side_01": 0.4,
+  "lamp_table_shade_02": 0.3,
+  "lamp_desk_green_02": 0.3,
+  "ladder_wood_01": 0.5,
+  "globe_stand_01": 0.45,
+  "armillary_sphere_01": 0.4,
+  "trunk_stack_blue_01": 0.45,
+  "book_pile_leather_01": 0.3,
+  "book_pile_leather_02": 0.3,
+  "book_pile_leather_03": 0.3,
+  "painting_landscape_01": 0.35,
+  "map_world_01": 0.35,
+  "rug_red_long_01": 0.5,
+  "rug_red_entrance_01": 0.8,
+  "rug_round_red_02": 0.5,
+  "bookcase_04_arch_niche": 0.9,
+  "bookcase_07_tall": 0.9,
+  "bookcase_08_tall_ivy": 0.9,
+  "bookcase_03_globe": 0.9,
+  "bookcase_05_ivy": 0.9,
+  "desk_study_01": 0.9,
+  "pouf_blue_01": 1.2,
+  "plant_palm_01": 0.9,
+  "cat_01": 1.1,
+  "cat_02": 1.1,
+  "plant_fern_05": 0.9,
+  "lantern_wall_01": 1.0
+ },
+ "player": {
+  "x": 516,
+  "y": 470,
+  "speed": 150
+ },
+ "objects": [
+  {
+   "key": "wall_back_plain_01",
+   "x": 75,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 210,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 345,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_alcove_01",
+   "x": 480,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 615,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 750,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 885,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "bookcase_04_arch_niche",
+   "x": 170,
+   "y": 186
+  },
+  {
+   "key": "bookcase_07_tall",
+   "x": 270,
+   "y": 186
+  },
+  {
+   "key": "bookcase_07_tall",
+   "x": 360,
+   "y": 186
+  },
+  {
+   "key": "desk_small_01",
+   "x": 480,
+   "y": 196
+  },
+  {
+   "key": "desk_study_01",
+   "x": 600,
+   "y": 196,
+   "talk": [
+    {
+     "needs": "page",
+     "not": "fini",
+     "sets": "fini",
+     "text": [
+      "Tu replaces la page dans le registre.",
+      "Quête terminée : « La page manquante » !"
+     ]
+    },
+    {
+     "not": "page",
+     "text": [
+      "Le registre de l'expédition. Une page a été arrachée…",
+      "Elle doit traîner quelque part dans la bibliothèque."
+     ]
+    },
+    {
+     "text": [
+      "Le registre est complet. Bravo, explorateur !"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "armillary_sphere_01",
+   "x": 905,
+   "y": 392,
+   "sortY": 422,
+   "solid": false
+  },
+  {
+   "key": "globe_stand_01",
+   "x": 705,
+   "y": 200
+  },
+  {
+   "key": "bookcase_08_tall_ivy",
+   "x": 815,
+   "y": 186,
+   "talk": [
+    {
+     "not": "page",
+     "sets": "page",
+     "text": [
+      "Entre deux livres, une page cornée !",
+      "Tu l'empoches : c'est « La page manquante »."
+     ]
+    },
+    {
+     "text": [
+      "Rien d'autre ici que des livres poussiéreux."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "ladder_wood_01",
+   "x": 885,
+   "y": 192
+  },
+  {
+   "key": "fireplace_side_right_01",
+   "x": 95,
+   "y": 275,
+   "talk": [
+    {
+     "text": [
+      "La cheminée crépite doucement.",
+      "Quelqu'un était là il y a peu de temps…"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "plant_palm_01",
+   "x": 66,
+   "y": 350
+  },
+  {
+   "key": "rug_red_entrance_01",
+   "x": 205,
+   "y": 405,
+   "layer": "floor"
+  },
+  {
+   "key": "armchair_blue_right_01",
+   "x": 190,
+   "y": 345
+  },
+  {
+   "key": "table_round_side_01",
+   "x": 275,
+   "y": 340
+  },
+  {
+   "key": "lamp_table_shade_02",
+   "x": 275,
+   "y": 278,
+   "sortY": 341,
+   "shadow": false,
+   "solid": false
+  },
+  {
+   "key": "pouf_blue_01",
+   "x": 240,
+   "y": 402
+  },
+  {
+   "key": "rug_red_long_01",
+   "x": 516,
+   "y": 414,
+   "layer": "floor"
+  },
+  {
+   "key": "table_reading_long_01",
+   "x": 516,
+   "y": 358,
+   "fp": [
+    250,
+    14
+   ]
+  },
+  {
+   "key": "lamp_table_shade_02",
+   "x": 575,
+   "y": 318,
+   "sortY": 359,
+   "shadow": false,
+   "solid": false
+  },
+  {
+   "key": "book_pile_leather_01",
+   "x": 450,
+   "y": 332,
+   "sortY": 359,
+   "shadow": false,
+   "solid": false
+  },
+  {
+   "key": "book_pile_leather_02",
+   "x": 500,
+   "y": 340,
+   "sortY": 359,
+   "shadow": false,
+   "solid": false
+  },
+  {
+   "key": "chair_green_right_01",
+   "x": 362,
+   "y": 350
+  },
+  {
+   "key": "chair_green_left_01",
+   "x": 670,
+   "y": 350
+  },
+  {
+   "key": "bookcase_side_left_01",
+   "x": 895,
+   "y": 275
+  },
+  {
+   "key": "trunk_stack_blue_01",
+   "x": 835,
+   "y": 350
+  },
+  {
+   "key": "desk_small_01",
+   "x": 875,
+   "y": 420
+  },
+  {
+   "key": "lamp_desk_green_02",
+   "x": 845,
+   "y": 384,
+   "sortY": 421,
+   "shadow": false,
+   "solid": false
+  },
+  {
+   "key": "wall_low_01",
+   "x": 150,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 270,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 750,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 870,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "doorway_steps_01",
+   "x": 490,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "cat_01",
+   "x": 765,
+   "y": 330,
+   "talk": [
+    {
+     "who": "Ti Chat",
+     "label": "Caresser",
+     "text": [
+      "Miaou.",
+      "Le chat te regarde comme s'il en savait long."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "book_pile_leather_03",
+   "x": 515,
+   "y": 176,
+   "sortY": 197,
+   "shadow": false,
+   "solid": false
+  },
+  {
+   "key": "plant_fern_05",
+   "x": 520,
+   "y": 158,
+   "sortY": 198,
+   "shadow": false,
+   "scale": 0.6,
+   "solid": false
+  },
+  {
+   "key": "map_world_01",
+   "x": 600,
+   "y": 96,
+   "layer": "walldecor"
+  },
+  {
+   "key": "lantern_wall_01",
+   "x": 413,
+   "y": 128,
+   "layer": "walldecor"
+  },
+  {
+   "key": "lantern_wall_01",
+   "x": 541,
+   "y": 128,
+   "layer": "walldecor"
+  },
+  {
+   "key": "lantern_wall_01",
+   "x": 742,
+   "y": 128,
+   "layer": "walldecor"
+  },
+  {
+   "key": "wall_side_left_01",
+   "x": 50,
+   "y": 378,
+   "layer": "wall",
+   "order": 1
+  },
+  {
+   "key": "wall_side_right_01",
+   "x": 910,
+   "y": 378,
+   "layer": "wall",
+   "order": 1
+  },
+  {
+   "key": "wall_side_left_01",
+   "x": 50,
+   "y": 250,
+   "layer": "wall",
+   "order": 0
+  },
+  {
+   "key": "wall_side_right_01",
+   "x": 910,
+   "y": 250,
+   "layer": "wall",
+   "order": 0
+  }
+ ],
+ "npcs": [
+  {
+   "id": "cecile",
+   "x": 190,
+   "y": 338,
+   "sortY": 346,
+   "name": "Cécile",
+   "label": "Parler",
+   "placeholder": {
+    "w": 28,
+    "h": 60,
+    "person": true,
+    "color": "#e8e2d4",
+    "hair": "#6a3b22"
+   },
+   "talk": [
+    {
+     "who": "Cécile",
+     "text": [
+      "Chut… je suis en plein chapitre.",
+      "Si tu cherches quelque chose, regarde du côté des grandes bibliothèques."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "thomas",
+   "x": 470,
+   "y": 270,
+   "name": "Thomas",
+   "label": "Parler",
+   "placeholder": {
+    "w": 28,
+    "h": 62,
+    "person": true,
+    "color": "#8b2a35",
+    "hair": "#6a3b22"
+   },
+   "talk": [
+    {
+     "who": "Thomas",
+     "text": [
+      "Bienvenue, explorateur !",
+      "L'expédition commence ici. Il manque une page au registre…"
+     ]
+    }
+   ]
+  }
+ ],
+ "lights": [
+  {
+   "x": 95,
+   "y": 235,
+   "r": 120,
+   "a": 0.8,
+   "flicker": true
+  },
+  {
+   "x": 413,
+   "y": 100,
+   "r": 60,
+   "a": 0.55
+  },
+  {
+   "x": 541,
+   "y": 100,
+   "r": 60,
+   "a": 0.55
+  },
+  {
+   "x": 740,
+   "y": 100,
+   "r": 60,
+   "a": 0.55
+  },
+  {
+   "x": 275,
+   "y": 285,
+   "r": 70,
+   "a": 0.6
+  },
+  {
+   "x": 575,
+   "y": 290,
+   "r": 80,
+   "a": 0.55
+  },
+  {
+   "x": 870,
+   "y": 360,
+   "r": 60,
+   "a": 0.5
+  }
+ ]
+}
