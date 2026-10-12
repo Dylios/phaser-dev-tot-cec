@@ -558,6 +558,20 @@
       return hits;
     }
 
+    /* taille réelle (en pixels du monde) de l'image et du bloc de collision, mise à jour en direct */
+    updDims(o) {
+      const im = o._img;
+      if (!im || !im.scene) return;
+      let s = 'Image : ' + Math.round(im.displayWidth) + ' × ' + Math.round(im.displayHeight) + ' px';
+      const rc = o.rect;
+      if (rc && o.solid !== false) s += '  ·  Bloc : ' + Math.round(rc.w) + ' × ' + Math.round(rc.h) + ' px';
+      if (this.dimEl.textContent !== s) this.dimEl.textContent = s;
+      if (this.fpInputs && rc) {
+        const ph = [String(Math.round(rc.w)), String(Math.round(rc.h))];
+        this.fpInputs.forEach((i, k) => { if (i.placeholder !== 'auto ' + ph[k]) i.placeholder = 'auto ' + ph[k]; });
+      }
+    }
+
     /* poignées aux 4 coins de l'image d'un objet */
     objCorners(o) {
       const im = o._img;
@@ -766,6 +780,7 @@
       const box = this.insp;
       box.innerHTML = '';
       this.fields = {};
+      this.dimEl = null; this.fpInputs = null;
       const sel = this.sel;
       this.btnDup.disabled = this.btnDel.disabled = !sel || sel.type === 'npc' || sel.type === 'player';
       this.selLabel.textContent = sel ? this.titleOf(sel) : '';
@@ -841,6 +856,8 @@
         });
         pct.addEventListener('keydown', (e) => { if (e.key === 'Enter') pct.blur(); });
         box.appendChild(h('div', { class: 'ed-row' }, h('span', { text: 'Taille' }), rng, pct, h('span', { text: '%' })));
+        this.dimEl = h('div', { class: 'ed-dim' });
+        box.appendChild(this.dimEl);
         box.appendChild(h('div', { class: 'ed-row' },
           h('button', { text: 'Mémoriser cette taille', title: 'Les prochains « ' + r.key + ' » apparaîtront à cette taille', onclick: () => this.rememberScale() }),
           h('button', { text: 'Appliquer aux copies', title: 'Toutes les copies prennent la même taille', onclick: () => this.uniformScale() })));
@@ -869,6 +886,7 @@
           const solidOn = r.solid !== false;
           const fpw = h('input', { type: 'number', placeholder: 'auto' });
           const fph = h('input', { type: 'number', placeholder: 'auto' });
+          this.fpInputs = [fpw, fph];
           if (r.fp) { fpw.value = r.fp[0]; fph.value = r.fp[1]; }
           const setFp = () => {
             const a = parseFloat(fpw.value), b = parseFloat(fph.value);
@@ -1008,6 +1026,7 @@
       const sel = this.sel;
       if (!sel) return;
       const r = sel.ref;
+      if (this.dimEl && sel.type === 'obj') this.updDims(r);
       if (sel.type === 'walk' || sel.type === 'floor') {
         g.lineStyle(2.5 * u, 0xffffff, 1); g.strokeRect(r.x, r.y, r.w, r.h);
         const s = 7 * u;

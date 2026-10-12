@@ -121,6 +121,7 @@ body.edit #quest, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dl
 #ed input[type=range]{flex:1;min-width:90px;padding:0}
 #ed .ed-val{min-width:44px;text-align:right;font-size:13px}
 #ed input.ed-pct{width:68px;flex:0 0 auto;text-align:right}
+#ed .ed-dim{margin:2px 0 6px;font-size:13px;color:var(--ivoire);opacity:.85;font-variant-numeric:tabular-nums}
 #ed .ed-title{margin:8px 0 2px;font-size:15px;color:var(--or)}
 #ed .ed-title small{color:#b9a98c}
 #ed .ed-help{font-size:12.5px;color:#cbbd9f;margin:6px 0}
