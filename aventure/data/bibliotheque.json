@@ -46,6 +46,7 @@
   }
  ],
  "assetScale": {
+    "table_wood_front_01": 0.13,
     "lantern_books_quill_01": 0.12,
     "map_scrolls_compass_01": 0.12,
     "satchel_leather_01": 0.14,
