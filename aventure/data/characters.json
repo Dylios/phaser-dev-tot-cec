@@ -24,23 +24,49 @@
  "cecile_01": {
   "sheet": "sheets/cecile_01.png",
   "cell": [
-   98,
-   151
+   112,
+   186
   ],
-  "frames": 4,
+  "frames": 10,
+  "counts": {
+   "down": 10,
+   "up": 10,
+   "left": 9,
+   "right": 9
+  },
   "rows": {
    "down": 0,
    "up": 1,
    "left": 2,
-   "right": 3
+   "right": 3,
+   "stand_up": 4
   },
   "walk": {
-   "fps": 8,
+   "fps": 9,
    "flipAlt": [
-    "down",
-    "up"
+    "down"
    ],
    "bob": 2
+  },
+  "idle": {
+   "fps": 2,
+   "faces": [
+    "down"
+   ]
+  },
+  "stand": {
+   "up": [
+    "stand_up",
+    0
+   ],
+   "left": [
+    "left",
+    8
+   ],
+   "right": [
+    "right",
+    6
+   ]
   }
  },
  "tichat_01": {

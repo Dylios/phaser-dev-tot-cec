@@ -210,19 +210,22 @@
       const d = A.def, cols = d.frames || 4;
       const face = d.rows[A.face] != null ? A.face : 'down';
       const n = (d.counts && d.counts[face]) || cols;
-      let f = 0, flip = false, bob = 0;
+      let row = d.rows[face], f = 0, flip = false, bob = 0;
+      const idleOn = d.idle && d.idle.fps && (!d.idle.faces || d.idle.faces.indexOf(face) >= 0);
       if (A.moving && d.walk) {
         const w = d.walk, st = A.t * w.fps / 1000, si = Math.floor(st);
         f = si % n;
         if ((w.flipAlt || []).indexOf(face) >= 0) { flip = (si % 2) === 1; bob = (w.bob || 0) * Math.sin(Math.PI * (st - si)); }
-      } else if (d.idle && d.idle.fps) {
+      } else if (idleOn) {
         f = Math.floor(A.t * d.idle.fps / 1000) % n;
+      } else if (d.stand && d.stand[face]) {
+        row = d.rows[d.stand[face][0]]; f = d.stand[face][1];
       }
       if (e.flipX) flip = !flip;
-      const k = d.rows[face] + ':' + f + ':' + flip + ':' + Math.round(bob * 4);
+      const k = row + ':' + f + ':' + flip + ':' + Math.round(bob * 4);
       if (k === A.key) return;
       A.key = k;
-      A.img.setFrame(d.rows[face] * cols + f);
+      A.img.setFrame(row * cols + f);
       A.img.setFlipX(flip);
       const sc = Math.abs(A.img.scaleY) || 1;
       A.img.setOrigin(0.5, 1 + (bob / sc) / d.cell[1]);

@@ -136,6 +136,7 @@ Thomas (`thomas_01`), Cécile (`cecile_01`) et TiChat (`tichat_01`) sont des per
 - `assets/characters/<nom>.png` : aperçu fixe, c'est ce que l'éditeur montre dans la palette.
 - `data/characters.json` : taille d'une case, rangées, nombre d'images par rangée (`counts`), vitesse de marche. Les clés sont celles des aperçus.
 - Dans la pièce : un PNJ s'écrit `{"id": "thomas", "key": "thomas_01", "face": "down", …}` (`face` : `down`, `up`, `left`, `right`). Il se tourne vers le joueur quand on lui parle. Un personnage posé depuis l'éditeur a un réglage « Regard ».
+- Pose d'arrêt et clignement : `"stand"` (image affichée à l'arrêt, par direction) et `"idle": {"fps": 2, "faces": ["down"]}` (images qui défilent à l'arrêt, ici le clignement de Cécile de face).
 - Promenade : `"wander": 80` (rayon en pixels) fait marcher un personnage autour de sa place (TiChat). Il s'arrête quand le joueur s'approche ou lui parle ; `"wanderSpeed"` règle sa vitesse. Mets `"solid": false` pour qu'il ne bloque pas le joueur.
 - Le joueur : pour lui donner un personnage animé, mets `"key": "thomas_01"` (ou une autre clé de `characters.json`) dans `"player"`. Sans clé, il reste une silhouette provisoire.
 - Nouveau personnage : ajoute la feuille dans `assets/sheets/`, l'aperçu dans `assets/characters/`, une entrée dans `data/characters.json` et `python tools/make_assets_json.py`.
