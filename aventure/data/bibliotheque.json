@@ -46,6 +46,7 @@
   }
  ],
  "assetScale": {
+    "armchair_cecile_reading_01": 0.16,
     "thomas_01": 0.5,
     "cecile_01": 0.5,
     "tichat_01": 0.4,
@@ -300,11 +301,6 @@
    "layer": "floor"
   },
   {
-   "key": "armchair_blue_right_01",
-   "x": 190,
-   "y": 345
-  },
-  {
    "key": "table_round_side_01",
    "x": 275,
    "y": 340
@@ -509,11 +505,11 @@
  "npcs": [
   {
    "id": "cecile",
-   "key": "cecile_01",
-   "face": "down",
-   "x": 190,
-   "y": 338,
-   "sortY": 346,
+   "key": "armchair_cecile_reading_01",
+   "x": 205,
+   "y": 350,
+   "sortY": 351,
+   "fp": [70, 18],
    "name": "Cécile",
    "label": "Parler",
    "placeholder": {
