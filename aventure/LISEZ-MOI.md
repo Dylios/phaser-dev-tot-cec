@@ -98,6 +98,7 @@ Ouvre `index.html?edit` (sur ordinateur ou téléphone). Tu vois la pièce avec 
 
 - **Ajouter** : touche une vignette, l'objet apparaît au centre de la vue.
 - **Déplacer** : glisse l'objet. Retouche au même endroit pour sélectionner l'objet en dessous.
+- **Redimensionner** : tire sur les 4 poignées blanches aux coins de l'objet sélectionné (proportions conservées, le coin opposé reste fixe), ou tape directement le pourcentage dans le champ « Taille ».
 - **Régler** : taille, miroir, devant/derrière, couche, collision, ombre (panneau).
 - **Vue** : glisse dans le vide (ou bouton ✋), molette ou pincement pour zoomer, ⌂ pour tout voir.
 - **Marche / Sol** : modes pour dessiner les zones où le joueur peut aller et les zones de parquet.

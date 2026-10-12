@@ -446,6 +446,19 @@
         if (c) { this.drag = { kind: 'corner', corner: c }; return; }
       }
 
+      // poignées de redimensionnement d'un objet sélectionné (comme une image)
+      if (this.mode === 'obj' && this.sel && this.sel.type === 'obj' && !this.lock[this.sel.ref.layer || 'object']) {
+        const c = this.objCornerAt(this.sel.ref, wx, wy);
+        if (c) {
+          const o = this.sel.ref, im = o._img, dw = im.displayWidth, dh = im.displayHeight;
+          const east = c.charAt(1) === 'e', south = c.charAt(0) === 's';
+          const fx = east ? o.x - dw / 2 : o.x + dw / 2, fy = south ? o.y - dh : o.y;     // coin opposé, qui reste fixe
+          this.drag = { kind: 'resize', c: c, east: east, south: south, fx: fx, fy: fy, dw: dw, dh: dh,
+            s0: o.scale == null ? 1 : o.scale, y0: o.y, sy0: o.sortY };
+          return;
+        }
+      }
+
       const hits = this.pickAt(wx, wy);
       if (!hits.length) { this.select(null); this.drag = { kind: 'pan' }; return; }
       const idx = this.sel ? hits.findIndex((x) => x.ref === this.sel.ref) : -1;
@@ -488,6 +501,8 @@
         this.moveTo(this.sel, this.sn(w0.x - d.ox), this.sn(w0.y - d.oy));
       } else if (d.kind === 'corner') {
         this.dragCorner(this.sel.ref, d.corner, this.sn(w0.x), this.sn(w0.y));
+      } else if (d.kind === 'resize') {
+        this.dragResize(d, w0.x, w0.y);
       }
     }
 
@@ -499,7 +514,7 @@
       if (d.kind === 'move') {
         if (d.moved) this.commit();
         else if (d.was && d.hits.length > 1) this.select(d.hits[(d.idx + 1) % d.hits.length]);
-      } else if (d.kind === 'corner') this.commit();
+      } else if (d.kind === 'corner' || d.kind === 'resize') this.commit();
     }
 
     sn(v) { return this.snap ? Math.round(v / this.snap) * this.snap : Math.round(v); }
@@ -541,6 +556,43 @@
         hits.sort((a, b) => b.depth - a.depth);
       }
       return hits;
+    }
+
+    /* poignées aux 4 coins de l'image d'un objet */
+    objCorners(o) {
+      const im = o._img;
+      if (!im || !im.scene) return null;
+      const dw = im.displayWidth, dh = im.displayHeight;
+      return { nw: [o.x - dw / 2, o.y - dh], ne: [o.x + dw / 2, o.y - dh], sw: [o.x - dw / 2, o.y], se: [o.x + dw / 2, o.y] };
+    }
+
+    objCornerAt(o, wx, wy) {
+      const cs = this.objCorners(o);
+      if (!cs) return null;
+      const t = 18 * this.u;
+      let best = null, bd = 1e9;
+      for (const k in cs) {
+        const dd = Math.max(Math.abs(wx - cs[k][0]), Math.abs(wy - cs[k][1]));
+        if (dd <= t && dd < bd) { best = k; bd = dd; }
+      }
+      return best;
+    }
+
+    dragResize(d, wx, wy) {
+      const o = this.sel.ref;
+      // le coin tiré suit le pointeur le long de la diagonale : l'image garde ses proportions
+      const cx = d.east ? d.fx + d.dw : d.fx - d.dw, cy = d.south ? d.fy + d.dh : d.fy - d.dh;
+      const vx = cx - d.fx, vy = cy - d.fy;
+      let f = ((wx - d.fx) * vx + (wy - d.fy) * vy) / (vx * vx + vy * vy);
+      f = clamp(f, 0.05 / d.s0, 10 / d.s0);
+      const dw = d.dw * f, dh = d.dh * f;
+      o.x = Math.round(d.east ? d.fx + dw / 2 : d.fx - dw / 2);
+      o.y = Math.round(d.south ? d.fy + dh : d.fy);
+      const s = Math.round(d.s0 * f * 1000) / 1000;
+      if (Math.abs(s - 1) < 0.005) delete o.scale; else o.scale = s;
+      if (d.sy0 != null) o.sortY = d.sy0 + (o.y - d.y0);
+      this.rebuild(this.sel);
+      this.syncInsp();
     }
 
     cornerAt(r, wx, wy) {
@@ -704,6 +756,10 @@
         const f = this.fields[k];
         if (f && document.activeElement !== f) f.value = Math.round(r[k]);
       });
+      if (this.sel.type === 'obj' && this.fields.scale && document.activeElement !== this.fields.scale) {
+        const n = Math.round((r.scale == null ? 1 : r.scale) * 100);
+        this.fields.scale.value = n; if (this.fields.scaleRng) this.fields.scaleRng.value = n;
+      }
     }
 
     renderInsp() {
@@ -759,17 +815,32 @@
 
       if (t === 'obj') {
         const base = this.s.placeholders.has(r.key) ? 1 : ((this.cfg.assetScale || {})[r.key] ?? 1);
-        const pct = h('span', { class: 'ed-val', text: Math.round((r.scale == null ? 1 : r.scale) * 100) + ' %' });
+        const cur = Math.round((r.scale == null ? 1 : r.scale) * 100);
+        const pct = h('input', { type: 'number', min: '5', max: '1000', step: '1', class: 'ed-pct' });
+        pct.value = cur;
         const rng = h('input', { type: 'range', min: '10', max: '400', step: '1' });
-        rng.value = Math.round((r.scale == null ? 1 : r.scale) * 100);
-        rng.addEventListener('input', () => {
-          const v = parseInt(rng.value, 10) / 100;
-          if (Math.abs(v - 1) < 0.005) delete r.scale; else r.scale = v;
-          pct.textContent = Math.round(v * 100) + ' %';
+        rng.value = cur;
+        this.fields.scale = pct; this.fields.scaleRng = rng;
+        const apply = (v) => {
+          v = clamp(v, 0.05, 10);
+          if (Math.abs(v - 1) < 0.005) delete r.scale; else r.scale = Math.round(v * 1000) / 1000;
           this.rebuild(sel);
+        };
+        rng.addEventListener('input', () => {
+          apply(parseInt(rng.value, 10) / 100);
+          pct.value = Math.round((r.scale == null ? 1 : r.scale) * 100);
         });
         rng.addEventListener('change', () => { this.commit(); });
-        box.appendChild(h('div', { class: 'ed-row' }, h('span', { text: 'Taille' }), rng, pct));
+        pct.addEventListener('change', () => {
+          const n = parseFloat(String(pct.value).replace(',', '.'));
+          if (isNaN(n) || n <= 0) { pct.value = Math.round((r.scale == null ? 1 : r.scale) * 100); return; }
+          apply(n / 100);
+          const now = Math.round((r.scale == null ? 1 : r.scale) * 100);
+          pct.value = now; rng.value = now;
+          this.commit();
+        });
+        pct.addEventListener('keydown', (e) => { if (e.key === 'Enter') pct.blur(); });
+        box.appendChild(h('div', { class: 'ed-row' }, h('span', { text: 'Taille' }), rng, pct, h('span', { text: '%' })));
         box.appendChild(h('div', { class: 'ed-row' },
           h('button', { text: 'Mémoriser cette taille', title: 'Les prochains « ' + r.key + ' » apparaîtront à cette taille', onclick: () => this.rememberScale() }),
           h('button', { text: 'Appliquer aux copies', title: 'Toutes les copies prennent la même taille', onclick: () => this.uniformScale() })));
@@ -951,6 +1022,13 @@
         g.lineStyle(2 * u, 0xffffff, 0.95); g.strokeRect(im.x - dw * im.originX, im.y - dh * im.originY, dw, dh);
         if (r.rect && sel.type === 'obj') {
           g.lineStyle(2 * u, 0x55ff55, 1); g.strokeRect(r.rect.x, r.rect.y, r.rect.w, r.rect.h);
+        }
+        if (sel.type === 'obj' && !this.lock[r.layer || 'object']) {
+          const s = 7 * u, cs = this.objCorners(r);
+          for (const k in cs) {
+            g.fillStyle(0xffffff, 1); g.fillRect(cs[k][0] - s, cs[k][1] - s, 2 * s, 2 * s);
+            g.lineStyle(1.5 * u, 0x222222, 1); g.strokeRect(cs[k][0] - s, cs[k][1] - s, 2 * s, 2 * s);
+          }
         }
         g.fillStyle(0xe34a4a, 1); g.fillCircle(r.x, r.y, 4 * u);
         g.lineStyle(1.5 * u, 0xffffff, 1); g.strokeCircle(r.x, r.y, 4 * u);
