@@ -97,6 +97,7 @@
   "chair_green_left_01": 0.27,
   "chair_green_right_01": 0.27,
   "table_reading_long_01": 0.4,
+  "table_reading_long_front_01": 0.2,
   "desk_small_01": 0.5,
   "table_round_side_01": 0.4,
   "lamp_table_shade_02": 0.3,
@@ -313,7 +314,7 @@
    "layer": "floor"
   },
   {
-   "key": "table_reading_long_01",
+   "key": "table_reading_long_front_01",
    "x": 516,
    "y": 358,
    "fp": [
