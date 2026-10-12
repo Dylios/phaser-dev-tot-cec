@@ -12,7 +12,8 @@ import json, os, sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 ASSETS = os.path.join(ROOT, 'assets')
 out, dupes = {}, []
-for folder, _, files in os.walk(ASSETS):
+for folder, dirs, files in os.walk(ASSETS):
+    dirs[:] = [d for d in dirs if d != 'sheets']      # feuilles d'animation : listées dans data/characters.json
     for f in sorted(files):
         if not f.lower().endswith('.png'):
             continue

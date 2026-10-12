@@ -128,9 +128,13 @@ seulement sur écran tactile. Au clavier : flèches ou WASD pour bouger, Espace 
 Poids actuel : environ 4 Mo d'images pour la pièce + 1,4 Mo pour Phaser. Si besoin, on pourra
 réduire les PNG à leur taille d'affichage.
 
-## Personnages (étape suivante)
+## Personnages animés
 
-Pour l'instant le joueur et les PNJ sont des silhouettes provisoires. Dépose
-`assets/characters/player.png` (un seul sprite, pieds en bas) et ajoute `"key": "player"` dans
-`"player"` du JSON, avec une échelle dans `assetScale`. Les animations viendront avec les feuilles
-de sprites.
+Thomas (`thomas_01`), Cécile (`cecile_01`) et TiChat (`tichat_01`) sont des personnages animés.
+
+- `assets/sheets/<nom>.png` : feuille de sprites, 4 images par rangée. Rangées : 0 face, 1 dos, 2 gauche, 3 droite (TiChat : face, droite, gauche).
+- `assets/characters/<nom>.png` : aperçu fixe, c'est ce que l'éditeur montre dans la palette.
+- `data/characters.json` : taille d'une case, rangées, vitesse de marche. Les clés sont celles des aperçus.
+- Dans la pièce : un PNJ s'écrit `{"id": "thomas", "key": "thomas_01", "face": "down", …}` (`face` : `down`, `up`, `left`, `right`). Il se tourne vers le joueur quand on lui parle. Un personnage posé depuis l'éditeur a un réglage « Regard ».
+- Le joueur : pour lui donner un personnage animé, mets `"key": "thomas_01"` (ou une autre clé de `characters.json`) dans `"player"`. Sans clé, il reste une silhouette provisoire.
+- Nouveau personnage : ajoute la feuille dans `assets/sheets/`, l'aperçu dans `assets/characters/`, une entrée dans `data/characters.json` et `python tools/make_assets_json.py`.

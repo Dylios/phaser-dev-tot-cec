@@ -13,7 +13,7 @@
   const CATS = {
     walls: 'Murs', bookcases: 'Bibliothèques', architecture: 'Architecture', seating: 'Assises',
     furniture: 'Meubles', lighting: 'Luminaires', props: 'Accessoires', wall_decor: 'Déco murale',
-    rugs: 'Tapis', plants: 'Plantes', statues: 'Statues', characters: 'Chats'
+    rugs: 'Tapis', plants: 'Plantes', statues: 'Statues', characters: 'Personnages'
   };
   const LAYER_BY_CAT = { walls: 'wall', wall_decor: 'walldecor', rugs: 'floor' };
   const BIG_CATS = { walls: 1, rugs: 1, architecture: 1, bookcases: 1 };
@@ -826,6 +826,21 @@
 
       if (t === 'obj' || t === 'npc' || t === 'player' || t === 'light') {
         box.appendChild(h('div', { class: 'ed-row' }, num('X', 'x'), num('Y', 'y')));
+      }
+
+      if (r._actor && (t === 'obj' || t === 'npc' || t === 'player')) {
+        const NAMES = { down: 'Face (vers le bas)', up: 'Dos (vers le haut)', left: 'Vers la gauche', right: 'Vers la droite' };
+        const reg = h('select', { onchange: (e) => {
+          if (t === 'player') { r._actor.face = e.target.value; r.face = e.target.value; }
+          else { r.face = e.target.value; }
+          this.rebuild(sel); this.commit(); this.renderInsp();
+        } });
+        Object.keys(r._actor.def.rows).forEach((k) => {
+          const op = h('option', { value: k, text: NAMES[k] || k });
+          if ((r.face || 'down') === k) op.selected = true;
+          reg.appendChild(op);
+        });
+        box.appendChild(h('div', { class: 'ed-row' }, h('span', { text: 'Regard' }), reg));
       }
 
       if (t === 'obj') {

@@ -12,7 +12,8 @@
 
   Promise.all([
     fetch('data/' + roomId + '.json').then((r) => r.json()),
-    fetch('data/assets.json').then((r) => r.json())
+    fetch('data/assets.json').then((r) => r.json()),
+    fetch('data/characters.json').then((r) => r.json()).catch(function () { return {}; })
   ]).then(function (res) {
     let room = res[0];
     const assets = res[1];
@@ -39,7 +40,7 @@
       scene: []
     });
 
-    game.scene.add('room', window.RoomScene, true, { room: room, assets: assets, dpr: dpr, debug: debug, edit: edit, fromDraft: fromDraft });
+    game.scene.add('room', window.RoomScene, true, { room: room, assets: assets, chars: res[2], dpr: dpr, debug: debug, edit: edit, fromDraft: fromDraft });
 
     window.addEventListener('resize', function () {
       game.scale.resize(Math.round(window.innerWidth * dpr), Math.round(window.innerHeight * dpr));

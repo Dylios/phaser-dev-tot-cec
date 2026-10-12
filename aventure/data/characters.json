@@ -1,0 +1,62 @@
+{
+ "thomas_01": {
+  "sheet": "sheets/thomas_01.png",
+  "cell": [
+   100,
+   144
+  ],
+  "frames": 4,
+  "rows": {
+   "down": 0,
+   "up": 1,
+   "left": 2,
+   "right": 3
+  },
+  "walk": {
+   "fps": 8,
+   "flipAlt": [
+    "down",
+    "up"
+   ],
+   "bob": 2
+  }
+ },
+ "cecile_01": {
+  "sheet": "sheets/cecile_01.png",
+  "cell": [
+   98,
+   151
+  ],
+  "frames": 4,
+  "rows": {
+   "down": 0,
+   "up": 1,
+   "left": 2,
+   "right": 3
+  },
+  "walk": {
+   "fps": 8,
+   "flipAlt": [
+    "down",
+    "up"
+   ],
+   "bob": 2
+  }
+ },
+ "tichat_01": {
+  "sheet": "sheets/tichat_01.png",
+  "cell": [
+   116,
+   100
+  ],
+  "frames": 4,
+  "rows": {
+   "down": 0,
+   "right": 1,
+   "left": 2
+  },
+  "idle": {
+   "fps": 2.5
+  }
+ }
+}

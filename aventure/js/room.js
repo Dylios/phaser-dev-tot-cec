@@ -21,6 +21,8 @@
       this.debug = !!data.debug;
       this.edit = !!data.edit;
       this.fromDraft = !!data.fromDraft;
+      this.chars = data.chars || {};          // personnages animés (data/characters.json)
+      this.actors = new Set();
       this.flags = {};
       this.lines = null;
       this.entry = null;
@@ -44,6 +46,13 @@
       if (cfg.player && cfg.player.key) keys.add(cfg.player.key);
 
       if (this.edit) Object.keys(this.assetMap).forEach((k) => keys.add(k));
+
+      // feuilles d'animation des personnages utilisés (tous en mode éditeur)
+      const loadChars = this.edit ? Object.keys(this.chars) : [...keys].filter((k) => this.chars[k]);
+      loadChars.forEach((k) => {
+        const d = this.chars[k];
+        if (d) this.load.spritesheet(k + '__sheet', d.sheet, { frameWidth: d.cell[0], frameHeight: d.cell[1] });
+      });
 
       keys.forEach((k) => {
         const path = this.assetMap[k];
@@ -154,6 +163,7 @@
         if (p && p.scene) { this.tweens.killTweensOf(p); p.destroy(); }
       });
       e._parts = [];
+      if (e._actor) { this.actors.delete(e); e._actor = null; }
       if (e.rect) {
         const i = this.solids.indexOf(e.rect);
         if (i >= 0) this.solids.splice(i, 1);
@@ -175,11 +185,69 @@
       return base * ((o && o.scale) ?? 1);
     }
 
+    /* Image ou sprite animé (si la clé est un personnage de data/characters.json). */
+    makeImage(e, sc, keyOverride) {
+      const key = keyOverride || e.key;
+      const def = this.chars[key];
+      const tex = key + '__sheet';
+      let img;
+      if (def && this.textures.exists(tex)) {
+        img = this.add.sprite(e.x, e.y, tex, 0).setOrigin(0.5, 1).setScale(sc);
+        e._actor = { img: img, def: def, face: e.face || 'down', t: 0, moving: false, key: '' };
+        this.actors.add(e);
+        this.applyActor(e);
+      } else {
+        img = this.add.image(e.x, e.y, key).setOrigin(0.5, 1).setScale(sc);
+      }
+      return img;
+    }
+
+    /* Choisit l'image de la feuille selon la direction, la marche et le temps. */
+    applyActor(e) {
+      const A = e._actor;
+      if (!A || !A.img || !A.img.scene) return;
+      const d = A.def, n = d.frames || 4;
+      const face = d.rows[A.face] != null ? A.face : 'down';
+      let f = 0, flip = false, bob = 0;
+      if (A.moving && d.walk) {
+        const w = d.walk, st = A.t * w.fps / 1000, si = Math.floor(st);
+        f = si % n;
+        if ((w.flipAlt || []).indexOf(face) >= 0) { flip = (si % 2) === 1; bob = (w.bob || 0) * Math.sin(Math.PI * (st - si)); }
+      } else if (d.idle && d.idle.fps) {
+        f = Math.floor(A.t * d.idle.fps / 1000) % n;
+      }
+      if (e.flipX) flip = !flip;
+      const k = d.rows[face] + ':' + f + ':' + flip + ':' + Math.round(bob * 4);
+      if (k === A.key) return;
+      A.key = k;
+      A.img.setFrame(d.rows[face] * n + f);
+      A.img.setFlipX(flip);
+      const sc = Math.abs(A.img.scaleY) || 1;
+      A.img.setOrigin(0.5, 1 + (bob / sc) / d.cell[1]);
+    }
+
+    tickActors(delta) {
+      this.actors.forEach((e) => {
+        const A = e._actor;
+        if (!A) return;
+        if (A.moving || (A.def.idle && A.def.idle.fps)) { A.t += delta; this.applyActor(e); }
+      });
+    }
+
+    /* Tourne un personnage vers un point. */
+    faceToward(e, x, y) {
+      const A = e._actor;
+      if (!A) return;
+      const dx = x - e.x, dy = y - e.y;
+      A.face = Math.abs(dx) > Math.abs(dy) * 1.2 ? (dx < 0 ? 'left' : 'right') : (dy < 0 ? 'up' : 'down');
+      this.applyActor(e);
+    }
+
     addObject(o) {
       this.ensureTexture(o.key, (this.cfg.placeholders || {})[o.key]);
       const sc = this.spriteScale(o.key, o);
-      const img = this.add.image(o.x, o.y, o.key).setOrigin(0.5, 1).setScale(sc);
-      if (o.flipX) img.setFlipX(true);
+      const img = this.makeImage(o, sc);
+      if (o.flipX && !o._actor) img.setFlipX(true);
       if (o.alpha != null) img.setAlpha(o.alpha);
 
       const layer = o.layer || 'object';
@@ -215,7 +283,7 @@
       this.ensureTexture(n.key || ('npc_' + n.id), spec);
       const key = n.key || ('npc_' + n.id);
       const sc = this.spriteScale(key, n);
-      const img = this.add.image(n.x, n.y, key).setOrigin(0.5, 1).setScale(sc);
+      const img = this.makeImage(n, sc, key);
       const depth = n.sortY != null ? n.sortY : n.y;
       img.setDepth(depth);
       const sh = this.add.image(n.x, n.y - 1, 'shadow').setDisplaySize(img.displayWidth * 0.9, 9).setAlpha(0.45).setDepth(depth - 0.5);
@@ -232,7 +300,7 @@
       const key = P.key || 'player';
       this.ensureTexture(key, { w: 28, h: 62, person: true, color: '#f3e9d2', hair: '#4a2f1e' });
       const sc = this.spriteScale(key, P);
-      this.player = this.add.image(P.x, P.y, key).setOrigin(0.5, 1).setScale(sc).setDepth(P.y);
+      this.player = this.makeImage(P, sc, key).setDepth(P.y);
       this.pShadow = this.add.image(P.x, P.y - 1, 'shadow')
         .setDisplaySize(this.player.displayWidth * 0.9, 9).setAlpha(0.55).setDepth(P.y - 0.5);
       this.speed = P.speed || 150;
@@ -311,6 +379,15 @@
       if (this.canStand(nx, ny)) { p.x = nx; p.y = ny; }
     }
 
+    setPlayerMoving(moving, dx, dy) {
+      const P = this.cfg.player, A = P && P._actor;
+      if (!A) return;
+      if (dx || dy) A.face = Math.abs(dx) >= Math.abs(dy) ? (dx < 0 ? 'left' : 'right') : (dy < 0 ? 'up' : 'down');
+      if (!moving && A.moving) A.t = 0;
+      A.moving = moving;
+      this.applyActor(P);
+    }
+
     /* ---------- boucle ---------- */
     update(time, delta) {
       if (this.edit) { window.Controls.act = false; return; }
@@ -319,6 +396,8 @@
       window.Controls.act = false;
 
       if (this.lines) {
+        this.setPlayerMoving(false, 0, 0);
+        this.tickActors(delta);
         if (act) this.nextLine();
         return;
       }
@@ -332,8 +411,12 @@
       if (m > 1) { dx /= m; dy /= m; }
 
       const step = this.speed * Math.min(delta, 50) / 1000;
+      const px0 = this.player.x, py0 = this.player.y;
       this.tryMove(dx * step, 0);
       this.tryMove(0, dy * step);
+      const moved = Math.abs(this.player.x - px0) + Math.abs(this.player.y - py0) > 0.01;
+      this.setPlayerMoving(moved, dx, dy);
+      this.tickActors(delta);
 
       const p = this.player;
       p.setDepth(p.y);
@@ -367,6 +450,8 @@
       const e = (t.talk || []).find((e) => (!e.needs || f[e.needs]) && (!e.not || !f[e.not]));
       if (!e) return;
       this.entry = e;
+      this.talkTarget = t;
+      if (t._actor) this.faceToward(t, this.player.x, this.player.y);
       this.speaker = e.who || t.name || '';
       this.lines = e.text.slice();
       if (this.hint) this.hint.box.hidden = true;
@@ -389,6 +474,8 @@
       this.lines.shift();
       if (this.lines.length) { this.showLine(); return; }
       $('dlg').hidden = true;
+      const tt = this.talkTarget; this.talkTarget = null;
+      if (tt && tt._actor) { tt._actor.face = tt.face || 'down'; this.applyActor(tt); }
       if (this.entry && this.entry.sets) this.flags[this.entry.sets] = true;
       this.lines = null;
       this.entry = null;

@@ -46,6 +46,9 @@
   }
  ],
  "assetScale": {
+    "thomas_01": 0.5,
+    "cecile_01": 0.5,
+    "tichat_01": 0.4,
     "table_reading_dressed_01": 0.22,
     "rug_blue_oblique_01": 0.31,
     "rug_red_oblique_01": 0.31,
@@ -419,7 +422,7 @@
    "layer": "wall"
   },
   {
-   "key": "cat_01",
+   "key": "tichat_01",
    "x": 765,
    "y": 330,
    "talk": [
@@ -506,6 +509,8 @@
  "npcs": [
   {
    "id": "cecile",
+   "key": "cecile_01",
+   "face": "down",
    "x": 190,
    "y": 338,
    "sortY": 346,
@@ -530,6 +535,8 @@
   },
   {
    "id": "thomas",
+   "key": "thomas_01",
+   "face": "down",
    "x": 470,
    "y": 270,
    "name": "Thomas",
