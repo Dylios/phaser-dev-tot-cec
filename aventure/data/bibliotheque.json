@@ -46,6 +46,9 @@
   }
  ],
  "assetScale": {
+    "lantern_wall_plaque_01": 0.085,
+    "candelabra_brass_01": 0.1,
+    "candles_cluster_01": 0.09,
     "table_wood_front_01": 0.13,
     "lantern_books_quill_01": 0.12,
     "map_scrolls_compass_01": 0.12,

@@ -657,6 +657,7 @@
       const c = this.viewCenterWorld();
       const o = { key: key, x: this.sn(c.x), y: this.sn(c.y) };
       if (LAYER_BY_CAT[cat]) o.layer = LAYER_BY_CAT[cat];
+      else if (/^(lantern_wall|candle_sconce)/.test(key)) o.layer = "walldecor";   // accrochés au mur
       cfg.objects.push(o);
       this.s.addObject(o);
       if (this.mode !== 'obj') this.setMode('obj');
