@@ -46,6 +46,7 @@
   }
  ],
  "assetScale": {
+    "lantern_books_quill_01": 0.12,
     "map_scrolls_compass_01": 0.12,
     "satchel_leather_01": 0.14,
     "potions_herbs_01": 0.12,
