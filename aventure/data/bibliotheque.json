@@ -46,6 +46,17 @@
   }
  ],
  "assetScale": {
+    "rug_blue_oblique_01": 0.31,
+    "rug_red_oblique_01": 0.31,
+    "rug_red_fringe_01": 0.3,
+    "plant_palm_pot_01": 0.23,
+    "plant_monstera_urn_01": 0.25,
+    "planter_ivy_trellis_01": 0.2,
+    "plant_fern_urn_01": 0.25,
+    "sofa_red_01": 0.21,
+    "statue_bust_01": 0.15,
+    "statue_knight_horse_01": 0.14,
+    "statue_wizard_01": 0.145,
     "lantern_wall_plaque_01": 0.085,
     "candelabra_brass_01": 0.1,
     "candles_cluster_01": 0.09,

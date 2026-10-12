@@ -13,7 +13,7 @@
   const CATS = {
     walls: 'Murs', bookcases: 'Bibliothèques', architecture: 'Architecture', seating: 'Assises',
     furniture: 'Meubles', lighting: 'Luminaires', props: 'Accessoires', wall_decor: 'Déco murale',
-    rugs: 'Tapis', plants: 'Plantes', characters: 'Chats'
+    rugs: 'Tapis', plants: 'Plantes', statues: 'Statues', characters: 'Chats'
   };
   const LAYER_BY_CAT = { walls: 'wall', wall_decor: 'walldecor', rugs: 'floor' };
   const BIG_CATS = { walls: 1, rugs: 1, architecture: 1, bookcases: 1 };
