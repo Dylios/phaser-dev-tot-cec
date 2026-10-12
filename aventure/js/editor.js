@@ -667,12 +667,19 @@
       }
     }
 
+    floorTileScale(key) {
+      const t = this.s.textures.exists(key) ? this.s.textures.get(key).getSourceImage() : null;
+      return t && t.width > 200 ? Math.round(128 / t.width * 1000) / 1000 : null;
+    }
+
     addZone() {
       const c = this.viewCenterWorld();
       const r = { x: this.sn(c.x - 100), y: this.sn(c.y - 40), w: 200, h: 80 };
       if (this.mode === 'floor') {
         const k = (this.cfg.floors[0] && this.cfg.floors[0].key) || 'floor_chevron_01';
         r.key = k;
+        const ts = this.floorTileScale(k);
+        if (ts) r.tileScale = ts;
         this.cfg.floors.push(r); this.s.addFloor(r);
       } else this.cfg.walkable.push(r);
       this.select({ type: this.mode, ref: r });
@@ -829,9 +836,15 @@
         box.appendChild(h('div', { class: 'ed-row' }, num('L', 'w'), num('H', 'h')));
         if (t === 'floor') {
           const ks = Object.keys(this.s.assetMap).filter((k) => this.s.assetMap[k].split('/')[0] === 'floor');
-          const sk = h('select', { onchange: (e) => { r.key = e.target.value; this.rebuild(sel); this.commit(); } });
+          const sk = h('select', { onchange: (e) => {
+            r.key = e.target.value;
+            const ts = this.floorTileScale(r.key);
+            if (ts) r.tileScale = ts; else delete r.tileScale;
+            this.rebuild(sel); this.commit(); this.renderInsp();
+          } });
           ks.forEach((k) => { const op = h('option', { value: k, text: k }); if (k === r.key) op.selected = true; sk.appendChild(op); });
           box.appendChild(h('div', { class: 'ed-row' }, h('span', { text: 'Motif' }), sk));
+          box.appendChild(h('div', { class: 'ed-row' }, num('Échelle du motif', 'tileScale', 0.05)));
         }
         box.appendChild(h('div', { class: 'ed-help', text: 'Tire les carrés aux coins pour redimensionner.' }));
       }
