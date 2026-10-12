@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>EXPEDITION 2028</title>
+<style>
+html,body{margin:0;height:100%;background:#1a1210;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;font-family:Georgia,serif}
+#game{position:fixed;inset:0}
+#quest{position:fixed;top:max(8px,env(safe-area-inset-top));left:8px;color:#f3e9d2;background:#2a1b14cc;border:1px solid #c9a24a;padding:4px 8px;font-size:13px;border-radius:4px}
+#joy{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));width:120px;height:120px;border-radius:50%;background:#2a1b1488;border:2px solid #c9a24a}
+#stick{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:#8b2a35;border:2px solid #f3e9d2}
+#act{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(30px,env(safe-area-inset-bottom));width:84px;height:84px;border-radius:50%;background:#2a1b1488;border:2px solid #c9a24a;color:#f3e9d2;font:bold 15px Georgia,serif}
+#act.on{background:#8b2a35;box-shadow:0 0 14px #c9a24a}
+#dlg{position:fixed;left:50%;transform:translateX(-50%);bottom:max(150px,calc(env(safe-area-inset-bottom) + 140px));width:min(92vw,520px);box-sizing:border-box;background:#2a1b14ee;color:#f3e9d2;border:2px solid #c9a24a;border-radius:6px;padding:12px 14px;font-size:16px;line-height:1.4}
+#dlg[hidden]{display:none}
+</style></head><body>
+<div id="game"></div>
+<div id="quest"></div>
+<div id="dlg" hidden></div>
+<div id="joy"><div id="stick"></div></div>
+<button id="act">Agir</button>
+<script src="phaser.min.js"></script>
+<script src="js/main.js"></script>
+</body></html>
