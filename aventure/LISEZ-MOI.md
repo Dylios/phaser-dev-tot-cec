@@ -106,6 +106,14 @@ Ouvre `index.html?edit` (sur ordinateur ou téléphone). Tu vois la pièce avec 
   (`?brouillon`), « Original » l'efface.
 - **Publier** : « Exporter » donne le JSON ; colle-le dans `data/bibliotheque.json` et pousse.
 
+## Dessus de mur (`assets/walls/wall_top_*`)
+
+Pièces de bois vues de dessus, comme si on avait retiré le plafond : segments droits (`h_long`,
+`h_short`, `v_long`, `v_short`), coins (`corner_nw/ne/sw/se`), jonctions (`t_down/up/left/right`,
+`cross`) et bouts fermés (`end_w/e/n/s`). Elles sont générées par code et se raccordent bout à bout
+(épaisseur 16 px dans la pièce). Pour les poser : grille 8 dans l'éditeur. Pour changer l'épaisseur
+ou la teinte : `python tools/make_wall_tops.py 80` puis `python tools/make_assets_json.py`.
+
 ## Mobile
 
 Le jeu occupe tout l'écran et s'adapte : sur ordinateur et téléphone en paysage on voit toute la
