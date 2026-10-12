@@ -164,6 +164,7 @@
       });
       e._parts = [];
       if (e._actor) { this.actors.delete(e); e._actor = null; }
+      e._w = null;
       if (e.rect) {
         const i = this.solids.indexOf(e.rect);
         if (i >= 0) this.solids.splice(i, 1);
@@ -206,8 +207,9 @@
     applyActor(e) {
       const A = e._actor;
       if (!A || !A.img || !A.img.scene) return;
-      const d = A.def, n = d.frames || 4;
+      const d = A.def, cols = d.frames || 4;
       const face = d.rows[A.face] != null ? A.face : 'down';
+      const n = (d.counts && d.counts[face]) || cols;
       let f = 0, flip = false, bob = 0;
       if (A.moving && d.walk) {
         const w = d.walk, st = A.t * w.fps / 1000, si = Math.floor(st);
@@ -220,7 +222,7 @@
       const k = d.rows[face] + ':' + f + ':' + flip + ':' + Math.round(bob * 4);
       if (k === A.key) return;
       A.key = k;
-      A.img.setFrame(d.rows[face] * n + f);
+      A.img.setFrame(d.rows[face] * cols + f);
       A.img.setFlipX(flip);
       const sc = Math.abs(A.img.scaleY) || 1;
       A.img.setOrigin(0.5, 1 + (bob / sc) / d.cell[1]);
@@ -231,6 +233,65 @@
         const A = e._actor;
         if (!A) return;
         if (A.moving || (A.def.idle && A.def.idle.fps)) { A.t += delta; this.applyActor(e); }
+      });
+    }
+
+    /* Un personnage avec "wander": rayon (px) se promène autour de sa position de départ. */
+    canStandActor(e, x, y) {
+      if (!this.walkable(x - 6, y) || !this.walkable(x + 6, y) || !this.walkable(x - 6, y - 6) || !this.walkable(x + 6, y - 6)) return false;
+      const f = { x: x - 8, y: y - 6, w: 16, h: 6 };
+      for (const s of this.solids) {
+        if (s === e.rect) continue;
+        if (f.x < s.x + s.w && f.x + f.w > s.x && f.y < s.y + s.h && f.y + f.h > s.y) return false;
+      }
+      const p = this.player;
+      return !p || Math.hypot(p.x - x, p.y - y) > 24;
+    }
+
+    moveActor(e, x, y) {
+      const dx = x - e.x, dy = y - e.y;
+      e.x = x; e.y = y;
+      const A = e._actor;
+      A.img.setPosition(x, y);
+      if (e.sortY != null) e.sortY += dy;
+      A.img.setDepth(e.sortY != null ? e.sortY : y);
+      const sh = e._parts && e._parts[1];
+      if (sh && sh.scene) sh.setPosition(x, y - 1).setDepth(A.img.depth - 0.5);
+      if (e.rect) { e.rect.x += dx; e.rect.y += dy; }
+    }
+
+    updateWander(delta, paused) {
+      this.actors.forEach((e) => {
+        if (!(e.wander > 0) || !e._actor) return;
+        const A = e._actor, rows = A.def.rows;
+        const w = e._w || (e._w = { st: 'idle', t: 800 + Math.random() * 2500, hx: e.x, hy: e.y });
+        if (paused || this.near === e || this.talkTarget === e) { A.moving = false; return; }
+        if (w.st === 'idle') {
+          A.moving = false;
+          w.t -= delta;
+          if (w.t > 0) return;
+          for (let i = 0; i < 8; i++) {
+            const a = Math.random() * Math.PI * 2, d = 25 + Math.random() * Math.max(10, e.wander - 25);
+            const tx = w.hx + Math.cos(a) * d, ty = w.hy + Math.sin(a) * d * 0.6;
+            if (this.canStandActor(e, tx, ty)) { w.st = 'walk'; w.tx = tx; w.ty = ty; break; }
+          }
+          if (w.st !== 'walk') w.t = 1500;
+        } else {
+          const dx = w.tx - e.x, dy = w.ty - e.y, d = Math.hypot(dx, dy);
+          const step = (e.wanderSpeed || 28) * Math.min(delta, 50) / 1000;
+          if (d <= step || !this.canStandActor(e, e.x + dx / d * step, e.y + dy / d * step)) {
+            if (d <= step) this.moveActor(e, w.tx, w.ty);
+            w.st = 'idle'; w.t = 2500 + Math.random() * 4500; A.moving = false; A.t = 0;
+            const f = Math.random() < 0.75 ? 'down' : 'up';
+            A.face = rows[f] != null ? f : 'down';
+            this.applyActor(e);
+            return;
+          }
+          this.moveActor(e, e.x + dx / d * step, e.y + dy / d * step);
+          if (Math.abs(dx) > 0.5) A.face = dx < 0 ? 'left' : 'right';
+          if (rows[A.face] == null) A.face = 'down';
+          A.moving = true;
+        }
       });
     }
 
@@ -397,6 +458,7 @@
 
       if (this.lines) {
         this.setPlayerMoving(false, 0, 0);
+        this.updateWander(delta, true);
         this.tickActors(delta);
         if (act) this.nextLine();
         return;
@@ -416,6 +478,7 @@
       this.tryMove(0, dy * step);
       const moved = Math.abs(this.player.x - px0) + Math.abs(this.player.y - py0) > 0.01;
       this.setPlayerMoving(moved, dx, dy);
+      this.updateWander(delta, false);
       this.tickActors(delta);
 
       const p = this.player;

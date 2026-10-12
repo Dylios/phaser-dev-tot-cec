@@ -46,17 +46,27 @@
  "tichat_01": {
   "sheet": "sheets/tichat_01.png",
   "cell": [
-   116,
-   100
+   174,
+   150
   ],
-  "frames": 4,
+  "frames": 10,
+  "counts": {
+   "down": 10,
+   "up": 10,
+   "left": 8,
+   "right": 8
+  },
   "rows": {
    "down": 0,
-   "right": 1,
-   "left": 2
+   "up": 1,
+   "left": 2,
+   "right": 3
+  },
+  "walk": {
+   "fps": 10
   },
   "idle": {
-   "fps": 2.5
+   "fps": 3
   }
  }
 }

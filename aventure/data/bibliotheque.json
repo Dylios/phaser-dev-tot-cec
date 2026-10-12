@@ -49,7 +49,7 @@
     "armchair_cecile_reading_01": 0.16,
     "thomas_01": 0.5,
     "cecile_01": 0.5,
-    "tichat_01": 0.4,
+    "tichat_01": 0.28,
     "table_reading_dressed_01": 0.22,
     "rug_blue_oblique_01": 0.31,
     "rug_red_oblique_01": 0.31,
@@ -421,6 +421,8 @@
    "key": "tichat_01",
    "x": 765,
    "y": 330,
+   "wander": 80,
+   "solid": false,
    "talk": [
     {
      "who": "Ti Chat",
