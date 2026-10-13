@@ -190,7 +190,12 @@
   "table_chapel_candles_03": 0.205,
   "stool_wood_letter_02": 0.16,
   "bench_chapel_cloth_03": 0.182,
-  "urn_terracotta_fern_02": 0.171
+  "urn_terracotta_fern_02": 0.171,
+  "chest_compass_closed_left_01": 0.2,
+  "chest_compass_closed_front_01": 0.2,
+  "chest_compass_closed_right_01": 0.2,
+  "chest_compass_open_left_01": 0.19,
+  "chest_compass_open_front_01": 0.19
  },
  "player": {
   "x": 408,
