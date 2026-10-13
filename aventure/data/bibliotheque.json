@@ -175,7 +175,10 @@
   "cupboard_ajar_01": 0.2,
   "toy_knight_floor_01": 0.12,
   "bookmark_compass_01": 0.12,
-  "banner_compass_01": 0.25
+  "banner_compass_01": 0.25,
+  "lectern_grimoire_open_02": 0.19,
+  "lectern_grimoire_closed_02": 0.19,
+  "lectern_grimoire_open_face_02": 0.19
  },
  "player": {
   "x": 474,
@@ -753,7 +756,7 @@
    }
   },
   {
-   "key": "lectern_grimoire_open_01",
+   "key": "lectern_grimoire_open_02",
    "x": 480,
    "y": 222,
    "fp": [
@@ -896,7 +899,7 @@
    ]
   },
   {
-   "key": "lectern_grimoire_open_face_01",
+   "key": "lectern_grimoire_open_face_02",
    "x": 480,
    "y": 222,
    "fp": [
@@ -1040,7 +1043,7 @@
    ]
   },
   {
-   "key": "lectern_grimoire_closed_01",
+   "key": "lectern_grimoire_closed_02",
    "x": 480,
    "y": 222,
    "fp": [
