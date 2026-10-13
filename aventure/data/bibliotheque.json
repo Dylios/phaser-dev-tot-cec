@@ -11,18 +11,20 @@
  },
  "floors": [
   {
-   "key": "floor_chevron_01",
-   "x": 40,
-   "y": 170,
-   "w": 880,
-   "h": 215
+   "x": 0,
+   "y": 169,
+   "w": 962,
+   "h": 208,
+   "key": "floor_herringbone_01",
+   "tileScale": 0.1
   },
   {
-   "key": "floor_chevron_01",
-   "x": 300,
-   "y": 385,
-   "w": 400,
-   "h": 105
+   "x": 348,
+   "y": 377,
+   "w": 250,
+   "h": 58,
+   "key": "floor_herringbone_01",
+   "tileScale": 0.1
   }
  ],
  "walkable": [
@@ -50,31 +52,31 @@
   "thomas_01": 0.36,
   "cecile_01": 0.38,
   "tichat_01": 0.28,
-  "table_reading_dressed_01": 0.22,
-  "rug_blue_oblique_01": 0.31,
+  "table_reading_dressed_01": 0.09,
+  "rug_blue_oblique_01": 0.27,
   "rug_red_oblique_01": 0.31,
-  "rug_red_fringe_01": 0.3,
-  "plant_palm_pot_01": 0.23,
-  "plant_monstera_urn_01": 0.25,
+  "rug_red_fringe_01": 0.34,
+  "plant_palm_pot_01": 0.25,
+  "plant_monstera_urn_01": 0.27,
   "planter_ivy_trellis_01": 0.2,
-  "plant_fern_urn_01": 0.25,
-  "sofa_red_01": 0.21,
+  "plant_fern_urn_01": 0.29,
+  "sofa_red_01": 0.16,
   "statue_bust_01": 0.15,
-  "statue_knight_horse_01": 0.14,
-  "statue_wizard_01": 0.145,
-  "lantern_wall_plaque_01": 0.085,
-  "candelabra_brass_01": 0.1,
-  "candles_cluster_01": 0.09,
-  "table_wood_front_01": 0.13,
+  "statue_knight_horse_01": 0.13,
+  "statue_wizard_01": 0.15,
+  "lantern_wall_plaque_01": 0.18,
+  "candelabra_brass_01": 0.18,
+  "candles_cluster_01": 0.27,
+  "table_wood_front_01": 0.11,
   "lantern_books_quill_01": 0.12,
-  "map_scrolls_compass_01": 0.12,
-  "satchel_leather_01": 0.14,
-  "potions_herbs_01": 0.12,
-  "candelabra_inkwell_01": 0.12,
+  "map_scrolls_compass_01": 0.25,
+  "satchel_leather_01": 0.3,
+  "potions_herbs_01": 0.27,
+  "candelabra_inkwell_01": 0.27,
   "wall_top_h_long_01": 0.25,
   "wall_top_h_short_01": 0.25,
-  "wall_top_v_long_01": 0.25,
-  "wall_top_v_short_01": 0.25,
+  "wall_top_v_long_01": 0.45,
+  "wall_top_v_short_01": 1,
   "wall_top_corner_nw_01": 0.25,
   "wall_top_corner_ne_01": 0.25,
   "wall_top_corner_sw_01": 0.25,
@@ -88,11 +90,11 @@
   "wall_top_end_e_01": 0.25,
   "wall_top_end_n_01": 0.25,
   "wall_top_end_s_01": 0.25,
-  "bookcase_09_ivy_orrery": 0.22,
-  "bookcase_10_bust_globe": 0.21,
-  "desk_drawers_01": 0.3,
-  "desk_long_01": 0.28,
-  "post_wood_tall_01": 0.2,
+  "bookcase_09_ivy_orrery": 0.35,
+  "bookcase_10_bust_globe": 0.37,
+  "desk_drawers_01": 0.26,
+  "desk_long_01": 0.24,
+  "post_wood_tall_01": 0.32,
   "rug_medallion_01": 0.4,
   "wall_back_plain_01": 0.5,
   "wall_back_alcove_01": 0.5,
@@ -113,7 +115,7 @@
   "chair_green_left_01": 0.27,
   "chair_green_right_01": 0.27,
   "table_reading_long_01": 0.4,
-  "table_reading_long_front_01": 0.2,
+  "table_reading_long_front_01": 0.13,
   "desk_small_01": 0.5,
   "table_round_side_01": 0.4,
   "lamp_table_shade_02": 0.3,
@@ -141,7 +143,7 @@
   "cat_01": 1.1,
   "cat_02": 1.1,
   "plant_fern_05": 0.9,
-  "lantern_wall_01": 1.0,
+  "lantern_wall_01": 1,
   "desk_historian_01": 0.4,
   "bookcase_secret_closed_01": 0.36,
   "bookcase_secret_open_01": 0.36,
@@ -156,31 +158,157 @@
   "rug_red_compass_flat_01": 0.85,
   "papers_floor_01": 0.16,
   "papers_floor_02": 0.16,
-  "papers_floor_03": 0.16
+  "papers_floor_03": 0.16,
+  "table_large_study_01": 0.55,
+  "rug_blue_01": 1,
+  "rug_red_large_01": 1,
+  "rug_runner_red_vertical_01": 1,
+  "rug_runner_red_02": 1,
+  "rug_round_green_01": 1,
+  "plant_flowers_white_01": 1,
+  "sofa_green_01": 0.95
  },
  "player": {
-  "x": 516,
-  "y": 470,
+  "x": 474,
+  "y": 437,
   "speed": 150
  },
  "objects": [
   {
    "key": "wall_back_plain_01",
-   "x": 75,
-   "y": 185,
+   "x": 258,
+   "y": 186,
    "layer": "wall"
   },
   {
    "key": "wall_back_plain_01",
-   "x": 210,
-   "y": 185,
+   "x": 700,
+   "y": 184,
    "layer": "wall"
   },
   {
    "key": "wall_back_plain_01",
-   "x": 345,
-   "y": 185,
+   "x": 816,
+   "y": 187,
+   "layer": "wall",
+   "order": -3
+  },
+  {
+   "key": "fireplace_side_right_01",
+   "x": 60,
+   "y": 229,
+   "talk": [
+    {
+     "text": [
+      "La cheminée crépite doucement.",
+      "Quelqu'un était là il y a peu de temps…"
+     ]
+    }
+   ],
+   "scale": 1.06,
+   "layer": "wall",
+   "order": 3
+  },
+  {
+   "key": "table_round_side_01",
+   "x": 185,
+   "y": 282,
+   "scale": 0.51
+  },
+  {
+   "key": "lamp_table_shade_02",
+   "x": 183,
+   "y": 246,
+   "sortY": 309,
+   "shadow": false,
+   "solid": false,
+   "scale": 0.63
+  },
+  {
+   "key": "pouf_blue_01",
+   "x": 220,
+   "y": 341,
+   "scale": 0.59
+  },
+  {
+   "key": "wall_low_01",
+   "x": 153,
+   "y": 441,
    "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 290,
+   "y": 441,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 673,
+   "y": 443,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 810,
+   "y": 443,
+   "layer": "wall"
+  },
+  {
+   "key": "doorway_steps_01",
+   "x": 480,
+   "y": 506,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_side_right_01",
+   "x": 42,
+   "y": 439,
+   "layer": "wall",
+   "order": -3,
+   "scale": 1.02
+  },
+  {
+   "key": "wall_side_right_01",
+   "x": 378,
+   "y": 482,
+   "layer": "wall",
+   "scale": 0.65
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 142,
+   "y": 186,
+   "layer": "wall"
+  },
+  {
+   "key": "bookcase_09_ivy_orrery",
+   "x": 371,
+   "y": 187,
+   "scale": 0.69,
+   "layer": "walldecor",
+   "talk": [
+    {
+     "not": "page",
+     "sets": "page",
+     "text": [
+      "Entre deux livres, une page cornée !",
+      "Tu l'empoches : c'est « La page manquante »."
+     ]
+    },
+    {
+     "text": [
+      "Rien d'autre ici que des livres poussiéreux."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bookcase_10_bust_globe",
+   "x": 590,
+   "y": 183,
+   "scale": 0.63,
+   "layer": "walldecor"
   },
   {
    "key": "wall_back_alcove_01",
@@ -189,50 +317,72 @@
    "layer": "wall"
   },
   {
-   "key": "wall_back_plain_01",
-   "x": 615,
-   "y": 185,
+   "key": "wall_side_left_01",
+   "x": 579,
+   "y": 484,
+   "layer": "wall",
+   "scale": 0.65
+  },
+  {
+   "key": "wall_side_left_01",
+   "x": 918,
+   "y": 443,
+   "layer": "wall",
+   "order": 40
+  },
+  {
+   "key": "bookcase_side_left_01",
+   "x": 918,
+   "y": 224,
+   "scale": 1.1,
    "layer": "wall"
   },
   {
-   "key": "wall_back_plain_01",
-   "x": 750,
-   "y": 185,
-   "layer": "wall"
+   "key": "desk_long_01",
+   "x": 901,
+   "y": 287,
+   "sortY": 5,
+   "order": 1,
+   "fp": [
+    120,
+    50
+   ]
   },
   {
-   "key": "wall_back_plain_01",
-   "x": 885,
-   "y": 185,
-   "layer": "wall"
+   "key": "candelabra_inkwell_01",
+   "x": 934,
+   "y": 242,
+   "scale": 0.39
   },
   {
-   "key": "bookcase_04_arch_niche",
-   "x": 170,
-   "y": 186
+   "key": "book_pile_leather_01",
+   "x": 864,
+   "y": 240,
+   "scale": 0.49
   },
   {
-   "key": "bookcase_07_tall",
-   "x": 270,
-   "y": 186
+   "key": "trunk_stack_blue_01",
+   "x": 849,
+   "y": 385,
+   "scale": 0.61,
+   "sortY": 313,
+   "layer": "floor"
   },
   {
-   "key": "bookcase_secret_closed_01",
-   "x": 360,
-   "y": 186,
-   "when": {
-    "not": "passage"
-   }
+   "key": "rug_round_red_02",
+   "x": 180,
+   "y": 353,
+   "layer": "floor",
+   "scale": 0.61
   },
   {
-   "key": "desk_small_01",
+   "key": "desk_drawers_01",
    "x": 480,
-   "y": 196
-  },
-  {
-   "key": "desk_study_01",
-   "x": 600,
-   "y": 196,
+   "y": 210,
+   "fp": [
+    121,
+    66
+   ],
    "talk": [
     {
      "needs": "page",
@@ -258,16 +408,71 @@
    ]
   },
   {
-   "key": "armillary_sphere_01",
-   "x": 905,
-   "y": 392,
-   "sortY": 422,
-   "solid": false
+   "key": "painting_landscape_01",
+   "x": 700,
+   "y": 128,
+   "layer": "walldecor",
+   "scale": 0.79
+  },
+  {
+   "key": "map_world_01",
+   "x": 260,
+   "y": 129,
+   "layer": "walldecor",
+   "scale": 0.79
+  },
+  {
+   "key": "ladder_wood_01",
+   "x": 924,
+   "y": 220,
+   "scale": 0.61,
+   "layer": "walldecor",
+   "order": 7
+  },
+  {
+   "key": "book_pile_leather_02",
+   "x": 758,
+   "y": 194,
+   "scale": 0.71
+  },
+  {
+   "key": "book_pile_leather_01",
+   "x": 765,
+   "y": 207,
+   "scale": 0.69
+  },
+  {
+   "key": "book_pile_leather_03",
+   "x": 736,
+   "y": 199,
+   "scale": 0.69
+  },
+  {
+   "key": "map_scrolls_compass_01",
+   "x": 462,
+   "y": 163,
+   "scale": 0.23,
+   "order": 14,
+   "sortY": 229
+  },
+  {
+   "key": "satchel_leather_01",
+   "x": 560,
+   "y": 208,
+   "scale": 0.39
+  },
+  {
+   "key": "potions_herbs_01",
+   "x": 518,
+   "y": 163,
+   "scale": 0.37,
+   "sortY": 223
   },
   {
    "key": "globe_stand_01",
-   "x": 705,
-   "y": 200,
+   "x": 311,
+   "y": 199,
+   "scale": 0.51,
    "label": "Tourner",
    "talk": [
     {
@@ -287,173 +492,184 @@
    ]
   },
   {
-   "key": "bookcase_08_tall_ivy",
-   "x": 815,
-   "y": 186,
-   "talk": [
-    {
-     "not": "page",
-     "sets": "page",
-     "text": [
-      "Entre deux livres, une page cornée !",
-      "Tu l'empoches : c'est « La page manquante »."
-     ]
-    },
-    {
-     "text": [
-      "Rien d'autre ici que des livres poussiéreux."
-     ]
-    }
-   ]
+   "key": "lamp_desk_green_02",
+   "x": 433,
+   "y": 159,
+   "scale": 0.45,
+   "sortY": 231
   },
   {
-   "key": "ladder_wood_01",
-   "x": 885,
-   "y": 192
+   "key": "wall_step_left_01",
+   "x": 105,
+   "y": 445,
+   "layer": "wall",
+   "scale": 0.85,
+   "order": 1
   },
   {
-   "key": "fireplace_side_right_01",
-   "x": 95,
-   "y": 275,
-   "talk": [
-    {
-     "text": [
-      "La cheminée crépite doucement.",
-      "Quelqu'un était là il y a peu de temps…"
-     ]
-    }
-   ]
+   "key": "lantern_wall_plaque_01",
+   "x": 200,
+   "y": 115,
+   "layer": "walldecor",
+   "scale": 0.25
   },
   {
-   "key": "plant_palm_01",
-   "x": 66,
-   "y": 350
+   "key": "lantern_wall_plaque_01",
+   "x": 317,
+   "y": 115,
+   "layer": "walldecor",
+   "scale": 0.25,
+   "order": 33
   },
   {
-   "key": "rug_red_entrance_01",
-   "x": 205,
-   "y": 405,
+   "key": "lantern_wall_plaque_01",
+   "x": 426,
+   "y": 115,
+   "layer": "walldecor",
+   "scale": 0.25,
+   "order": 33
+  },
+  {
+   "key": "lantern_wall_plaque_01",
+   "x": 539,
+   "y": 115,
+   "layer": "walldecor",
+   "scale": 0.25,
+   "order": 33
+  },
+  {
+   "key": "lantern_wall_plaque_01",
+   "x": 643,
+   "y": 115,
+   "layer": "walldecor",
+   "scale": 0.25,
+   "order": 33
+  },
+  {
+   "key": "lantern_wall_plaque_01",
+   "x": 758,
+   "y": 115,
+   "layer": "walldecor",
+   "scale": 0.25,
+   "order": 33
+  },
+  {
+   "key": "candles_cluster_01",
+   "x": 859,
+   "y": 198,
+   "scale": 0.29
+  },
+  {
+   "key": "candelabra_brass_01",
+   "x": 741,
+   "y": 378,
+   "scale": 0.33
+  },
+  {
+   "key": "candelabra_brass_01",
+   "x": 220,
+   "y": 376,
+   "scale": 0.33
+  },
+  {
+   "key": "plant_monstera_urn_01",
+   "x": 676,
+   "y": 403,
+   "scale": 0.61,
    "layer": "floor"
   },
   {
-   "key": "table_round_side_01",
-   "x": 275,
-   "y": 340
-  },
-  {
-   "key": "lamp_table_shade_02",
-   "x": 275,
-   "y": 278,
-   "sortY": 341,
-   "shadow": false,
-   "solid": false
-  },
-  {
-   "key": "pouf_blue_01",
-   "x": 240,
-   "y": 402
-  },
-  {
-   "key": "rug_red_long_01",
-   "x": 516,
-   "y": 414,
+   "key": "plant_monstera_urn_01",
+   "x": 287,
+   "y": 407,
+   "scale": 0.61,
    "layer": "floor"
   },
   {
-   "key": "table_reading_long_front_01",
-   "x": 516,
-   "y": 358,
+   "key": "plant_palm_pot_01",
+   "x": 834,
+   "y": 293,
+   "scale": 0.51
+  },
+  {
+   "key": "plant_fern_urn_01",
+   "x": 112,
+   "y": 315,
+   "scale": 0.47,
+   "sortY": 369
+  },
+  {
+   "key": "statue_wizard_01",
+   "x": 480,
+   "y": 143,
+   "scale": 0.57
+  },
+  {
+   "key": "sofa_red_01",
+   "x": 735,
+   "y": 272
+  },
+  {
+   "key": "rug_red_fringe_01",
+   "x": 480,
+   "y": 353,
+   "layer": "floor",
+   "scale": 1.115
+  },
+  {
+   "key": "rug_round_red_02",
+   "x": 739,
+   "y": 356,
+   "layer": "floor",
+   "scale": 0.61
+  },
+  {
+   "key": "table_reading_dressed_01",
+   "x": 480,
+   "y": 330,
+   "scale": 1.647,
    "fp": [
-    176,
-    14
+    190,
+    80
    ]
-  },
-  {
-   "key": "lamp_table_shade_02",
-   "x": 575,
-   "y": 318,
-   "sortY": 359,
-   "shadow": false,
-   "solid": false
-  },
-  {
-   "key": "book_pile_leather_01",
-   "x": 450,
-   "y": 332,
-   "sortY": 359,
-   "shadow": false,
-   "solid": false
-  },
-  {
-   "key": "book_pile_leather_02",
-   "x": 500,
-   "y": 340,
-   "sortY": 359,
-   "shadow": false,
-   "solid": false
   },
   {
    "key": "chair_green_right_01",
-   "x": 404,
-   "y": 350
+   "x": 373,
+   "y": 308,
+   "fp": [
+    36,
+    45
+   ]
   },
   {
    "key": "chair_green_left_01",
-   "x": 628,
-   "y": 350
+   "x": 588,
+   "y": 305,
+   "fp": [
+    36,
+    45
+   ]
   },
   {
-   "key": "bookcase_side_left_01",
-   "x": 895,
-   "y": 275
+   "key": "bookcase_secret_closed_01",
+   "x": 816,
+   "y": 187,
+   "scale": 0.667,
+   "when": {
+    "not": "passage"
+   }
   },
   {
-   "key": "trunk_stack_blue_01",
-   "x": 835,
-   "y": 350
-  },
-  {
-   "key": "desk_small_01",
-   "x": 875,
-   "y": 420
-  },
-  {
-   "key": "lamp_desk_green_02",
-   "x": 845,
-   "y": 384,
-   "sortY": 421,
+   "key": "bookcase_secret_open_01",
+   "x": 825.6048,
+   "y": 190.1349,
+   "scale": 0.667,
+   "solid": false,
    "shadow": false,
-   "solid": false
-  },
-  {
-   "key": "wall_low_01",
-   "x": 150,
-   "y": 440,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_low_01",
-   "x": 270,
-   "y": 440,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_low_01",
-   "x": 750,
-   "y": 440,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_low_01",
-   "x": 870,
-   "y": 440,
-   "layer": "wall"
-  },
-  {
-   "key": "doorway_steps_01",
-   "x": 490,
-   "y": 528,
-   "layer": "wall"
+   "when": {
+    "needs": "passage"
+   }
   },
   {
    "key": "tichat_01",
@@ -472,97 +688,18 @@
     }
    ],
    "portrait": "portraits/tichat.png"
-  },
-  {
-   "key": "book_pile_leather_03",
-   "x": 515,
-   "y": 176,
-   "sortY": 197,
-   "shadow": false,
-   "solid": false
-  },
-  {
-   "key": "plant_fern_05",
-   "x": 520,
-   "y": 158,
-   "sortY": 198,
-   "shadow": false,
-   "scale": 0.6,
-   "solid": false
-  },
-  {
-   "key": "map_world_01",
-   "x": 600,
-   "y": 96,
-   "layer": "walldecor"
-  },
-  {
-   "key": "lantern_wall_01",
-   "x": 413,
-   "y": 128,
-   "layer": "walldecor"
-  },
-  {
-   "key": "lantern_wall_01",
-   "x": 541,
-   "y": 128,
-   "layer": "walldecor"
-  },
-  {
-   "key": "lantern_wall_01",
-   "x": 742,
-   "y": 128,
-   "layer": "walldecor"
-  },
-  {
-   "key": "wall_side_left_01",
-   "x": 50,
-   "y": 378,
-   "layer": "wall",
-   "order": 1
-  },
-  {
-   "key": "wall_side_right_01",
-   "x": 910,
-   "y": 378,
-   "layer": "wall",
-   "order": 1
-  },
-  {
-   "key": "wall_side_left_01",
-   "x": 50,
-   "y": 250,
-   "layer": "wall",
-   "order": 0
-  },
-  {
-   "key": "wall_side_right_01",
-   "x": 910,
-   "y": 250,
-   "layer": "wall",
-   "order": 0
-  },
-  {
-   "key": "bookcase_secret_open_01",
-   "x": 374.4,
-   "y": 190.7,
-   "solid": false,
-   "shadow": false,
-   "when": {
-    "needs": "passage"
-   }
   }
  ],
  "npcs": [
   {
    "id": "cecile",
    "key": "armchair_cecile_reading_01",
-   "x": 205,
-   "y": 350,
-   "sortY": 351,
+   "x": 134,
+   "y": 308,
+   "sortY": 338,
    "fp": [
-    70,
-    18
+    63,
+    50
    ],
    "name": "Cécile",
    "label": "Parler",
@@ -582,14 +719,15 @@
      ]
     }
    ],
-   "portrait": "portraits/cecile.png"
+   "portrait": "portraits/cecile.png",
+   "scale": 0.75
   },
   {
    "id": "thomas",
    "key": "thomas_01",
    "face": "down",
-   "x": 470,
-   "y": 270,
+   "x": 774,
+   "y": 298,
    "name": "Thomas",
    "label": "Parler",
    "placeholder": {
@@ -613,52 +751,28 @@
  ],
  "lights": [
   {
-   "x": 95,
-   "y": 235,
+   "x": 61,
+   "y": 176,
    "r": 120,
-   "a": 0.8,
+   "a": 0.33,
    "flicker": true
   },
   {
-   "x": 413,
-   "y": 100,
-   "r": 60,
-   "a": 0.55
-  },
-  {
-   "x": 541,
-   "y": 100,
-   "r": 60,
-   "a": 0.55
-  },
-  {
-   "x": 740,
-   "y": 100,
-   "r": 60,
-   "a": 0.55
-  },
-  {
-   "x": 275,
-   "y": 285,
+   "x": 183,
+   "y": 213,
    "r": 70,
-   "a": 0.6
+   "a": 0.41
   },
   {
-   "x": 575,
-   "y": 290,
-   "r": 80,
-   "a": 0.55
-  },
-  {
-   "x": 870,
-   "y": 360,
-   "r": 60,
-   "a": 0.5
+   "x": 434,
+   "y": 138,
+   "r": 34,
+   "a": 0.53
   }
  ],
  "exits": [
   {
-   "x": 358,
+   "x": 797,
    "y": 186,
    "w": 38,
    "h": 14,

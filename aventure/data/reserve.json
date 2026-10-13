@@ -405,8 +405,8 @@
    "h": 14,
    "to": "bibliotheque",
    "spawn": {
-    "x": 360,
-    "y": 235,
+    "x": 816,
+    "y": 228,
     "face": "down"
    }
   }
