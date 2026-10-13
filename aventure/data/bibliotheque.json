@@ -435,7 +435,8 @@
       "Le chat te regarde comme s'il en savait long."
      ]
     }
-   ]
+   ],
+   "portrait": "portraits/tichat.png"
   },
   {
    "key": "book_pile_leather_03",
