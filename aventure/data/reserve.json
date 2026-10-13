@@ -2,7 +2,7 @@
  "id": "reserve",
  "world": {
   "width": 690,
-  "height": 450
+  "height": 490
  },
  "background": "#0b0705",
  "camera": {
@@ -21,9 +21,9 @@
  ],
  "walkable": [
   {
-   "x": 56,
+   "x": 96,
    "y": 186,
-   "w": 578,
+   "w": 498,
    "h": 114
   },
   {
@@ -130,7 +130,15 @@
   "cat_02": 1.1,
   "plant_fern_05": 0.9,
   "lantern_wall_01": 1.0,
-  "desk_historian_01": 0.4
+  "desk_historian_01": 0.4,
+  "wall_stone_back_plain_01": 0.4,
+  "wall_stone_back_plain_02": 0.4,
+  "wall_stone_back_door_01": 0.4,
+  "wall_stone_side_left_01": 0.4,
+  "wall_stone_side_right_01": 0.4,
+  "wall_stone_low_01": 0.4,
+  "banner_compass_01": 0.25,
+  "sconce_candle_wall_01": 0.2
  },
  "player": {
   "x": 210,
@@ -140,98 +148,104 @@
  },
  "objects": [
   {
-   "key": "wall_back_plain_01",
+   "key": "wall_stone_back_plain_01",
    "x": 75,
    "y": 185,
    "layer": "wall"
   },
   {
-   "key": "wall_back_alcove_01",
+   "key": "wall_stone_back_door_01",
    "x": 210,
    "y": 185,
    "layer": "wall"
   },
   {
-   "key": "wall_back_plain_01",
+   "key": "wall_stone_back_plain_02",
    "x": 345,
    "y": 185,
    "layer": "wall"
   },
   {
-   "key": "wall_back_plain_01",
+   "key": "wall_stone_back_plain_01",
    "x": 480,
    "y": 185,
    "layer": "wall"
   },
   {
-   "key": "wall_back_plain_01",
+   "key": "wall_stone_back_plain_02",
    "x": 615,
    "y": 185,
    "layer": "wall"
   },
   {
-   "key": "wall_low_01",
-   "x": 110,
-   "y": 440,
+   "key": "wall_stone_low_01",
+   "x": 100,
+   "y": 480,
    "layer": "wall"
   },
   {
-   "key": "wall_low_01",
-   "x": 230,
-   "y": 440,
+   "key": "wall_stone_low_01",
+   "x": 260,
+   "y": 480,
    "layer": "wall"
   },
   {
-   "key": "wall_low_01",
-   "x": 350,
-   "y": 440,
+   "key": "wall_stone_low_01",
+   "x": 420,
+   "y": 480,
    "layer": "wall"
   },
   {
-   "key": "wall_low_01",
-   "x": 470,
-   "y": 440,
+   "key": "wall_stone_low_01",
+   "x": 580,
+   "y": 480,
    "layer": "wall"
   },
   {
-   "key": "wall_low_01",
-   "x": 590,
-   "y": 440,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_side_left_01",
-   "x": 50,
-   "y": 378,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_side_right_01",
-   "x": 640,
-   "y": 378,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_side_left_01",
-   "x": 50,
+   "key": "wall_stone_side_left_01",
+   "x": 64,
    "y": 250,
    "layer": "wall"
   },
   {
-   "key": "wall_side_right_01",
-   "x": 640,
+   "key": "wall_stone_side_right_01",
+   "x": 626,
    "y": 250,
    "layer": "wall"
   },
   {
-   "key": "lantern_wall_01",
-   "x": 210,
-   "y": 120,
+   "key": "wall_stone_side_left_01",
+   "x": 64,
+   "y": 378,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_right_01",
+   "x": 626,
+   "y": 378,
+   "layer": "wall"
+  },
+  {
+   "key": "sconce_candle_wall_01",
+   "x": 160,
+   "y": 138,
+   "layer": "walldecor"
+  },
+  {
+   "key": "sconce_candle_wall_01",
+   "x": 262,
+   "y": 138,
+   "layer": "walldecor"
+  },
+  {
+   "key": "banner_compass_01",
+   "x": 322,
+   "y": 152,
    "layer": "walldecor"
   },
   {
    "key": "map_world_01",
-   "x": 480,
+   "x": 520,
    "y": 110,
    "layer": "walldecor"
   },
@@ -253,7 +267,7 @@
   },
   {
    "key": "desk_historian_01",
-   "x": 425,
+   "x": 455,
    "y": 300,
    "fp": [
     230,
@@ -314,16 +328,23 @@
  "npcs": [],
  "lights": [
   {
-   "x": 425,
+   "x": 455,
    "y": 210,
    "r": 150,
    "a": 0.7,
    "flicker": true
   },
   {
-   "x": 210,
-   "y": 150,
-   "r": 80,
+   "x": 160,
+   "y": 100,
+   "r": 60,
+   "a": 0.6,
+   "flicker": true
+  },
+  {
+   "x": 262,
+   "y": 100,
+   "r": 60,
    "a": 0.6,
    "flicker": true
   },
