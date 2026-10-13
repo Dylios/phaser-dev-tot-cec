@@ -12,11 +12,19 @@
  "floors": [
   {
    "key": "floor_flagstone_mossy_01",
-   "x": 98,
-   "y": 241,
-   "w": 620,
-   "h": 270,
+   "x": 65,
+   "y": 221,
+   "w": 676,
+   "h": 284,
    "tileScale": 0.2
+  },
+  {
+   "key": "floor_flagstone_mossy_01",
+   "x": 199,
+   "y": 51,
+   "w": 423,
+   "h": 187,
+   "tileScale": 0.05
   }
  ],
  "walkable": [
@@ -180,9 +188,10 @@
   "wall_stone_side_right_window_02": 0.36,
   "wall_stone_side_left_sconce_01": 0.515,
   "wall_stone_side_right_sconce_01": 0.515,
-  "table_chapel_book_02": 0.179,
+  "chest_compass_open_left_01": 0.23,
+  "table_chapel_book_02": 0.31,
+  "bench_chapel_cloth_02": 0.28,
   "table_chapel_candles_02": 0.176,
-  "bench_chapel_cloth_02": 0.17,
   "altar_book_02": 0.308,
   "altar_empty_02": 0.307,
   "candlestick_floor_02": 0.172,
@@ -194,7 +203,6 @@
   "chest_compass_closed_left_01": 0.2,
   "chest_compass_closed_front_01": 0.2,
   "chest_compass_closed_right_01": 0.2,
-  "chest_compass_open_left_01": 0.19,
   "chest_compass_open_front_01": 0.19
  },
  "player": {
@@ -220,7 +228,8 @@
    "key": "wall_stone_side_right_window_02",
    "x": 659,
    "y": 353,
-   "layer": "wall"
+   "layer": "wall",
+   "order": -34
   },
   {
    "key": "wall_stone_side_right_sconce_01",
@@ -261,7 +270,7 @@
   {
    "key": "altar_book_01",
    "x": 408,
-   "y": 318,
+   "y": 317,
    "fp": [
     60,
     26
@@ -286,41 +295,26 @@
    ]
   },
   {
-   "key": "table_chapel_book_01",
-   "x": 215,
-   "y": 266,
-   "fp": [
-    44,
-    22
-   ]
-  },
-  {
-   "key": "table_chapel_candles_01",
-   "x": 558,
-   "y": 305,
-   "fp": [
-    40,
-    22
-   ]
-  },
-  {
    "key": "bench_chapel_cloth_01",
-   "x": 215,
-   "y": 337,
+   "x": 247,
+   "y": 405,
    "fp": [
     66,
     18
    ],
-   "scale": 1.512
+   "scale": 1.603,
+   "sortY": 69,
+   "order": 38
   },
   {
    "key": "stool_wood_letter_01",
-   "x": 589,
-   "y": 335,
+   "x": 483,
+   "y": 253,
    "fp": [
     22,
     14
-   ]
+   ],
+   "scale": 1.248
   },
   {
    "key": "urn_terracotta_fern_01",
@@ -333,25 +327,25 @@
   },
   {
    "key": "column_broken_candles_01",
-   "x": 588,
-   "y": 457,
+   "x": 225,
+   "y": 265,
    "fp": [
     26,
     14
    ],
-   "sortY": 1
+   "scale": 0.763
   },
   {
    "key": "rubble_stone_01",
-   "x": 208,
-   "y": 446,
+   "x": 162,
+   "y": 375,
    "layer": "object",
    "solid": false
   },
   {
    "key": "rubble_stone_03",
-   "x": 619,
-   "y": 256,
+   "x": 694,
+   "y": 409,
    "solid": false
   },
   {
@@ -375,36 +369,40 @@
   {
    "key": "wall_stone_low_01",
    "x": 110,
-   "y": 513,
-   "layer": "wall"
+   "y": 513
   },
   {
    "key": "wall_stone_low_01",
    "x": 266,
-   "y": 513,
-   "layer": "wall"
+   "y": 513
   },
   {
    "key": "wall_stone_low_01",
    "x": 701,
-   "y": 513,
-   "layer": "wall"
+   "y": 513
   },
   {
    "key": "wall_stone_low_01",
    "x": 548,
    "y": 513,
-   "layer": "wall"
+   "order": 50
   },
   {
-   "key": "bench_chapel_cloth_01",
-   "x": 201,
-   "y": 398,
-   "fp": [
-    66,
-    18
-   ],
-   "scale": 1.512
+   "key": "chest_compass_open_left_01",
+   "x": 184,
+   "y": 323,
+   "scale": 0.563
+  },
+  {
+   "key": "table_chapel_book_02",
+   "x": 597,
+   "y": 270,
+   "scale": 0.679
+  },
+  {
+   "key": "bench_chapel_cloth_02",
+   "x": 597,
+   "y": 405
   }
  ],
  "npcs": [],
@@ -420,20 +418,6 @@
    "y": 230,
    "r": 110,
    "a": 0.68,
-   "flicker": true
-  },
-  {
-   "x": 206,
-   "y": 197,
-   "r": 60,
-   "a": 0.45,
-   "flicker": true
-  },
-  {
-   "x": 558,
-   "y": 268,
-   "r": 60,
-   "a": 0.45,
    "flicker": true
   }
  ]
