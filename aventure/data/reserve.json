@@ -138,7 +138,15 @@
   "wall_stone_side_right_01": 0.4,
   "wall_stone_low_01": 0.4,
   "banner_compass_01": 0.25,
-  "sconce_candle_wall_01": 0.2
+  "sconce_candle_wall_01": 0.2,
+  "bookcase_secret_closed_01": 0.36,
+  "bookcase_secret_open_01": 0.36,
+  "bookcase_archive_scrolls_01": 0.36,
+  "chest_iron_bound_01": 0.22,
+  "crates_stack_01": 0.25,
+  "vase_scrolls_blue_01": 0.22,
+  "cabinet_drawers_candles_01": 0.28,
+  "map_star_chart_01": 0.3
  },
  "player": {
   "x": 210,
@@ -244,9 +252,9 @@
    "layer": "walldecor"
   },
   {
-   "key": "map_world_01",
+   "key": "map_star_chart_01",
    "x": 520,
-   "y": 110,
+   "y": 150,
    "layer": "walldecor"
   },
   {
@@ -256,13 +264,13 @@
    "layer": "floor"
   },
   {
-   "key": "bookcase_10_bust_globe",
+   "key": "bookcase_archive_scrolls_01",
    "x": 100,
    "y": 186
   },
   {
-   "key": "bookcase_09_ivy_orrery",
-   "x": 590,
+   "key": "bookcase_secret_closed_01",
+   "x": 595,
    "y": 186
   },
   {
@@ -297,23 +305,15 @@
    ]
   },
   {
-   "key": "trunk_stack_blue_01",
-   "x": 585,
-   "y": 335
-  },
-  {
-   "key": "plant_fern_05",
-   "x": 95,
-   "y": 330,
-   "shadow": false,
-   "scale": 1.3,
-   "solid": false
+   "key": "crates_stack_01",
+   "x": 600,
+   "y": 340
   },
   {
    "key": "book_pile_leather_01",
-   "x": 160,
-   "y": 330,
-   "sortY": 359,
+   "x": 195,
+   "y": 345,
+   "sortY": 374,
    "shadow": false,
    "solid": false
   },
@@ -323,6 +323,21 @@
    "y": 350,
    "sortY": 380,
    "solid": false
+  },
+  {
+   "key": "cabinet_drawers_candles_01",
+   "x": 135,
+   "y": 335
+  },
+  {
+   "key": "vase_scrolls_blue_01",
+   "x": 568,
+   "y": 372
+  },
+  {
+   "key": "chest_iron_bound_01",
+   "x": 300,
+   "y": 368
   }
  ],
  "npcs": [],

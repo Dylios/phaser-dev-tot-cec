@@ -142,7 +142,15 @@
   "cat_02": 1.1,
   "plant_fern_05": 0.9,
   "lantern_wall_01": 1.0,
-  "desk_historian_01": 0.4
+  "desk_historian_01": 0.4,
+  "bookcase_secret_closed_01": 0.36,
+  "bookcase_secret_open_01": 0.36,
+  "bookcase_archive_scrolls_01": 0.36,
+  "chest_iron_bound_01": 0.22,
+  "crates_stack_01": 0.25,
+  "vase_scrolls_blue_01": 0.22,
+  "cabinet_drawers_candles_01": 0.28,
+  "map_star_chart_01": 0.3
  },
  "player": {
   "x": 516,
@@ -203,7 +211,7 @@
    "y": 186
   },
   {
-   "key": "bookcase_07_tall",
+   "key": "bookcase_secret_closed_01",
    "x": 360,
    "y": 186,
    "when": {
@@ -530,8 +538,8 @@
   },
   {
    "key": "bookcase_secret_open_01",
-   "x": 360,
-   "y": 186,
+   "x": 374.4,
+   "y": 190.7,
    "solid": false,
    "shadow": false,
    "when": {
@@ -642,18 +650,11 @@
    "a": 0.5
   }
  ],
- "placeholders": {
-  "bookcase_secret_open_01": {
-   "w": 101,
-   "h": 157,
-   "color": "#0a0608"
-  }
- },
  "exits": [
   {
-   "x": 335,
+   "x": 358,
    "y": 186,
-   "w": 50,
+   "w": 38,
    "h": 14,
    "to": "reserve",
    "spawn": {
