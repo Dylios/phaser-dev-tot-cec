@@ -193,7 +193,13 @@
   "wall_stone_side_right_02": 0.3,
   "wall_stone_side_right_sconce_01": 0.33,
   "ivy_wall_hanging_01": 0.26,
-  "chest_compass_closed_right_01": 0.29
+  "chest_compass_closed_right_01": 0.29,
+  "lectern_grimoire_open_01": 0.19,
+  "lectern_grimoire_closed_01": 0.19,
+  "lectern_grimoire_open_face_01": 0.19,
+  "cupboard_ajar_01": 0.2,
+  "toy_knight_floor_01": 0.12,
+  "bookmark_compass_01": 0.12
  },
  "player": {
   "x": 310,

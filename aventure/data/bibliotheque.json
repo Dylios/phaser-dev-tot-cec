@@ -168,7 +168,13 @@
   "plant_flowers_white_01": 1,
   "sofa_green_01": 0.95,
   "armchair_cecile_reading_02": 0.198,
-  "sofa_thomas_gaming_01": 0.14
+  "sofa_thomas_gaming_01": 0.14,
+  "lectern_grimoire_open_01": 0.19,
+  "lectern_grimoire_closed_01": 0.19,
+  "lectern_grimoire_open_face_01": 0.19,
+  "cupboard_ajar_01": 0.2,
+  "toy_knight_floor_01": 0.12,
+  "bookmark_compass_01": 0.12
  },
  "player": {
   "x": 474,
