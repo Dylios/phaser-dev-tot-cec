@@ -141,7 +141,8 @@
   "cat_01": 1.1,
   "cat_02": 1.1,
   "plant_fern_05": 0.9,
-  "lantern_wall_01": 1.0
+  "lantern_wall_01": 1.0,
+  "desk_historian_01": 0.4
  },
  "player": {
   "x": 516,
