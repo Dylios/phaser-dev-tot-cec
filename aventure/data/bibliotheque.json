@@ -180,7 +180,8 @@
   "lectern_grimoire_closed_02": 0.19,
   "lectern_grimoire_open_face_02": 0.19,
   "sofa_green_empty_01": 0.11,
-  "armchair_cecile_empty_01": 0.16
+  "armchair_cecile_empty_01": 0.16,
+  "cupboard_ajar_02": 0.2
  },
  "player": {
   "x": 474,

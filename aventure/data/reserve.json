@@ -199,7 +199,8 @@
   "lectern_grimoire_open_face_01": 0.19,
   "cupboard_ajar_01": 0.2,
   "toy_knight_floor_01": 0.12,
-  "bookmark_compass_01": 0.12
+  "bookmark_compass_01": 0.12,
+  "cupboard_ajar_02": 0.2
  },
  "player": {
   "x": 310,
