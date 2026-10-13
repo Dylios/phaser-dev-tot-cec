@@ -1,7 +1,7 @@
 {
  "id": "prologue",
  "world": {
-  "width": 616,
+  "width": 816,
   "height": 560
  },
  "background": "#0b0705",
@@ -12,25 +12,25 @@
  "floors": [
   {
    "key": "floor_flagstone_mossy_01",
-   "x": 80,
+   "x": 98,
    "y": 241,
-   "w": 456,
+   "w": 620,
    "h": 270,
    "tileScale": 0.2
   }
  ],
  "walkable": [
   {
-   "x": 110,
+   "x": 210,
    "y": 241,
    "w": 396,
    "h": 120
   },
   {
-   "x": 140,
+   "x": 155,
    "y": 361,
-   "w": 336,
-   "h": 60
+   "w": 506,
+   "h": 80
   }
  ],
  "assetScale": {
@@ -175,90 +175,104 @@
   "rubble_stone_02": 0.2,
   "rubble_stone_03": 0.2,
   "leaves_autumn_01": 0.16,
-  "leaves_autumn_02": 0.16
+  "leaves_autumn_02": 0.16,
+  "wall_stone_side_left_window_02": 0.36,
+  "wall_stone_side_right_window_02": 0.36
  },
  "player": {
-  "x": 308,
+  "x": 408,
   "y": 400,
   "speed": 150,
   "face": "up"
  },
  "objects": [
   {
+   "key": "wall_stone_side_left_window_02",
+   "x": 157,
+   "y": 353,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_left_window_02",
+   "x": 99,
+   "y": 465,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_right_window_02",
+   "x": 659,
+   "y": 353,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_right_window_02",
+   "x": 717,
+   "y": 465,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 132,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 270,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 408,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 546,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 684,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
    "key": "wall_stone_back_niche_book_01",
-   "x": 153.0,
+   "x": 253.0,
    "y": 240,
    "layer": "wall"
   },
   {
    "key": "wall_stone_back_window_01",
-   "x": 308.0,
+   "x": 408.0,
    "y": 240,
    "layer": "wall"
   },
   {
    "key": "wall_stone_back_niche_compass_01",
-   "x": 463.0,
+   "x": 563.0,
    "y": 240,
    "layer": "wall"
   },
   {
-   "key": "wall_stone_side_left_window_01",
-   "x": 73,
-   "y": 320,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_stone_side_right_window_01",
-   "x": 543,
-   "y": 320,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_stone_side_left_window_01",
-   "x": 73,
-   "y": 450,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_stone_side_right_window_01",
-   "x": 543,
-   "y": 450,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_stone_low_01",
-   "x": 170,
-   "y": 528,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_stone_low_01",
-   "x": 308,
-   "y": 528,
-   "layer": "wall"
-  },
-  {
-   "key": "wall_stone_low_01",
-   "x": 446,
-   "y": 528,
-   "layer": "wall"
-  },
-  {
    "key": "rug_red_compass_large_flat_01",
-   "x": 308,
+   "x": 408,
    "y": 372,
    "layer": "floor"
   },
   {
    "key": "ivy_wall_hanging_01",
-   "x": 511,
+   "x": 611,
    "y": 215,
    "layer": "walldecor"
   },
   {
    "key": "altar_book_01",
-   "x": 308,
+   "x": 408,
    "y": 318,
    "fp": [
     60,
@@ -267,7 +281,7 @@
   },
   {
    "key": "candlestick_floor_01",
-   "x": 232,
+   "x": 332,
    "y": 350,
    "fp": [
     14,
@@ -276,7 +290,7 @@
   },
   {
    "key": "candlestick_floor_01",
-   "x": 384,
+   "x": 484,
    "y": 350,
    "fp": [
     14,
@@ -285,7 +299,7 @@
   },
   {
    "key": "table_chapel_book_01",
-   "x": 158,
+   "x": 258,
    "y": 305,
    "fp": [
     44,
@@ -294,7 +308,7 @@
   },
   {
    "key": "table_chapel_candles_01",
-   "x": 458,
+   "x": 558,
    "y": 305,
    "fp": [
     40,
@@ -303,7 +317,7 @@
   },
   {
    "key": "bench_chapel_cloth_01",
-   "x": 160,
+   "x": 260,
    "y": 412,
    "fp": [
     66,
@@ -312,7 +326,7 @@
   },
   {
    "key": "stool_wood_letter_01",
-   "x": 430,
+   "x": 530,
    "y": 365,
    "fp": [
     22,
@@ -321,7 +335,7 @@
   },
   {
    "key": "urn_terracotta_fern_01",
-   "x": 122,
+   "x": 222,
    "y": 350,
    "fp": [
     24,
@@ -330,7 +344,7 @@
   },
   {
    "key": "column_broken_candles_01",
-   "x": 495,
+   "x": 595,
    "y": 430,
    "fp": [
     26,
@@ -339,32 +353,32 @@
   },
   {
    "key": "rubble_stone_01",
-   "x": 108,
+   "x": 208,
    "y": 446,
    "layer": "object",
    "solid": false
   },
   {
    "key": "rubble_stone_03",
-   "x": 448,
+   "x": 548,
    "y": 448,
    "solid": false
   },
   {
    "key": "rubble_stone_02",
-   "x": 318,
+   "x": 418,
    "y": 452,
    "solid": false
   },
   {
    "key": "leaves_autumn_01",
-   "x": 252,
+   "x": 352,
    "y": 400,
    "layer": "floor"
   },
   {
    "key": "leaves_autumn_02",
-   "x": 395,
+   "x": 495,
    "y": 425,
    "layer": "floor"
   }
@@ -372,27 +386,27 @@
  "npcs": [],
  "lights": [
   {
-   "x": 308,
+   "x": 408,
    "y": 225,
    "r": 170,
    "a": 0.7
   },
   {
-   "x": 308,
+   "x": 408,
    "y": 270,
    "r": 110,
    "a": 0.35,
    "flicker": true
   },
   {
-   "x": 158,
+   "x": 258,
    "y": 268,
    "r": 60,
    "a": 0.45,
    "flicker": true
   },
   {
-   "x": 458,
+   "x": 558,
    "y": 268,
    "r": 60,
    "a": 0.45,
