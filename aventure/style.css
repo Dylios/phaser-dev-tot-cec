@@ -47,6 +47,14 @@ html,body{
   font-size:16px;line-height:1.45;
 }
 #dlg[hidden]{display:none}
+@media (max-height:500px){
+  #dlg{bottom:max(10px,env(safe-area-inset-bottom));width:min(70vw,560px);padding:8px 12px;font-size:15px}
+  #dlg.has-portrait{min-height:0}
+  #dlg .portrait{width:72px;height:72px}
+}
+#dlg.has-portrait{display:flex;gap:12px;align-items:center;min-height:96px}
+#dlg .portrait{flex:none;width:84px;height:84px;border-radius:4px;display:block}
+#dlg .txt{flex:1;min-width:0}
 #dlg .who{display:block;color:var(--or);font-weight:bold;margin-bottom:2px;font-size:14px}
 
 /* contrôles tactiles (cachés sur ordinateur) */

@@ -521,6 +521,7 @@
       this.talkTarget = t;
       if (t._actor) this.faceToward(t, this.player.x, this.player.y);
       this.speaker = e.who || t.name || '';
+      this.portrait = e.portrait || t.portrait || '';
       this.lines = e.text.slice();
       if (this.hint) this.hint.box.hidden = true;
       this.showLine();
@@ -529,12 +530,21 @@
     showLine() {
       const d = $('dlg');
       d.textContent = '';
+      d.classList.toggle('has-portrait', !!this.portrait);
+      if (this.portrait) {
+        const im = document.createElement('img');
+        im.className = 'portrait'; im.src = this.portrait; im.alt = this.speaker || '';
+        d.appendChild(im);
+      }
+      const box = document.createElement('div');
+      box.className = 'txt';
       if (this.speaker) {
         const w = document.createElement('span');
         w.className = 'who'; w.textContent = this.speaker;
-        d.appendChild(w);
+        box.appendChild(w);
       }
-      d.appendChild(document.createTextNode(this.lines[0]));
+      box.appendChild(document.createTextNode(this.lines[0]));
+      d.appendChild(box);
       d.hidden = false;
     }
 

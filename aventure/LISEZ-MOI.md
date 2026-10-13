@@ -141,3 +141,12 @@ Thomas (`thomas_01`), Cécile (`cecile_01`) et TiChat (`tichat_01`) sont des per
 - Promenade : `"wander": 80` (rayon en pixels) fait marcher un personnage autour de sa place (TiChat). Il s'arrête quand le joueur s'approche ou lui parle ; `"wanderSpeed"` règle sa vitesse. Mets `"solid": false` pour qu'il ne bloque pas le joueur.
 - Le joueur : pour lui donner un personnage animé, mets `"key": "thomas_01"` (ou une autre clé de `characters.json`) dans `"player"`. Sans clé, il reste une silhouette provisoire.
 - Nouveau personnage : ajoute la feuille dans `assets/sheets/`, l'aperçu dans `assets/characters/`, une entrée dans `data/characters.json` et `python tools/make_assets_json.py`.
+
+## Portraits dans les dialogues
+
+Les portraits sont dans `portraits/` (PNG carrés, cadre doré inclus ; ce dossier n'est volontairement pas dans `assets/` pour ne pas apparaître dans la palette de l'éditeur).
+Pour qu'un personnage ait son portrait, ajoute dans `data/bibliotheque.json`, sur le PNJ :
+
+    "portrait": "portraits/thomas.png"
+
+Une réplique peut aussi avoir son propre `"portrait"` (par exemple une autre expression). Sans portrait, la boîte reste comme avant. Sur téléphone en paysage, la boîte se place en bas, entre le joystick et « Agir ».
