@@ -182,7 +182,15 @@
   "wall_stone_side_right_sconce_01": 0.515,
   "table_chapel_book_02": 0.179,
   "table_chapel_candles_02": 0.176,
-  "bench_chapel_cloth_02": 0.17
+  "bench_chapel_cloth_02": 0.17,
+  "altar_book_02": 0.308,
+  "altar_empty_02": 0.307,
+  "candlestick_floor_02": 0.172,
+  "table_chapel_book_03": 0.206,
+  "table_chapel_candles_03": 0.205,
+  "stool_wood_letter_02": 0.16,
+  "bench_chapel_cloth_03": 0.182,
+  "urn_terracotta_fern_02": 0.171
  },
  "player": {
   "x": 408,
