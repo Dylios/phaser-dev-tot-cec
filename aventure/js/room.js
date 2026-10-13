@@ -22,6 +22,11 @@
       this.edit = !!data.edit;
       this.fromDraft = !!data.fromDraft;
       this.chars = data.chars || {};          // personnages animés (data/characters.json)
+      this.game = data.game || {};            // réglages du scénario (data/game.json)
+      this.comps = [];                        // compagnons qui suivent le joueur
+      this.trail = [];                        // trace des pas du joueur
+      this.moves = [];                        // déplacements scriptés en cours
+      this.seq = null;                        // séquence de dialogue / mise en scène en cours
       this.actors = new Set();
       this.flags = this.loadFlags();
       this.transitioning = false;
@@ -38,8 +43,11 @@
     loadFlags() {
       if (this.edit) return {};
       try {
-        if (new URLSearchParams(location.search).has('reset')) localStorage.removeItem('exp2028:flags');
-        return JSON.parse(localStorage.getItem('exp2028:flags') || '{}') || {};
+        const q = new URLSearchParams(location.search);
+        if (q.has('reset')) localStorage.removeItem('exp2028:flags');
+        const f = JSON.parse(localStorage.getItem('exp2028:flags') || '{}') || {};
+        if (q.get('flags')) q.get('flags').split(',').forEach((k) => { if (k) f[k] = true; });   // pour tester : ?flags=a,b
+        return f;
       } catch (e) { return {}; }
     }
 
@@ -94,6 +102,7 @@
       cfg.objects.forEach((o) => keys.add(o.key));
       (cfg.npcs || []).forEach((n) => n.key && keys.add(n.key));
       if (cfg.player && cfg.player.key) keys.add(cfg.player.key);
+      (this.game.companions || []).forEach((c) => keys.add(c.key));
 
       if (this.edit) Object.keys(this.assetMap).forEach((k) => keys.add(k));
 
@@ -195,6 +204,7 @@
       cfg.objects.forEach((o) => this.addObject(o));
       (cfg.npcs || []).forEach((n) => this.addNpc(n));
       this.addPlayer();
+      this.spawnCompanions();
       (cfg.lights || []).forEach((L) => this.addLight(L));
       this.refreshAll();
     }
@@ -202,6 +212,8 @@
     /* Détruit tout le contenu (avant de recharger une autre version de la pièce). */
     clearWorld() {
       const cfg = this.cfg;
+      this.comps.forEach((c) => this.destroyEntity(c));
+      this.comps = []; this.trail = []; this.moves = [];
       [].concat(cfg.floors || [], cfg.objects || [], cfg.npcs || [], cfg.lights || [], [cfg.player])
         .forEach((e) => e && this.destroyEntity(e));
       this.solids = [];
@@ -515,11 +527,15 @@
       let act = window.Controls.act || K(k.SPACE) || K(k.ENTER) || K(k.E);
       window.Controls.act = false;
 
-      if (this.lines) {
+      if (this.seq) {
         this.setPlayerMoving(false, 0, 0);
         this.updateWander(delta, true);
+        this.updateMoves(delta);
         this.tickActors(delta);
-        if (act) this.nextLine();
+        const S = this.seq;
+        if (S.mode === 'line') { if (act) this.advanceSeq(); }
+        else if (S.mode === 'wait') { S.t -= delta; if (S.t <= 0) this.advanceSeq(); }
+        else if (S.mode === 'move') { if (!this.moves.length) this.advanceSeq(); }
         return;
       }
 
@@ -538,6 +554,8 @@
       const moved = Math.abs(this.player.x - px0) + Math.abs(this.player.y - py0) > 0.01;
       this.setPlayerMoving(moved, dx, dy);
       this.updateWander(delta, false);
+      this.updateMoves(delta);
+      this.updateFollowers(delta);
       this.tickActors(delta);
 
       const p = this.player;
@@ -547,6 +565,7 @@
       // objet ou personnage à portée
       let best = null, bd = 1e9;
       for (const t of this.talkables) {
+        if (!this.pickEntry(t)) continue;                 // rien à dire pour l'instant : inerte
         const r = t.rect, pad = t.reach || 26;
         const cx = clamp(p.x, r.x - pad, r.x + r.w + pad);
         const cy = clamp(p.y, r.y - pad, r.y + r.h + pad);
@@ -613,6 +632,7 @@
       room.objects.forEach((o) => keys.add(o.key));
       room.npcs.forEach((n) => n.key && keys.add(n.key));
       if (room.player.key) keys.add(room.player.key);
+      (this.game.companions || []).forEach((c) => keys.add(c.key));
       let todo = 0;
       keys.forEach((k) => {
         const d = this.chars[k];
@@ -631,59 +651,262 @@
       if (todo) { this.load.once('complete', go); this.load.start(); } else go();
     }
 
-    /* ---------- dialogues et quête ---------- */
-    talk(t) {
+    /* ---------- dialogues, mises en scène et quête ----------
+     * Une réplique "talk" = { who, portrait, needs, not, sets, text: [ ... ] }.
+     * Chaque élément de "text" est :
+     *   - une chaîne                    → dite par "who" (avec son portrait) ;
+     *   - { who, t, off }               → réplique d'un autre personnage ("off": hors champ, sans portrait) ;
+     *   - { do: "wait", ms }            → silence (la boîte de dialogue se ferme) ;
+     *   - { do: "set", flag }           → lève un drapeau ;
+     *   - { do: "fragment", flag }      → ajoute un fragment (bandeau + son) ;
+     *   - { do: "move", id, to: [[x,y],…], speed, wait } → un personnage marche (id = "cecile", "thomas" ou l'id d'un PNJ) ;
+     *   - { do: "summon", from: {id:[x,y]}, to: {id:[[x,y],…]} } → les compagnons rejoignent le joueur et le suivent. */
+    pickEntry(t) {
       const f = this.flags;
-      const e = (t.talk || []).find((e) => (!e.needs || f[e.needs]) && (!e.not || !f[e.not]));
+      return (t.talk || []).find((e) => (!e.needs || f[e.needs]) && (!e.not || !f[e.not]));
+    }
+
+    talk(t) {
+      const e = this.pickEntry(t);
       if (!e) return;
       this.entry = e;
       this.talkTarget = t;
       if (t._actor) this.faceToward(t, this.player.x, this.player.y);
-      this.speaker = e.who || t.name || '';
-      this.portrait = e.portrait || t.portrait || '';
-      this.lines = e.text.slice();
+      this.defWho = e.who || t.name || '';
+      this.defPortrait = e.portrait || t.portrait || '';
       if (this.hint) this.hint.box.hidden = true;
-      this.showLine();
+      this.startSeq((e.text || []).slice(), () => {
+        $('dlg').hidden = true;
+        const tt = this.talkTarget; this.talkTarget = null;
+        if (tt && tt._actor) { tt._actor.face = tt.face || 'down'; this.applyActor(tt); }
+        if (e.sets) this.setFlag(e.sets);
+        this.entry = null;
+        this.updateQuest();
+      });
     }
 
-    showLine() {
+    startSeq(items, onEnd) {
+      this.seq = { items: items, onEnd: onEnd, mode: 'idle', t: 0 };
+      this.advanceSeq();
+    }
+
+    advanceSeq() {
+      const S = this.seq;
+      if (!S) return;
+      for (;;) {
+        if (!S.items.length) {
+          const end = S.onEnd; this.seq = null;
+          if (end) end();
+          return;
+        }
+        const it = S.items.shift();
+        if (typeof it === 'string' || it.t != null) { this.showLine(it); S.mode = 'line'; return; }
+        if (this.runAction(it, S)) return;                // true = l'action fait attendre
+      }
+    }
+
+    runAction(it, S) {
+      const hide = () => { $('dlg').hidden = true; };
+      switch (it.do) {
+        case 'wait': hide(); S.mode = 'wait'; S.t = it.ms || 600; return true;
+        case 'set': this.setFlag(it.flag); return false;
+        case 'fragment': hide(); this.giveFragment(it.flag); S.mode = 'wait'; S.t = it.ms || 1800; return true;
+        case 'move': {
+          hide();
+          const e = this.actorById(it.id);
+          if (e) this.queueMove(e, it.to, it.speed, it.end);
+          if (!e || it.wait === false) return false;
+          S.mode = 'move'; return true;
+        }
+        case 'face': { const e = this.actorById(it.id); if (e && e._actor) { e._actor.face = it.dir || 'down'; this.applyActor(e); } return false; }
+        case 'summon': {
+          hide();
+          if (!this.flags.compagnons) this.setFlag('compagnons');
+          if (!this.comps.length) {
+            (this.game.companions || []).forEach((d) => {
+              const c = this.addCompanion(d, (it.from || {})[d.id]);
+              if (it.to && it.to[d.id]) this.queueMove(c, it.to[d.id], it.speed, 'player');
+            });
+          }
+          if (!this.moves.length) return false;
+          S.mode = 'move'; return true;
+        }
+        default: return false;
+      }
+    }
+
+    showLine(it) {
+      let who = this.defWho, portrait = this.defPortrait, text;
+      if (typeof it === 'string') text = it;
+      else {
+        text = it.t;
+        if (it.who != null) { who = it.who; portrait = ((this.game.speakers || {})[who] || {}).portrait || ''; }
+        if (it.off) portrait = '';
+        if (it.portrait != null) portrait = it.portrait;
+      }
       const d = $('dlg');
       d.textContent = '';
-      d.classList.toggle('has-portrait', !!this.portrait);
-      if (this.portrait) {
+      d.classList.toggle('has-portrait', !!portrait);
+      if (portrait) {
         const im = document.createElement('img');
-        im.className = 'portrait'; im.src = this.portrait; im.alt = this.speaker || '';
+        im.className = 'portrait'; im.src = portrait; im.alt = who || '';
         d.appendChild(im);
       }
       const box = document.createElement('div');
       box.className = 'txt';
-      if (this.speaker) {
+      if (who) {
         const w = document.createElement('span');
-        w.className = 'who'; w.textContent = this.speaker;
+        w.className = 'who'; w.textContent = who;
         box.appendChild(w);
       }
-      box.appendChild(document.createTextNode(this.lines[0]));
+      box.appendChild(document.createTextNode(text));
       d.appendChild(box);
       d.hidden = false;
     }
 
-    nextLine() {
-      this.lines.shift();
-      if (this.lines.length) { this.showLine(); return; }
-      $('dlg').hidden = true;
-      const tt = this.talkTarget; this.talkTarget = null;
-      if (tt && tt._actor) { tt._actor.face = tt.face || 'down'; this.applyActor(tt); }
-      if (this.entry && this.entry.sets) this.setFlag(this.entry.sets);
-      this.lines = null;
-      this.entry = null;
+    /* ---------- compagnons (Thomas et Cécile) : ils suivent le joueur à la trace ---------- */
+    actorById(id) {
+      const c = this.comps.find((x) => x.id === id);
+      if (c) return c;
+      return [].concat(this.cfg.npcs || [], this.cfg.objects || []).find((x) => x.id === id && x._actor) || null;
+    }
+
+    spawnCompanions() {
+      this.comps = []; this.trail = [];
+      if (this.edit || !this.flags.compagnons) return;
+      (this.game.companions || []).forEach((d) => this.addCompanion(d, null));
+    }
+
+    addCompanion(d, at) {
+      const P = this.cfg.player, o = d.offset || [0, 0];
+      let x = at ? at[0] : P.x + o[0], y = at ? at[1] : P.y + o[1];
+      if (!at && !this.walkable(x, y)) { x = P.x; y = P.y; }
+      const n = { id: d.id, key: d.key, x: x, y: y, face: 'down', name: d.name, solid: false, gap: d.gap, _comp: true };
+      this.addNpc(n);
+      this.comps.push(n);
+      return n;
+    }
+
+    queueMove(e, pts, speed, end) {
+      if (!e || !e._actor) return;
+      if (pts && typeof pts[0] === 'number') pts = [pts];
+      this.moves = this.moves.filter((m) => m.e !== e);
+      this.moves.push({ e: e, pts: (pts || []).map((p) => [p[0], p[1]]), speed: speed || 110, end: end });
+    }
+
+    updateMoves(delta) {
+      for (let i = this.moves.length - 1; i >= 0; i--) {
+        const m = this.moves[i], e = m.e, A = e._actor;
+        if (!A || !A.img || !A.img.scene) { this.moves.splice(i, 1); continue; }
+        const tg = m.pts[0];
+        if (!tg) { this.moves.splice(i, 1); continue; }
+        const dx = tg[0] - e.x, dy = tg[1] - e.y, d = Math.hypot(dx, dy);
+        const step = m.speed * Math.min(delta, 50) / 1000;
+        if (d <= step) {
+          this.moveActor(e, tg[0], tg[1]);
+          m.pts.shift();
+          if (!m.pts.length) {
+            A.moving = false; A.t = 0;
+            if (m.end === 'player' || m.end == null) this.faceToward(e, this.player.x, this.player.y);
+            else if (m.end) { A.face = m.end; this.applyActor(e); }
+            this.moves.splice(i, 1);
+          }
+          continue;
+        }
+        this.moveActor(e, e.x + dx / d * step, e.y + dy / d * step);
+        A.face = Math.abs(dx) > Math.abs(dy) * 1.2 ? (dx < 0 ? 'left' : 'right') : (dy < 0 ? 'up' : 'down');
+        A.moving = true;
+      }
+    }
+
+    updateFollowers(delta) {
+      if (!this.comps.length) return;
+      const p = this.player, tr = this.trail, h = tr[0];
+      if (!h || Math.hypot(p.x - h.x, p.y - h.y) >= 4) { tr.unshift({ x: p.x, y: p.y }); if (tr.length > 160) tr.length = 160; }
+      this.comps.forEach((c) => {
+        const A = c._actor;
+        if (!A || this.moves.some((m) => m.e === c)) return;
+        const L = c.gap || 28;
+        let acc = 0, prev = { x: p.x, y: p.y }, tx = null, ty = null;
+        for (const q of tr) {
+          const seg = Math.hypot(q.x - prev.x, q.y - prev.y);
+          if (acc + seg >= L) { const r = (L - acc) / (seg || 1); tx = prev.x + (q.x - prev.x) * r; ty = prev.y + (q.y - prev.y) * r; break; }
+          acc += seg; prev = q;
+        }
+        const dx = tx == null ? 0 : tx - c.x, dy = tx == null ? 0 : ty - c.y, d = Math.hypot(dx, dy);
+        if (tx == null || d < 2) {
+          if (A.moving) { A.moving = false; A.t = 0; this.faceToward(c, p.x, p.y); }
+          return;
+        }
+        const step = Math.min(d, 150 * (d > 60 ? 1.7 : 1.05) * Math.min(delta, 50) / 1000);
+        this.moveActor(c, c.x + dx / d * step, c.y + dy / d * step);
+        A.face = Math.abs(dx) > Math.abs(dy) * 1.2 ? (dx < 0 ? 'left' : 'right') : (dy < 0 ? 'up' : 'down');
+        A.moving = true;
+      });
+    }
+
+    /* ---------- fragments : bandeau, son, tableau ---------- */
+    giveFragment(flag) {
+      this.setFlag(flag);
+      const list = this.game.fragments || [], i = list.findIndex((f) => f.flag === flag);
+      const f = list[i];
+      if (f) this.showToast('Fragment ' + (i + 1) + '/' + list.length + ' : ' + f.name, f.sub, f.icon);
+      this.chime();
       this.updateQuest();
+    }
+
+    showToast(title, sub, iconKey) {
+      let t = $('toast');
+      if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
+      const path = iconKey && this.assetMap[iconKey];
+      t.innerHTML = (path ? '<img src="assets/' + path + '" alt="">' : '') +
+        '<div><b></b><span></span></div>';
+      t.querySelector('b').textContent = title;
+      t.querySelector('span').textContent = sub || '';
+      t.classList.remove('show'); void t.offsetWidth; t.classList.add('show');
+      clearTimeout(this._toastT);
+      this._toastT = setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    chime() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        const ac = this._ac || (this._ac = new AC());
+        if (ac.state === 'suspended') ac.resume();
+        [659, 784, 988, 1319].forEach((fr, i) => {
+          const o = ac.createOscillator(), g = ac.createGain(), t0 = ac.currentTime + i * 0.11;
+          o.type = 'triangle'; o.frequency.value = fr;
+          g.gain.setValueAtTime(0.0001, t0);
+          g.gain.exponentialRampToValueAtTime(0.16, t0 + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.55);
+          o.connect(g); g.connect(ac.destination); o.start(t0); o.stop(t0 + 0.6);
+        });
+      } catch (e) { /* pas de son : pas grave */ }
     }
 
     updateQuest() {
       const f = this.flags;
-      $('quest').textContent = f.fini ? '✓ La page manquante'
-        : f.page ? 'Rapporte la page au registre'
-        : 'Quête : trouve la page manquante';
+      const list = this.cfg.quest || this.game.quest || [];
+      const q = list.find((e) => (!e.needs || f[e.needs]) && (!e.not || !f[e.not]));
+      $('quest').textContent = q ? q.text : '';
+      $('quest').hidden = !q;
+      // tableau des fragments
+      const fr = this.game.fragments || [];
+      let box = $('frags');
+      if (!box && fr.length) { box = document.createElement('div'); box.id = 'frags'; document.body.appendChild(box); }
+      if (box) {
+        box.innerHTML = '';
+        fr.forEach((x) => {
+          const on = !!f[x.flag], path = this.assetMap[x.icon];
+          const s = document.createElement('div');
+          s.className = 'slot' + (on ? ' on' : '');
+          s.title = on ? x.name : '?';
+          if (on && path) { const im = document.createElement('img'); im.src = 'assets/' + path; im.alt = x.name; s.appendChild(im); }
+          else s.textContent = on ? '✓' : '?';
+          box.appendChild(s);
+        });
+      }
     }
 
     /* ---------- outils de mise au point (?debug) ---------- */

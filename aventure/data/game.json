@@ -1,0 +1,79 @@
+{
+ "speakers": {
+  "Thomas": {
+   "portrait": "portraits/thomas.png"
+  },
+  "Cécile": {
+   "portrait": "portraits/cecile.png"
+  },
+  "L'Historien": {
+   "portrait": "portraits/historien.png"
+  },
+  "Ti Chat": {
+   "portrait": "portraits/tichat.png"
+  },
+  "Grimoire": {}
+ },
+ "companions": [
+  {
+   "id": "thomas",
+   "key": "thomas_01",
+   "name": "Thomas",
+   "offset": [
+    -22,
+    8
+   ],
+   "gap": 30
+  },
+  {
+   "id": "cecile",
+   "key": "cecile_01",
+   "name": "Cécile",
+   "offset": [
+    22,
+    8
+   ],
+   "gap": 60
+  }
+ ],
+ "fragments": [
+  {
+   "flag": "fragment_marquepage",
+   "icon": "bookmark_compass_01",
+   "name": "le marque-page",
+   "sub": "Ce qui a déjà été écrit"
+  },
+  {
+   "flag": "fragment_carte",
+   "name": "la carte coupée en deux",
+   "sub": "La rencontre"
+  },
+  {
+   "flag": "fragment_boussole",
+   "name": "la boussole",
+   "sub": "Le voyage"
+  },
+  {
+   "flag": "fragment_plume",
+   "name": "la plume",
+   "sub": "La suite"
+  }
+ ],
+ "quest": [
+  {
+   "needs": "fragment_marquepage",
+   "text": "✓ Premier fragment trouvé"
+  },
+  {
+   "needs": "historien_vu",
+   "text": "Cherche le livre qu'on commence souvent et qu'on finit rarement"
+  },
+  {
+   "needs": "grimoire_vu",
+   "text": "Trouve l'Historien : un mécanisme cache un passage"
+  },
+  {
+   "text": "Parle au grimoire, sur le lutrin"
+  }
+ ]
+}

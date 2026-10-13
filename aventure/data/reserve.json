@@ -345,20 +345,27 @@
    "label": "Parler",
    "talk": [
     {
-     "who": "L'historien",
-     "not": "indice",
+     "who": "L'Historien",
+     "needs": "grimoire_vu",
+     "not": "historien_vu",
+     "sets": "historien_vu",
      "text": [
-      "Tiens, un visiteur… Personne ne trouve cette salle, d'habitude.",
-      "Tu cherches la page manquante, n'est-ce pas ? Je ne l'ai pas, mais je sais où regarder.",
-      "[Texte provisoire : l'indice de la quête secondaire viendra ici.]"
-     ],
-     "sets": "indice"
+      "Ah, vous voilà. Excusez le bazar : c'est le parcours du combattant pour arriver jusqu'à moi, je sais.",
+      "Une mauvaise habitude que j'ai transmise à mon fils. Tous les soirs, je m'éclatais un orteil sur un Playmobil en allant lui dire bonne nuit.",
+      {
+       "who": "Thomas",
+       "t": "Oups."
+      },
+      "J'ai encore quelques pages à lire, mais j'ai de la place pour vous.",
+      "Vous connaissez la destination, tout le monde la connaît. Ce que l'expédition signifie, c'est une autre affaire.",
+      "Cherchez un livre qu'on commence souvent et qu'on finit rarement. Je ne dis pas lequel."
+     ]
     },
     {
-     "who": "L'historien",
-     "needs": "indice",
+     "who": "L'Historien",
+     "needs": "historien_vu",
      "text": [
-      "Alors, ça avance ? Méfie-toi : les livres sont de mauvais conseillers."
+      "J'ai encore quelques pages à lire. Cherchez un livre qu'on commence souvent et qu'on finit rarement."
      ]
     }
    ],
@@ -488,13 +495,19 @@
    "key": "thomas_01",
    "x": 627,
    "y": 213,
-   "scale": 1.054
+   "scale": 1.054,
+   "when": {
+    "not": "compagnons"
+   }
   },
   {
    "key": "cecile_01",
    "x": 173,
    "y": 206,
-   "sortY": 386
+   "sortY": 386,
+   "when": {
+    "not": "compagnons"
+   }
   },
   {
    "key": "tichat_01",
@@ -509,6 +522,23 @@
    "fp": [
     74,
     58
+   ]
+  },
+  {
+   "key": "toy_knight_floor_01",
+   "x": 676,
+   "y": 322,
+   "solid": false,
+   "shadow": false,
+   "scale": 1.4,
+   "label": "Examiner",
+   "talk": [
+    {
+     "needs": "grimoire_vu",
+     "text": [
+      "Un Playmobil. Quelqu'un a dû avoir mal."
+     ]
+    }
    ]
   }
  ],

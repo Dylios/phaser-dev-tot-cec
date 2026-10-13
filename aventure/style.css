@@ -96,7 +96,7 @@ html,body{
 #draftbar a{color:var(--or)}
 
 /* ---------- éditeur (?edit) ---------- */
-body.edit #quest, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dlg, body.edit #vignette{display:none !important}
+body.edit #quest, body.edit #frags, body.edit #toast, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dlg, body.edit #vignette{display:none !important}
 #ed{
   position:fixed;z-index:20;top:0;right:0;bottom:0;width:340px;display:flex;flex-direction:column;
   background:#1d130e;border-left:2px solid var(--or);color:var(--ivoire);font:14px/1.35 system-ui,Georgia,serif;
@@ -191,3 +191,27 @@ body.edit #quest, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dl
 #rotate small{display:block;font-size:12px;opacity:.65;line-height:1.35}
 @keyframes rot-turn{0%,15%{transform:rotate(0)}55%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
 @media (prefers-reduced-motion:reduce){#rotate .rot-phone{animation:none}}
+
+
+/* ---- fragments collectés (en haut à droite) et bandeau « fragment trouvé » ---- */
+#frags{
+  position:fixed;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));
+  display:flex;gap:5px;pointer-events:none;
+}
+#frags .slot{
+  width:30px;height:30px;display:grid;place-items:center;border-radius:4px;
+  background:#2a1b14cc;border:1px solid #6b5a3a;color:#8a7a5a;font-size:14px;
+}
+#frags .slot.on{border-color:var(--or);background:#3a2518e6;color:var(--or)}
+#frags .slot img{max-width:24px;max-height:24px;image-rendering:auto}
+#toast{
+  position:fixed;left:50%;top:max(54px,calc(env(safe-area-inset-top) + 46px));
+  transform:translate(-50%,-14px);opacity:0;pointer-events:none;
+  display:flex;align-items:center;gap:12px;padding:10px 16px;
+  background:#2a1b14f2;border:2px solid var(--or);border-radius:8px;
+  box-shadow:0 0 22px #c9a24a66;transition:opacity .35s,transform .35s;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#toast img{width:46px;height:46px;object-fit:contain}
+#toast b{display:block;color:var(--or);font-size:15px}
+#toast span{display:block;font-size:13px;font-style:italic;opacity:.9}

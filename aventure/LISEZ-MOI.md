@@ -166,3 +166,14 @@ Une réplique peut aussi avoir son propre `"portrait"` (par exemple une autre ex
 - **Drapeaux** : une réplique avec `"sets": "passage"` lève le drapeau « passage » quand elle se termine. Les drapeaux sont gardés dans ce navigateur (localStorage), donc la progression survit au rechargement. **`?reset`** dans l'adresse remet tout à zéro (à utiliser pour tester).
 - **Éléments conditionnels** : n'importe quel objet, PNJ ou lumière peut avoir `"when": { "needs": "passage" }` (visible seulement quand le drapeau est levé) et/ou `"not": "passage"` (visible tant qu'il ne l'est pas). Un élément caché n'est ni solide ni utilisable. L'éditeur montre toujours tout (pour pouvoir les placer). Le champ `when` et les `exits` se modifient dans le JSON : l'éditeur les conserve mais n'a pas encore de champ pour eux.
 - **Le passage de la bibliothèque** : le globe (`globe_stand_01`) lève le drapeau « passage ». La bibliothèque fermée (`bookcase_secret_closed_01`, x=360) disparaît et `bookcase_secret_open_01` apparaît (son cadre est aligné sur celui de la fermée : si tu changes l'échelle de l'une, change celle de l'autre et recalcule le décalage de x et y). En marchant dans l'ouverture, on arrive dans la réserve.
+
+## Scénario : dialogues, compagnons, fragments
+
+- `data/game.json` : porte-parole (portraits), compagnons (Thomas, Cécile), fragments à collecter, texte de la quête affiché en haut à gauche (première ligne dont les conditions sont vraies).
+- Une réplique `talk` = `{ who, needs, not, sets, text: [...] }`. Chaque élément de `text` peut être :
+  - une chaîne (dite par `who`) ;
+  - `{ "who": "Thomas", "t": "…" }` (autre personnage, `"off": true` = hors champ, sans portrait) ;
+  - `{ "do": "wait", "ms": 1000 }` (silence) · `{ "do": "set", "flag": "…" }` · `{ "do": "fragment", "flag": "…" }` (bandeau + son) ;
+  - `{ "do": "move", "id": "cecile", "to": [[x,y],…] }` (un personnage marche) · `{ "do": "summon", "from": {…}, "to": {…} }` (les compagnons arrivent et suivent le joueur).
+- Un objet sans réplique disponible (conditions `needs` / `not` non remplies) est inerte : pas d'icône « Agir ».
+- Pour tester : `?flags=grimoire_vu,compagnons,passage` lève des drapeaux, `?reset` efface la progression.

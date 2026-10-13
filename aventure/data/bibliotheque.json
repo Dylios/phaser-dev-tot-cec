@@ -166,7 +166,7 @@
   "rug_runner_red_02": 1,
   "rug_round_green_01": 1,
   "plant_flowers_white_01": 1,
-  "sofa_green_01": 0.95,
+  "sofa_green_01": 1.16,
   "armchair_cecile_reading_02": 0.198,
   "sofa_thomas_gaming_01": 0.14,
   "lectern_grimoire_open_01": 0.19,
@@ -174,7 +174,8 @@
   "lectern_grimoire_open_face_01": 0.19,
   "cupboard_ajar_01": 0.2,
   "toy_knight_floor_01": 0.12,
-  "bookmark_compass_01": 0.12
+  "bookmark_compass_01": 0.12,
+  "banner_compass_01": 0.25
  },
  "player": {
   "x": 474,
@@ -297,26 +298,70 @@
    "layer": "walldecor",
    "talk": [
     {
-     "not": "page",
-     "sets": "page",
+     "needs": "historien_vu",
      "text": [
-      "Entre deux livres, une page cornée !",
-      "Tu l'empoches : c'est « La page manquante »."
-     ]
-    },
-    {
-     "text": [
-      "Rien d'autre ici que des livres poussiéreux."
+      "Rayon Kessel : des routes, des steppes, des hommes. Quelqu'un a corné la page 212."
      ]
     }
-   ]
+   ],
+   "label": "Examiner"
   },
   {
    "key": "bookcase_10_bust_globe",
    "x": 590,
    "y": 183,
    "scale": 0.63,
-   "layer": "walldecor"
+   "layer": "walldecor",
+   "label": "Examiner",
+   "talk": [
+    {
+     "needs": "historien_vu",
+     "not": "fragment_marquepage",
+     "text": [
+      "Rayon Krasznahorkai : une seule phrase, six pages. On cherche encore le point.",
+      {
+       "who": "Cécile",
+       "t": "Celui-là, je l'ai adoré. Mais je n'ose jamais le recommander : c'est exigeant. Si tu te lances, ça vaut le voyage."
+      },
+      {
+       "who": "Thomas",
+       "t": "Exigeant ? Il y a un point, au moins ?"
+      },
+      {
+       "who": "Cécile",
+       "t": "Un point ? Pourquoi faire ?"
+      },
+      {
+       "do": "wait",
+       "ms": 1000
+      },
+      {
+       "do": "fragment",
+       "flag": "fragment_marquepage"
+      },
+      {
+       "who": "Grimoire",
+       "t": "Le premier fragment. Ce qui est déjà écrit se range toujours quelque part.",
+       "off": true
+      },
+      {
+       "who": "L'Historien",
+       "t": "Le Village est au bout du chemin. Les routes s'y croisent.",
+       "off": true
+      },
+      {
+       "do": "set",
+       "flag": "zone_bibliotheque_finie"
+      }
+     ]
+    },
+    {
+     "needs": "historien_vu",
+     "text": [
+      "Rayon Krasznahorkai : une seule phrase, six pages. On cherche encore le point."
+     ]
+    }
+   ]
   },
   {
    "key": "wall_back_alcove_01",
@@ -384,45 +429,6 @@
    "scale": 0.61
   },
   {
-   "key": "desk_drawers_01",
-   "x": 480,
-   "y": 210,
-   "fp": [
-    121,
-    66
-   ],
-   "talk": [
-    {
-     "needs": "page",
-     "not": "fini",
-     "sets": "fini",
-     "text": [
-      "Tu replaces la page dans le registre.",
-      "Quête terminée : « La page manquante » !"
-     ]
-    },
-    {
-     "not": "page",
-     "text": [
-      "Le registre de l'expédition. Une page a été arrachée…",
-      "Elle doit traîner quelque part dans la bibliothèque."
-     ]
-    },
-    {
-     "text": [
-      "Le registre est complet. Bravo, explorateur !"
-     ]
-    }
-   ]
-  },
-  {
-   "key": "painting_landscape_01",
-   "x": 700,
-   "y": 128,
-   "layer": "walldecor",
-   "scale": 0.79
-  },
-  {
    "key": "map_world_01",
    "x": 260,
    "y": 129,
@@ -456,25 +462,10 @@
    "scale": 0.69
   },
   {
-   "key": "map_scrolls_compass_01",
-   "x": 462,
-   "y": 163,
-   "scale": 0.23,
-   "order": 14,
-   "sortY": 229
-  },
-  {
    "key": "satchel_leather_01",
    "x": 560,
    "y": 208,
    "scale": 0.39
-  },
-  {
-   "key": "potions_herbs_01",
-   "x": 518,
-   "y": 163,
-   "scale": 0.37,
-   "sortY": 223
   },
   {
    "key": "globe_stand_01",
@@ -484,27 +475,26 @@
    "label": "Tourner",
    "talk": [
     {
+     "needs": "grimoire_vu",
      "not": "passage",
+     "sets": "passage",
      "text": [
       "Le globe tourne… puis s'immobilise avec un déclic.",
       "Quelque part dans la pièce, un mécanisme s'est enclenché."
-     ],
-     "sets": "passage"
+     ]
     },
     {
      "needs": "passage",
      "text": [
       "Le globe est calé sur une constellation. Il ne bouge plus."
      ]
+    },
+    {
+     "text": [
+      "Un très beau globe. Il tourne, mais rien de plus pour l'instant."
+     ]
     }
    ]
-  },
-  {
-   "key": "lamp_desk_green_02",
-   "x": 433,
-   "y": 159,
-   "scale": 0.45,
-   "sortY": 231
   },
   {
    "key": "wall_step_left_01",
@@ -613,11 +603,6 @@
    "scale": 0.57
   },
   {
-   "key": "sofa_red_01",
-   "x": 735,
-   "y": 272
-  },
-  {
    "key": "rug_red_fringe_01",
    "x": 480,
    "y": 353,
@@ -687,21 +672,18 @@
    "solid": false,
    "talk": [
     {
+     "needs": "grimoire_vu",
      "who": "Ti Chat",
      "label": "Caresser",
      "text": [
-      "Miaou.",
-      "Le chat te regarde comme s'il en savait long."
+      "Miaou."
      ]
     }
    ],
    "portrait": "portraits/tichat.png"
-  }
- ],
- "npcs": [
+  },
   {
-   "id": "cecile",
-   "key": "armchair_cecile_reading_01",
+   "key": "armchair_cecile_reading_02",
    "x": 134,
    "y": 308,
    "sortY": 338,
@@ -709,54 +691,495 @@
     63,
     50
    ],
-   "name": "Cécile",
-   "label": "Parler",
-   "placeholder": {
-    "w": 28,
-    "h": 60,
-    "person": true,
-    "color": "#e8e2d4",
-    "hair": "#6a3b22"
-   },
-   "talk": [
-    {
-     "who": "Cécile",
-     "text": [
-      "Chut… je suis en plein chapitre.",
-      "Si tu cherches quelque chose, regarde du côté des grandes bibliothèques."
-     ]
-    }
-   ],
-   "portrait": "portraits/cecile.png",
-   "scale": 0.75
+   "scale": 0.75,
+   "when": {
+    "not": "compagnons"
+   }
   },
   {
-   "id": "thomas",
-   "key": "thomas_01",
-   "face": "down",
-   "x": 774,
-   "y": 298,
-   "name": "Thomas",
+   "key": "armchair_blue_right_01",
+   "x": 134,
+   "y": 308,
+   "sortY": 338,
+   "fp": [
+    63,
+    50
+   ],
+   "scale": 1.0,
+   "when": {
+    "needs": "compagnons"
+   }
+  },
+  {
+   "key": "sofa_thomas_gaming_01",
+   "x": 735,
+   "y": 272,
+   "when": {
+    "not": "compagnons"
+   }
+  },
+  {
+   "key": "sofa_green_01",
+   "x": 735,
+   "y": 272,
+   "when": {
+    "needs": "compagnons"
+   }
+  },
+  {
+   "key": "lectern_grimoire_open_01",
+   "x": 480,
+   "y": 222,
+   "fp": [
+    56,
+    14
+   ],
    "label": "Parler",
-   "placeholder": {
-    "w": 28,
-    "h": 62,
-    "person": true,
-    "color": "#8b2a35",
-    "hair": "#6a3b22"
+   "when": {
+    "not": "grimoire_vu"
    },
    "talk": [
     {
-     "who": "Thomas",
+     "who": "Grimoire",
+     "not": "grimoire_vu",
      "text": [
-      "Bienvenue, explorateur !",
-      "L'expédition commence ici. Il manque une page au registre…"
+      {
+       "do": "summon",
+       "from": {
+        "thomas": [
+         735,
+         300
+        ],
+        "cecile": [
+         134,
+         330
+        ]
+       },
+       "to": {
+        "thomas": [
+         [
+          640,
+          262
+         ],
+         [
+          600,
+          244
+         ],
+         [
+          532,
+          238
+         ]
+        ],
+        "cecile": [
+         [
+          260,
+          262
+         ],
+         [
+          340,
+          240
+         ],
+         [
+          428,
+          238
+         ]
+        ]
+       }
+      },
+      "Vous voilà, tous les trois. Parfait, je commençais à m'ennuyer.",
+      "Ma dernière page est vierge. Ça arrive aux meilleurs livres, mais ça ne se dit pas.",
+      {
+       "who": "Thomas",
+       "t": "Donc on la remplit. Où est le mode d'emploi ?"
+      },
+      "Il n'y en a pas.",
+      "Il me faut trois fragments et une plume. Le premier est un marque-page, quelque part dans cette salle. Et ne corne pas mes pages, je suis déjà assez marqué comme ça.",
+      {
+       "who": "Cécile",
+       "t": "Parfait, je prends la tête de l'expédition."
+      },
+      {
+       "do": "move",
+       "id": "cecile",
+       "to": [
+        [
+         345,
+         262
+        ],
+        [
+         345,
+         392
+        ]
+       ],
+       "speed": 105,
+       "end": "down"
+      },
+      {
+       "who": "Thomas",
+       "t": "Pas d'initiative."
+      },
+      {
+       "do": "move",
+       "id": "cecile",
+       "to": [
+        [
+         345,
+         262
+        ],
+        [
+         428,
+         240
+        ]
+       ],
+       "speed": 125
+      },
+      {
+       "do": "set",
+       "flag": "grimoire_vu"
+      }
+     ]
+    },
+    {
+     "who": "Grimoire",
+     "needs": "grimoire_vu",
+     "not": "fragment_marquepage",
+     "text": [
+      "Le premier est un marque-page, quelque part dans cette salle.",
+      "Et ne corne pas mes pages."
+     ]
+    },
+    {
+     "who": "Grimoire",
+     "needs": "fragment_marquepage",
+     "text": [
+      "Le premier fragment. Ce qui est déjà écrit se range toujours quelque part."
      ]
     }
+   ]
+  },
+  {
+   "key": "lectern_grimoire_open_face_01",
+   "x": 480,
+   "y": 222,
+   "fp": [
+    56,
+    14
    ],
-   "portrait": "portraits/thomas.png"
+   "label": "Parler",
+   "when": {
+    "needs": "grimoire_vu",
+    "not": "fragment_marquepage"
+   },
+   "talk": [
+    {
+     "who": "Grimoire",
+     "not": "grimoire_vu",
+     "text": [
+      {
+       "do": "summon",
+       "from": {
+        "thomas": [
+         735,
+         300
+        ],
+        "cecile": [
+         134,
+         330
+        ]
+       },
+       "to": {
+        "thomas": [
+         [
+          640,
+          262
+         ],
+         [
+          600,
+          244
+         ],
+         [
+          532,
+          238
+         ]
+        ],
+        "cecile": [
+         [
+          260,
+          262
+         ],
+         [
+          340,
+          240
+         ],
+         [
+          428,
+          238
+         ]
+        ]
+       }
+      },
+      "Vous voilà, tous les trois. Parfait, je commençais à m'ennuyer.",
+      "Ma dernière page est vierge. Ça arrive aux meilleurs livres, mais ça ne se dit pas.",
+      {
+       "who": "Thomas",
+       "t": "Donc on la remplit. Où est le mode d'emploi ?"
+      },
+      "Il n'y en a pas.",
+      "Il me faut trois fragments et une plume. Le premier est un marque-page, quelque part dans cette salle. Et ne corne pas mes pages, je suis déjà assez marqué comme ça.",
+      {
+       "who": "Cécile",
+       "t": "Parfait, je prends la tête de l'expédition."
+      },
+      {
+       "do": "move",
+       "id": "cecile",
+       "to": [
+        [
+         345,
+         262
+        ],
+        [
+         345,
+         392
+        ]
+       ],
+       "speed": 105,
+       "end": "down"
+      },
+      {
+       "who": "Thomas",
+       "t": "Pas d'initiative."
+      },
+      {
+       "do": "move",
+       "id": "cecile",
+       "to": [
+        [
+         345,
+         262
+        ],
+        [
+         428,
+         240
+        ]
+       ],
+       "speed": 125
+      },
+      {
+       "do": "set",
+       "flag": "grimoire_vu"
+      }
+     ]
+    },
+    {
+     "who": "Grimoire",
+     "needs": "grimoire_vu",
+     "not": "fragment_marquepage",
+     "text": [
+      "Le premier est un marque-page, quelque part dans cette salle.",
+      "Et ne corne pas mes pages."
+     ]
+    },
+    {
+     "who": "Grimoire",
+     "needs": "fragment_marquepage",
+     "text": [
+      "Le premier fragment. Ce qui est déjà écrit se range toujours quelque part."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "lectern_grimoire_closed_01",
+   "x": 480,
+   "y": 222,
+   "fp": [
+    56,
+    14
+   ],
+   "label": "Parler",
+   "when": {
+    "needs": "fragment_marquepage"
+   },
+   "talk": [
+    {
+     "who": "Grimoire",
+     "not": "grimoire_vu",
+     "text": [
+      {
+       "do": "summon",
+       "from": {
+        "thomas": [
+         735,
+         300
+        ],
+        "cecile": [
+         134,
+         330
+        ]
+       },
+       "to": {
+        "thomas": [
+         [
+          640,
+          262
+         ],
+         [
+          600,
+          244
+         ],
+         [
+          532,
+          238
+         ]
+        ],
+        "cecile": [
+         [
+          260,
+          262
+         ],
+         [
+          340,
+          240
+         ],
+         [
+          428,
+          238
+         ]
+        ]
+       }
+      },
+      "Vous voilà, tous les trois. Parfait, je commençais à m'ennuyer.",
+      "Ma dernière page est vierge. Ça arrive aux meilleurs livres, mais ça ne se dit pas.",
+      {
+       "who": "Thomas",
+       "t": "Donc on la remplit. Où est le mode d'emploi ?"
+      },
+      "Il n'y en a pas.",
+      "Il me faut trois fragments et une plume. Le premier est un marque-page, quelque part dans cette salle. Et ne corne pas mes pages, je suis déjà assez marqué comme ça.",
+      {
+       "who": "Cécile",
+       "t": "Parfait, je prends la tête de l'expédition."
+      },
+      {
+       "do": "move",
+       "id": "cecile",
+       "to": [
+        [
+         345,
+         262
+        ],
+        [
+         345,
+         392
+        ]
+       ],
+       "speed": 105,
+       "end": "down"
+      },
+      {
+       "who": "Thomas",
+       "t": "Pas d'initiative."
+      },
+      {
+       "do": "move",
+       "id": "cecile",
+       "to": [
+        [
+         345,
+         262
+        ],
+        [
+         428,
+         240
+        ]
+       ],
+       "speed": 125
+      },
+      {
+       "do": "set",
+       "flag": "grimoire_vu"
+      }
+     ]
+    },
+    {
+     "who": "Grimoire",
+     "needs": "grimoire_vu",
+     "not": "fragment_marquepage",
+     "text": [
+      "Le premier est un marque-page, quelque part dans cette salle.",
+      "Et ne corne pas mes pages."
+     ]
+    },
+    {
+     "who": "Grimoire",
+     "needs": "fragment_marquepage",
+     "text": [
+      "Le premier fragment. Ce qui est déjà écrit se range toujours quelque part."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "bookcase_archive_scrolls_01",
+   "x": 700,
+   "y": 187,
+   "scale": 0.97,
+   "layer": "walldecor",
+   "label": "Examiner",
+   "talk": [
+    {
+     "needs": "historien_vu",
+     "text": [
+      "Rayon Zweig : une écriture limpide. On ne peut pas s'empêcher de tourner la page."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "banner_compass_01",
+   "x": 142,
+   "y": 170,
+   "layer": "walldecor",
+   "label": "Lire",
+   "talk": [
+    {
+     "needs": "grimoire_vu",
+     "text": [
+      "Expédition : toujours un pas de plus."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "cupboard_ajar_01",
+   "x": 62,
+   "y": 372,
+   "scale": 0.9,
+   "fp": [
+    48,
+    16
+   ],
+   "label": "Examiner",
+   "talk": [
+    {
+     "needs": "grimoire_vu",
+     "text": [
+      "Quelqu'un l'a encore laissé ouvert.",
+      {
+       "who": "Thomas",
+       "t": "Cécile."
+      },
+      {
+       "who": "Cécile",
+       "t": "Ce n'est pas moi."
+      }
+     ]
+    }
+   ]
   }
  ],
+ "npcs": [],
  "lights": [
   {
    "x": 61,
