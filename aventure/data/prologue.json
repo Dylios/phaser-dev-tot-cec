@@ -11,12 +11,12 @@
  },
  "floors": [
   {
-   "key": "floor_planks_01",
+   "key": "floor_flagstone_mossy_01",
    "x": 80,
    "y": 241,
    "w": 456,
-   "h": 200,
-   "tileScale": 0.25
+   "h": 270,
+   "tileScale": 0.2
   }
  ],
  "walkable": [
@@ -168,7 +168,14 @@
   "table_chapel_candles_01": 0.18,
   "stool_wood_letter_01": 0.14,
   "bench_chapel_cloth_01": 0.16,
-  "urn_terracotta_fern_01": 0.15
+  "urn_terracotta_fern_01": 0.15,
+  "floor_flagstone_mossy_01": 0.2,
+  "rug_red_compass_large_flat_01": 0.27,
+  "rubble_stone_01": 0.2,
+  "rubble_stone_02": 0.2,
+  "rubble_stone_03": 0.2,
+  "leaves_autumn_01": 0.16,
+  "leaves_autumn_02": 0.16
  },
  "player": {
   "x": 308,
@@ -238,9 +245,9 @@
    "layer": "wall"
   },
   {
-   "key": "rug_red_flat_01",
+   "key": "rug_red_compass_large_flat_01",
    "x": 308,
-   "y": 400,
+   "y": 372,
    "layer": "floor"
   },
   {
@@ -329,6 +336,37 @@
     26,
     14
    ]
+  },
+  {
+   "key": "rubble_stone_01",
+   "x": 108,
+   "y": 446,
+   "layer": "object",
+   "solid": false
+  },
+  {
+   "key": "rubble_stone_03",
+   "x": 448,
+   "y": 448,
+   "solid": false
+  },
+  {
+   "key": "rubble_stone_02",
+   "x": 318,
+   "y": 452,
+   "solid": false
+  },
+  {
+   "key": "leaves_autumn_01",
+   "x": 252,
+   "y": 400,
+   "layer": "floor"
+  },
+  {
+   "key": "leaves_autumn_02",
+   "x": 395,
+   "y": 425,
+   "layer": "floor"
   }
  ],
  "npcs": [],
