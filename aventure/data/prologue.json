@@ -177,7 +177,9 @@
   "leaves_autumn_01": 0.16,
   "leaves_autumn_02": 0.16,
   "wall_stone_side_left_window_02": 0.36,
-  "wall_stone_side_right_window_02": 0.36
+  "wall_stone_side_right_window_02": 0.36,
+  "wall_stone_side_left_sconce_01": 0.515,
+  "wall_stone_side_right_sconce_01": 0.515
  },
  "player": {
   "x": 408,
@@ -193,7 +195,7 @@
    "layer": "wall"
   },
   {
-   "key": "wall_stone_side_left_window_02",
+   "key": "wall_stone_side_left_sconce_01",
    "x": 99,
    "y": 465,
    "layer": "wall"
@@ -205,7 +207,7 @@
    "layer": "wall"
   },
   {
-   "key": "wall_stone_side_right_window_02",
+   "key": "wall_stone_side_right_sconce_01",
    "x": 717,
    "y": 465,
    "layer": "wall"
