@@ -52,7 +52,7 @@ html,body{
   #dlg.has-portrait{min-height:0}
   #dlg .portrait{width:72px;height:72px}
 }
-#dlg.has-portrait{display:flex;gap:12px;align-items:center;min-height:96px}
+#dlg.has-portrait:not([hidden]){display:flex;gap:12px;align-items:center;min-height:96px}
 #dlg .portrait{flex:none;width:84px;height:84px;border-radius:4px;display:block}
 #dlg .txt{flex:1;min-width:0}
 #dlg .who{display:block;color:var(--or);font-weight:bold;margin-bottom:2px;font-size:14px}
