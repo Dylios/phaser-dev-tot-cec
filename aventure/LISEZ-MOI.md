@@ -104,6 +104,7 @@ Ouvre `index.html?edit` (sur ordinateur ou téléphone). Tu vois la pièce avec 
 - **Vue** : glisse dans le vide (ou bouton ✋), molette ou pincement pour zoomer, ⌂ pour tout voir.
 - **Marche / Sol** : modes pour dessiner les zones où le joueur peut aller et les zones de parquet.
 - **Clavier** : flèches (Maj = 10 px), Suppr, D dupliquer, F miroir, [ ] devant/derrière, + − taille, Ctrl+Z / Ctrl+Y.
+- **Sélection multiple** : Ctrl (ou Maj, ou Cmd) + clic pour ajouter / retirer un élément ; Ctrl/Maj + glisser pour tracer un cadre (même en partant d'un objet) ; Ctrl+A pour tout prendre ; sur téléphone, le bouton ▭ de la barre flottante. Glisser l'un des éléments déplace tout le groupe ; flèches, D, F, [ ], + −, Suppr agissent sur tout le groupe. Le panneau propose aussi d'aligner sur le X ou le Y du premier élément.
 - **Brouillon** : enregistré automatiquement dans ton navigateur. « ▶ Tester » joue ton brouillon
   (`?brouillon`), « Original » l'efface.
 - **Publier** : « Exporter » donne le JSON ; colle-le dans `data/bibliotheque.json` et pousse.

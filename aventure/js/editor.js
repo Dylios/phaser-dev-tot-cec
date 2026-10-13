@@ -53,6 +53,8 @@
       cfg.npcs = cfg.npcs || [];
 
       this.sel = null;
+      this.extra = [];          // autres éléments de la sélection multiple (le premier reste dans this.sel)
+      this.multiTool = false;
       this.mode = 'obj';
       this.guides = true;
       this.snap = 0;
@@ -171,6 +173,9 @@
         h('button', { text: '⌂', title: 'Tout voir', onclick: () => this.fit() }),
         this.panBtn = h('button', { text: '✋', title: 'Déplacer la vue au doigt', onclick: () => {
           this.panTool = !this.panTool; this.panBtn.classList.toggle('on', this.panTool);
+        } }),
+        this.multiBtn = h('button', { text: '▭', title: 'Sélection multiple : touche pour ajouter / retirer, glisse dans le vide pour tracer un cadre (PC : Ctrl ou Maj + clic)', onclick: () => {
+          this.multiTool = !this.multiTool; this.multiBtn.classList.toggle('on', this.multiTool);
         } }));
       document.body.appendChild(nav);
       this.coord = h('div', { id: 'ed-coord' });
@@ -225,7 +230,9 @@
     setMode(m) {
       this.mode = m;
       Object.keys(this.modeBtns).forEach((k) => this.modeBtns[k].classList.toggle('on', k === m));
-      if (this.sel && this.sel.type !== m && !(m === 'obj' && ['obj', 'npc', 'player', 'light'].indexOf(this.sel.type) >= 0)) this.sel = null;
+      const ok = (t) => t === m || (m === 'obj' && ['obj', 'npc', 'player', 'light'].indexOf(t) >= 0);
+      this.extra = this.extra.filter((x) => ok(x.type));
+      if (this.sel && !ok(this.sel.type)) this.sel = this.extra.shift() || null;
       this.renderInsp();
     }
 
@@ -268,7 +275,7 @@
 
     restore(str) {
       const next = JSON.parse(str);
-      this.sel = null;
+      this.sel = null; this.extra = [];
       this.s.clearWorld();
       this.s.cfg = next;
       next.assetScale = next.assetScale || {};
@@ -414,6 +421,7 @@
         if (mod && (k === 'z' || k === 'Z')) { e.preventDefault(); if (e.shiftKey) this.redo(); else this.undo(); return; }
         if (mod && (k === 'y' || k === 'Y')) { e.preventDefault(); this.redo(); return; }
         if (k === 'Delete' || k === 'Backspace') { e.preventDefault(); this.remove(); return; }
+        if (mod && (k === 'a' || k === 'A')) { e.preventDefault(); this.selectAll(); return; }
         if (k === 'Escape') { this.select(null); return; }
         if (!this.sel) return;
         const st = e.shiftKey ? 10 : 1;
@@ -441,13 +449,13 @@
       const wx = w.x, wy = w.y;
 
       // poignées de coin d'une zone sélectionnée
-      if (this.mode !== 'obj' && this.sel && this.sel.type === this.mode) {
+      if (this.mode !== 'obj' && this.sel && !this.extra.length && this.sel.type === this.mode) {
         const c = this.cornerAt(this.sel.ref, wx, wy);
         if (c) { this.drag = { kind: 'corner', corner: c }; return; }
       }
 
       // poignées de redimensionnement d'un objet sélectionné (comme une image)
-      if (this.mode === 'obj' && this.sel && this.sel.type === 'obj' && !this.lock[this.sel.ref.layer || 'object']) {
+      if (this.mode === 'obj' && this.sel && !this.extra.length && this.sel.type === 'obj' && !this.lock[this.sel.ref.layer || 'object']) {
         const c = this.objCornerAt(this.sel.ref, wx, wy);
         if (c) {
           const o = this.sel.ref, im = o._img, dw = im.displayWidth, dh = im.displayHeight;
@@ -460,6 +468,26 @@
       }
 
       const hits = this.pickAt(wx, wy);
+
+      // sélection multiple : Ctrl / Maj / Cmd + clic, ou outil ▭
+      const ev = p.event, add = this.multiTool || !!(ev && (ev.ctrlKey || ev.metaKey || ev.shiftKey));
+      if (add) {
+        // un simple clic ajoute / retire l'élément ; un glissé trace un cadre (même si on part d'un objet)
+        this.drag = { kind: 'band', x0: wx, y0: wy, x1: wx, y1: wy, keep: this.items(), pending: hits[0] || null };
+        return;
+      }
+      // glisser un élément appartenant à la sélection multiple : tout le groupe suit
+      if (this.extra.length && hits.length) {
+        const inGrp = this.items();
+        const lead = hits.find((x) => inGrp.some((g) => g.ref === x.ref));
+        if (lead) {
+          this.drag = {
+            kind: 'move', ox: wx - lead.ref.x, oy: wy - lead.ref.y, lx: lead.ref.x, ly: lead.ref.y, sx: p.x, sy: p.y,
+            moved: false, group: inGrp.map((g) => ({ it: g, x: g.ref.x, y: g.ref.y })), lead: lead
+          };
+          return;
+        }
+      }
       if (!hits.length) { this.select(null); this.drag = { kind: 'pan' }; return; }
       const idx = this.sel ? hits.findIndex((x) => x.ref === this.sel.ref) : -1;
       const target = idx >= 0 ? hits[idx] : hits[0];
@@ -498,7 +526,12 @@
       } else if (d.kind === 'move') {
         if (!d.moved && Math.hypot(p.x - d.sx, p.y - d.sy) / this.dpr < 4) return;
         d.moved = true;
-        this.moveTo(this.sel, this.sn(w0.x - d.ox), this.sn(w0.y - d.oy));
+        if (d.group) {
+          const dx = this.sn(w0.x - d.ox) - d.lx, dy = this.sn(w0.y - d.oy) - d.ly;
+          d.group.forEach((g) => this.moveTo(g.it, g.x + dx, g.y + dy));
+        } else this.moveTo(this.sel, this.sn(w0.x - d.ox), this.sn(w0.y - d.oy));
+      } else if (d.kind === 'band') {
+        d.x1 = w0.x; d.y1 = w0.y;
       } else if (d.kind === 'corner') {
         this.dragCorner(this.sel.ref, d.corner, this.sn(w0.x), this.sn(w0.y));
       } else if (d.kind === 'resize') {
@@ -511,8 +544,16 @@
       this.drag = null;
       this.pinch = null;
       if (!d) return;
-      if (d.kind === 'move') {
+      if (d.kind === 'band') {
+        const u = this.u;
+        if (Math.abs(d.x1 - d.x0) < 4 * u && Math.abs(d.y1 - d.y0) < 4 * u) { if (d.pending) this.toggleSel(d.pending); return; }
+        const found = this.itemsInRect(Math.min(d.x0, d.x1), Math.min(d.y0, d.y1), Math.max(d.x0, d.x1), Math.max(d.y0, d.y1));
+        const all = d.keep.slice();
+        found.forEach((f) => { if (!all.some((a) => a.ref === f.ref)) all.push(f); });
+        this.selectMany(all);
+      } else if (d.kind === 'move') {
         if (d.moved) this.commit();
+        else if (d.group) this.select(d.lead);
         else if (d.was && d.hits.length > 1) this.select(d.hits[(d.idx + 1) % d.hits.length]);
       } else if (d.kind === 'corner' || d.kind === 'resize') this.commit();
     }
@@ -627,9 +668,71 @@
     }
 
     /* ===================== opérations sur la sélection ===================== */
+    items() { return this.sel ? [this.sel].concat(this.extra) : []; }
+
     select(s) {
       this.sel = s ? { type: s.type, ref: s.ref } : null;
+      this.extra = [];
       this.renderInsp();
+    }
+
+    selectMany(list) {
+      const l = list.map((x) => ({ type: x.type, ref: x.ref }));
+      this.sel = l[0] || null;
+      this.extra = l.slice(1);
+      this.renderInsp();
+    }
+
+    /* ajoute / retire un élément de la sélection (Ctrl / Maj + clic) */
+    toggleSel(it) {
+      const cur = this.items();
+      const k = cur.findIndex((x) => x.ref === it.ref);
+      if (k >= 0) { cur.splice(k, 1); this.selectMany(cur); return; }
+      const grp = (t) => (t === 'obj' || t === 'npc' || t === 'player' || t === 'light') ? 'obj' : t;
+      if (cur.length && grp(cur[0].type) !== grp(it.type)) { this.select(it); return; }
+      cur.push(it);
+      this.selectMany(cur);
+    }
+
+    selectAll() {
+      const cfg = this.cfg;
+      let all = [];
+      if (this.mode === 'obj') {
+        cfg.objects.forEach((o) => { if (!this.lock[o.layer || 'object'] && o._img) all.push({ type: 'obj', ref: o }); });
+        cfg.lights.forEach((L) => all.push({ type: 'light', ref: L }));
+      } else {
+        (this.mode === 'walk' ? cfg.walkable : cfg.floors).forEach((r) => all.push({ type: this.mode, ref: r }));
+      }
+      this.selectMany(all);
+      this.setStatus(all.length + ' éléments sélectionnés');
+    }
+
+    /* éléments dont le centre, le point d'ancrage ou la totalité tombent dans le cadre */
+    itemsInRect(x0, y0, x1, y1) {
+      const cfg = this.cfg, out = [];
+      const inside = (x, y) => x >= x0 && x <= x1 && y >= y0 && y <= y1;
+      const sprite = (type, o) => {
+        const im = o._img;
+        if (!im || !im.scene) return;
+        const dw = im.displayWidth, dh = im.displayHeight, bx = im.x - dw * im.originX, by = im.y - dh * im.originY;
+        if (inside(bx + dw / 2, by + dh / 2) || inside(o.x, o.y) || (bx >= x0 && by >= y0 && bx + dw <= x1 && by + dh <= y1)) out.push({ type: type, ref: o });
+      };
+      if (this.mode === 'obj') {
+        cfg.lights.forEach((L) => { if (inside(L.x, L.y)) out.push({ type: 'light', ref: L }); });
+        cfg.objects.forEach((o) => { if (!this.lock[o.layer || 'object']) sprite('obj', o); });
+        cfg.npcs.forEach((n) => sprite('npc', n));
+        if (cfg.player) sprite('player', cfg.player);
+      } else {
+        (this.mode === 'walk' ? cfg.walkable : cfg.floors).forEach((r) => {
+          if (inside(r.x + r.w / 2, r.y + r.h / 2) || (r.x >= x0 && r.y >= y0 && r.x + r.w <= x1 && r.y + r.h <= y1)) out.push({ type: this.mode, ref: r });
+        });
+      }
+      return out;
+    }
+
+    listFor(type) {
+      const cfg = this.cfg;
+      return type === 'obj' ? cfg.objects : type === 'light' ? cfg.lights : type === 'walk' ? cfg.walkable : type === 'floor' ? cfg.floors : null;
     }
 
     rebuild(sel) {
@@ -654,57 +757,81 @@
 
     nudge(dx, dy) {
       if (!this.sel) return;
-      const r = this.sel.ref;
-      this.moveTo(this.sel, r.x + dx, r.y + dy);
+      this.items().forEach((it) => this.moveTo(it, it.ref.x + dx, it.ref.y + dy));
       this.commit();
     }
 
+    objs() { return this.items().filter((it) => it.type === 'obj'); }
+
     flip() {
-      if (!this.sel || this.sel.type !== 'obj') return;
-      const o = this.sel.ref;
-      if (o.flipX) delete o.flipX; else o.flipX = true;
-      this.rebuild(this.sel); this.commit(); this.renderInsp();
+      const l = this.objs();
+      if (!l.length) return;
+      l.forEach((it) => { const o = it.ref; if (o.flipX) delete o.flipX; else o.flipX = true; this.rebuild(it); });
+      this.commit(); this.renderInsp();
     }
 
     depthStep(d) {
-      if (!this.sel || this.sel.type !== 'obj') return;
-      const o = this.sel.ref;
-      if ((o.layer || 'object') === 'object') o.sortY = Math.round((o.sortY != null ? o.sortY : o.y) + d);
-      else o.order = (o.order || 0) + (d > 0 ? 1 : -1);
-      this.rebuild(this.sel); this.commit(); this.renderInsp();
+      const l = this.objs();
+      if (!l.length) return;
+      l.forEach((it) => {
+        const o = it.ref;
+        if ((o.layer || 'object') === 'object') o.sortY = Math.round((o.sortY != null ? o.sortY : o.y) + d);
+        else o.order = (o.order || 0) + (d > 0 ? 1 : -1);
+        this.rebuild(it);
+      });
+      this.commit(); this.renderInsp();
     }
 
     scaleStep(f) {
-      if (!this.sel || this.sel.type !== 'obj') return;
-      const o = this.sel.ref;
-      o.scale = Math.round(clamp((o.scale == null ? 1 : o.scale) * f, 0.1, 6) * 1000) / 1000;
-      this.rebuild(this.sel); this.commit(); this.renderInsp();
+      const l = this.objs();
+      if (!l.length) return;
+      l.forEach((it) => {
+        const o = it.ref;
+        o.scale = Math.round(clamp((o.scale == null ? 1 : o.scale) * f, 0.1, 6) * 1000) / 1000;
+        this.rebuild(it);
+      });
+      this.commit(); this.renderInsp();
     }
 
     remove() {
       if (!this.sel) return;
-      const t = this.sel.type, r = this.sel.ref, cfg = this.cfg;
-      const list = t === 'obj' ? cfg.objects : t === 'light' ? cfg.lights : t === 'walk' ? cfg.walkable : t === 'floor' ? cfg.floors : null;
-      if (!list) return;       // pnj et joueur ne se suppriment pas
-      this.s.destroyEntity(r);
-      list.splice(list.indexOf(r), 1);
-      this.sel = null;
+      const keep = [];
+      let any = false;
+      this.items().forEach((it) => {
+        const list = this.listFor(it.type);
+        if (!list) { keep.push(it); return; }       // pnj et joueur ne se suppriment pas
+        this.s.destroyEntity(it.ref);
+        const k = list.indexOf(it.ref); if (k >= 0) list.splice(k, 1);
+        any = true;
+      });
+      if (!any) return;
+      this.selectMany(keep);
       this.commit(); this.renderInsp();
     }
 
     duplicate() {
       if (!this.sel) return;
-      const t = this.sel.type, r = this.sel.ref, cfg = this.cfg;
-      let list = null;
-      if (t === 'obj') list = cfg.objects; else if (t === 'light') list = cfg.lights;
-      else if (t === 'walk') list = cfg.walkable; else if (t === 'floor') list = cfg.floors;
-      if (!list) return;
-      const c = JSON.parse(JSON.stringify(r, (k, v) => (k.charAt(0) === '_' || k === 'rect' || k === 'talk') ? undefined : v));
-      c.x += 16; c.y += 16;
-      if (c.sortY != null) c.sortY += 16;
-      list.push(c);
-      if (t === 'obj') this.s.addObject(c); else if (t === 'light') this.s.addLight(c); else if (t === 'floor') this.s.addFloor(c);
-      this.select({ type: t, ref: c });
+      const copies = [];
+      this.items().forEach((it) => {
+        const t = it.type, r = it.ref, list = this.listFor(t);
+        if (!list) return;
+        const c = JSON.parse(JSON.stringify(r, (k, v) => (k.charAt(0) === '_' || k === 'rect' || k === 'talk') ? undefined : v));
+        c.x += 16; c.y += 16;
+        if (c.sortY != null) c.sortY += 16;
+        list.push(c);
+        if (t === 'obj') this.s.addObject(c); else if (t === 'light') this.s.addLight(c); else if (t === 'floor') this.s.addFloor(c);
+        copies.push({ type: t, ref: c });
+      });
+      if (!copies.length) return;
+      this.selectMany(copies);
+      this.commit();
+    }
+
+    alignTo(axis) {
+      const its = this.items();
+      if (its.length < 2) return;
+      const v = its[0].ref[axis];
+      its.slice(1).forEach((it) => { if (axis === 'x') this.moveTo(it, v, it.ref.y); else this.moveTo(it, it.ref.x, v); });
       this.commit();
     }
 
@@ -782,14 +909,15 @@
       this.fields = {};
       this.dimEl = null; this.fpInputs = null;
       const sel = this.sel;
-      this.btnDup.disabled = this.btnDel.disabled = !sel || sel.type === 'npc' || sel.type === 'player';
-      this.selLabel.textContent = sel ? this.titleOf(sel) : '';
+      this.btnDup.disabled = this.btnDel.disabled = !this.items().some((it) => it.type !== 'npc' && it.type !== 'player');
+      this.selLabel.textContent = sel ? (this.extra.length ? (1 + this.extra.length) + ' éléments' : this.titleOf(sel)) : '';
 
       const addBtn = (label, fn) => h('button', { class: 'ed-wide', text: label, onclick: fn });
       if (!sel) {
         box.appendChild(h('div', { class: 'ed-help', html:
           this.mode === 'obj'
             ? '<b>Touche un objet</b> pour le sélectionner, puis glisse-le. Retouche au même endroit pour passer à l’objet en dessous. ' +
+              '<b>Plusieurs objets :</b> Ctrl ou Maj + clic pour en ajouter ou en retirer, Ctrl/Maj + glisser dans le vide pour tracer un cadre, Ctrl + A pour tout prendre (sur téléphone : bouton ▭). ' +
               'Glisse dans le vide (ou ✋) pour déplacer la vue, molette / pincement pour zoomer.'
             : this.mode === 'walk'
               ? '<b>Zones de marche</b> (bleu) : là où le joueur peut aller. Touche une zone, glisse-la ou tire ses coins.'
@@ -800,6 +928,8 @@
         this.addObjectList(box);
         return;
       }
+
+      if (this.extra.length) { this.renderMulti(box); return; }
 
       const r = sel.ref, t = sel.type;
       const num = (label, k, step) => {
@@ -972,6 +1102,22 @@
       box.appendChild(det);
     }
 
+    renderMulti(box) {
+      const n = this.items().length;
+      box.appendChild(h('div', { class: 'ed-title' }, h('b', { text: n + ' éléments sélectionnés' })));
+      box.appendChild(h('div', { class: 'ed-help', html:
+        'Glisse l’un d’eux pour déplacer tout le groupe. <b>Flèches</b> : 1 px (Maj = 10). <b>D</b> dupliquer · <b>F</b> miroir · ' +
+        '<b>[ ]</b> profondeur · <b>+ / −</b> taille · <b>Suppr</b> supprimer · <b>Échap</b> tout désélectionner. ' +
+        'Ctrl/Maj + clic sur un élément pour le retirer du groupe.' }));
+      const b = (label, fn) => h('button', { class: 'ed-wide', text: label, onclick: fn });
+      box.appendChild(b('Aligner sur le X du premier', () => this.alignTo('x')));
+      box.appendChild(b('Aligner sur le Y du premier', () => this.alignTo('y')));
+      box.appendChild(b('⧉ Dupliquer le groupe', () => this.duplicate()));
+      box.appendChild(b('Miroir (F)', () => this.flip()));
+      box.appendChild(b('🗑 Supprimer le groupe', () => this.remove()));
+      box.appendChild(b('Désélectionner', () => this.select(null)));
+    }
+
     titleOf(sel) {
       const r = sel.ref;
       if (sel.type === 'obj') return r.key;
@@ -1038,14 +1184,33 @@
         }
       }
 
+      const bd = this.drag;
+      if (bd && bd.kind === 'band') {
+        const bx = Math.min(bd.x0, bd.x1), by = Math.min(bd.y0, bd.y1), bw = Math.abs(bd.x1 - bd.x0), bh = Math.abs(bd.y1 - bd.y0);
+        g.fillStyle(0xffd27a, 0.12); g.fillRect(bx, by, bw, bh);
+        g.lineStyle(1.5 * u, 0xffd27a, 0.95); g.strokeRect(bx, by, bw, bh);
+      }
+
       const sel = this.sel;
       if (!sel) return;
+      this.extra.forEach((it) => {
+        const q = it.ref;
+        g.lineStyle(2 * u, 0xffd27a, 0.95);
+        if (it.type === 'walk' || it.type === 'floor') g.strokeRect(q.x, q.y, q.w, q.h);
+        else if (it.type === 'light') g.strokeCircle(q.x, q.y, 11 * u);
+        else if (q._img && q._img.scene) {
+          const im = q._img, dw = im.displayWidth, dh = im.displayHeight;
+          g.strokeRect(im.x - dw * im.originX, im.y - dh * im.originY, dw, dh);
+          g.fillStyle(0xffd27a, 1); g.fillCircle(q.x, q.y, 3.5 * u);
+        }
+      });
+      const multi = this.extra.length > 0;
       const r = sel.ref;
       if (this.dimEl && sel.type === 'obj') this.updDims(r);
       if (sel.type === 'walk' || sel.type === 'floor') {
         g.lineStyle(2.5 * u, 0xffffff, 1); g.strokeRect(r.x, r.y, r.w, r.h);
         const s = 7 * u;
-        [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h]].forEach((c) => {
+        if (!multi) [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h]].forEach((c) => {
           g.fillStyle(0xffffff, 1); g.fillRect(c[0] - s, c[1] - s, 2 * s, 2 * s);
           g.lineStyle(1.5 * u, 0x222222, 1); g.strokeRect(c[0] - s, c[1] - s, 2 * s, 2 * s);
         });
@@ -1057,7 +1222,7 @@
         if (r.rect && sel.type === 'obj') {
           g.lineStyle(2 * u, 0x55ff55, 1); g.strokeRect(r.rect.x, r.rect.y, r.rect.w, r.rect.h);
         }
-        if (sel.type === 'obj' && !this.lock[r.layer || 'object']) {
+        if (sel.type === 'obj' && !multi && !this.lock[r.layer || 'object']) {
           const s = 7 * u, cs = this.objCorners(r);
           for (const k in cs) {
             g.fillStyle(0xffffff, 1); g.fillRect(cs[k][0] - s, cs[k][1] - s, 2 * s, 2 * s);
