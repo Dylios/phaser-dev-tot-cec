@@ -179,7 +179,8 @@
   "lectern_grimoire_open_02": 0.19,
   "lectern_grimoire_closed_02": 0.19,
   "lectern_grimoire_open_face_02": 0.19,
-  "sofa_green_empty_01": 0.11
+  "sofa_green_empty_01": 0.11,
+  "armchair_cecile_empty_01": 0.16
  },
  "player": {
   "x": 474,
@@ -743,7 +744,7 @@
    }
   },
   {
-   "key": "armchair_blue_right_01",
+   "key": "armchair_cecile_empty_01",
    "x": 77,
    "y": 294,
    "sortY": 324,
@@ -751,7 +752,7 @@
     63,
     50
    ],
-   "scale": 1.0,
+   "scale": 0.79,
    "when": {
     "needs": "compagnons"
    }
