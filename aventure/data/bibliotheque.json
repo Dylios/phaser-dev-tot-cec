@@ -166,9 +166,9 @@
   "rug_runner_red_02": 1,
   "rug_round_green_01": 1,
   "plant_flowers_white_01": 1,
-  "sofa_green_01": 1.16,
+  "sofa_green_01": 0.95,
+  "sofa_thomas_gaming_01": 0.11,
   "armchair_cecile_reading_02": 0.198,
-  "sofa_thomas_gaming_01": 0.14,
   "lectern_grimoire_open_01": 0.19,
   "lectern_grimoire_closed_01": 0.19,
   "lectern_grimoire_open_face_01": 0.19,
@@ -220,23 +220,23 @@
   },
   {
    "key": "table_round_side_01",
-   "x": 185,
-   "y": 282,
+   "x": 140,
+   "y": 275,
    "scale": 0.51
   },
   {
    "key": "lamp_table_shade_02",
-   "x": 183,
-   "y": 246,
-   "sortY": 309,
+   "x": 140,
+   "y": 239,
+   "sortY": 302,
    "shadow": false,
    "solid": false,
-   "scale": 0.63
+   "scale": 0.529
   },
   {
    "key": "pouf_blue_01",
-   "x": 220,
-   "y": 341,
+   "x": 128,
+   "y": 345,
    "scale": 0.59
   },
   {
@@ -409,8 +409,8 @@
   },
   {
    "key": "book_pile_leather_01",
-   "x": 864,
-   "y": 240,
+   "x": 880,
+   "y": 239,
    "scale": 0.49
   },
   {
@@ -423,10 +423,19 @@
   },
   {
    "key": "rug_round_red_02",
-   "x": 180,
-   "y": 353,
+   "x": 130,
+   "y": 368,
    "layer": "floor",
    "scale": 0.61
+  },
+  {
+   "key": "desk_drawers_01",
+   "x": 780,
+   "y": 288,
+   "fp": [
+    121,
+    66
+   ]
   },
   {
    "key": "map_world_01",
@@ -462,10 +471,25 @@
    "scale": 0.69
   },
   {
+   "key": "map_scrolls_compass_01",
+   "x": 784,
+   "y": 240,
+   "scale": 0.23,
+   "order": 14,
+   "sortY": 306
+  },
+  {
    "key": "satchel_leather_01",
-   "x": 560,
-   "y": 208,
+   "x": 745,
+   "y": 296,
    "scale": 0.39
+  },
+  {
+   "key": "potions_herbs_01",
+   "x": 834,
+   "y": 242,
+   "scale": 0.37,
+   "sortY": 302
   },
   {
    "key": "globe_stand_01",
@@ -495,6 +519,13 @@
      ]
     }
    ]
+  },
+  {
+   "key": "lamp_desk_green_02",
+   "x": 736,
+   "y": 238,
+   "scale": 0.45,
+   "sortY": 310
   },
   {
    "key": "wall_step_left_01",
@@ -585,16 +616,16 @@
   },
   {
    "key": "plant_palm_pot_01",
-   "x": 834,
-   "y": 293,
+   "x": 703,
+   "y": 287,
    "scale": 0.51
   },
   {
    "key": "plant_fern_urn_01",
-   "x": 112,
-   "y": 315,
+   "x": 222,
+   "y": 190,
    "scale": 0.47,
-   "sortY": 369
+   "sortY": 244
   },
   {
    "key": "statue_wizard_01",
@@ -608,13 +639,6 @@
    "y": 353,
    "layer": "floor",
    "scale": 1.115
-  },
-  {
-   "key": "rug_round_red_02",
-   "x": 739,
-   "y": 356,
-   "layer": "floor",
-   "scale": 0.61
   },
   {
    "key": "table_reading_dressed_01",
@@ -683,10 +707,28 @@
    "portrait": "portraits/tichat.png"
   },
   {
-   "key": "armchair_cecile_reading_02",
-   "x": 134,
-   "y": 308,
-   "sortY": 338,
+   "key": "sofa_thomas_gaming_01",
+   "x": 201,
+   "y": 307,
+   "scale": 1.076,
+   "when": {
+    "not": "compagnons"
+   }
+  },
+  {
+   "key": "sofa_green_01",
+   "x": 201,
+   "y": 307,
+   "scale": 1.03,
+   "when": {
+    "needs": "compagnons"
+   }
+  },
+  {
+   "key": "armchair_cecile_reading_01",
+   "x": 77,
+   "y": 294,
+   "sortY": 324,
    "fp": [
     63,
     50
@@ -698,30 +740,14 @@
   },
   {
    "key": "armchair_blue_right_01",
-   "x": 134,
-   "y": 308,
-   "sortY": 338,
+   "x": 77,
+   "y": 294,
+   "sortY": 324,
    "fp": [
     63,
     50
    ],
    "scale": 1.0,
-   "when": {
-    "needs": "compagnons"
-   }
-  },
-  {
-   "key": "sofa_thomas_gaming_01",
-   "x": 735,
-   "y": 272,
-   "when": {
-    "not": "compagnons"
-   }
-  },
-  {
-   "key": "sofa_green_01",
-   "x": 735,
-   "y": 272,
    "when": {
     "needs": "compagnons"
    }
@@ -747,40 +773,48 @@
        "do": "summon",
        "from": {
         "thomas": [
-         735,
-         300
+         215,
+         317
         ],
         "cecile": [
-         134,
-         330
+         81,
+         302
         ]
        },
        "to": {
         "thomas": [
          [
-          640,
+          215,
+          326
+         ],
+         [
+          300,
+          322
+         ],
+         [
+          330,
           262
          ],
          [
-          600,
-          244
-         ],
-         [
-          532,
-          238
+          395,
+          258
          ]
         ],
         "cecile": [
          [
-          260,
-          262
+          80,
+          252
          ],
          [
-          340,
-          240
+          190,
+          252
          ],
          [
-          428,
+          330,
+          238
+         ],
+         [
+          440,
           238
          ]
         ]
@@ -827,8 +861,12 @@
          262
         ],
         [
-         428,
-         240
+         345,
+         238
+        ],
+        [
+         440,
+         238
         ]
        ],
        "speed": 125
@@ -879,40 +917,48 @@
        "do": "summon",
        "from": {
         "thomas": [
-         735,
-         300
+         215,
+         317
         ],
         "cecile": [
-         134,
-         330
+         81,
+         302
         ]
        },
        "to": {
         "thomas": [
          [
-          640,
+          215,
+          326
+         ],
+         [
+          300,
+          322
+         ],
+         [
+          330,
           262
          ],
          [
-          600,
-          244
-         ],
-         [
-          532,
-          238
+          395,
+          258
          ]
         ],
         "cecile": [
          [
-          260,
-          262
+          80,
+          252
          ],
          [
-          340,
-          240
+          190,
+          252
          ],
          [
-          428,
+          330,
+          238
+         ],
+         [
+          440,
           238
          ]
         ]
@@ -959,8 +1005,12 @@
          262
         ],
         [
-         428,
-         240
+         345,
+         238
+        ],
+        [
+         440,
+         238
         ]
        ],
        "speed": 125
@@ -1010,40 +1060,48 @@
        "do": "summon",
        "from": {
         "thomas": [
-         735,
-         300
+         215,
+         317
         ],
         "cecile": [
-         134,
-         330
+         81,
+         302
         ]
        },
        "to": {
         "thomas": [
          [
-          640,
+          215,
+          326
+         ],
+         [
+          300,
+          322
+         ],
+         [
+          330,
           262
          ],
          [
-          600,
-          244
-         ],
-         [
-          532,
-          238
+          395,
+          258
          ]
         ],
         "cecile": [
          [
-          260,
-          262
+          80,
+          252
          ],
          [
-          340,
-          240
+          190,
+          252
          ],
          [
-          428,
+          330,
+          238
+         ],
+         [
+          440,
           238
          ]
         ]
@@ -1090,8 +1148,12 @@
          262
         ],
         [
-         428,
-         240
+         345,
+         238
+        ],
+        [
+         440,
+         238
         ]
        ],
        "speed": 125
@@ -1153,8 +1215,8 @@
   },
   {
    "key": "cupboard_ajar_01",
-   "x": 62,
-   "y": 372,
+   "x": 792,
+   "y": 368,
    "scale": 0.9,
    "fp": [
     48,
@@ -1189,14 +1251,14 @@
    "flicker": true
   },
   {
-   "x": 183,
-   "y": 213,
+   "x": 247,
+   "y": 244,
    "r": 70,
    "a": 0.41
   },
   {
-   "x": 434,
-   "y": 138,
+   "x": 737,
+   "y": 217,
    "r": 34,
    "a": 0.53
   }
