@@ -178,7 +178,8 @@
   "banner_compass_01": 0.25,
   "lectern_grimoire_open_02": 0.19,
   "lectern_grimoire_closed_02": 0.19,
-  "lectern_grimoire_open_face_02": 0.19
+  "lectern_grimoire_open_face_02": 0.19,
+  "sofa_green_empty_01": 0.11
  },
  "player": {
   "x": 474,
@@ -719,10 +720,10 @@
    }
   },
   {
-   "key": "sofa_green_01",
+   "key": "sofa_green_empty_01",
    "x": 201,
    "y": 307,
-   "scale": 1.03,
+   "scale": 1.058,
    "when": {
     "needs": "compagnons"
    }
