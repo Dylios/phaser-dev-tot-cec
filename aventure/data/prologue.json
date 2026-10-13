@@ -160,7 +160,15 @@
   "wall_stone_side_right_window_01": 0.42,
   "column_stone_round_01": 0.4,
   "column_broken_candles_01": 0.3,
-  "ivy_wall_hanging_01": 0.4
+  "ivy_wall_hanging_01": 0.4,
+  "altar_book_01": 0.27,
+  "altar_empty_01": 0.27,
+  "candlestick_floor_01": 0.15,
+  "table_chapel_book_01": 0.18,
+  "table_chapel_candles_01": 0.18,
+  "stool_wood_letter_01": 0.14,
+  "bench_chapel_cloth_01": 0.16,
+  "urn_terracotta_fern_01": 0.15
  },
  "player": {
   "x": 308,
@@ -242,9 +250,85 @@
    "layer": "walldecor"
   },
   {
+   "key": "altar_book_01",
+   "x": 308,
+   "y": 318,
+   "fp": [
+    60,
+    26
+   ]
+  },
+  {
+   "key": "candlestick_floor_01",
+   "x": 232,
+   "y": 350,
+   "fp": [
+    14,
+    8
+   ]
+  },
+  {
+   "key": "candlestick_floor_01",
+   "x": 384,
+   "y": 350,
+   "fp": [
+    14,
+    8
+   ]
+  },
+  {
+   "key": "table_chapel_book_01",
+   "x": 158,
+   "y": 305,
+   "fp": [
+    44,
+    22
+   ]
+  },
+  {
+   "key": "table_chapel_candles_01",
+   "x": 458,
+   "y": 305,
+   "fp": [
+    40,
+    22
+   ]
+  },
+  {
+   "key": "bench_chapel_cloth_01",
+   "x": 160,
+   "y": 412,
+   "fp": [
+    66,
+    18
+   ]
+  },
+  {
+   "key": "stool_wood_letter_01",
+   "x": 430,
+   "y": 365,
+   "fp": [
+    22,
+    14
+   ]
+  },
+  {
+   "key": "urn_terracotta_fern_01",
+   "x": 122,
+   "y": 350,
+   "fp": [
+    24,
+    14
+   ]
+  },
+  {
    "key": "column_broken_candles_01",
-   "x": 135,
-   "y": 425
+   "x": 495,
+   "y": 430,
+   "fp": [
+    26,
+    14
+   ]
   }
  ],
  "npcs": [],
@@ -254,6 +338,27 @@
    "y": 225,
    "r": 170,
    "a": 0.7
+  },
+  {
+   "x": 308,
+   "y": 270,
+   "r": 110,
+   "a": 0.35,
+   "flicker": true
+  },
+  {
+   "x": 158,
+   "y": 268,
+   "r": 60,
+   "a": 0.45,
+   "flicker": true
+  },
+  {
+   "x": 458,
+   "y": 268,
+   "r": 60,
+   "a": 0.45,
+   "flicker": true
   }
  ]
 }
