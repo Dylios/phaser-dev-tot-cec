@@ -1,0 +1,259 @@
+{
+ "id": "prologue",
+ "world": {
+  "width": 616,
+  "height": 560
+ },
+ "background": "#0b0705",
+ "camera": {
+  "minZoom": 0.85,
+  "maxZoom": 3.2
+ },
+ "floors": [
+  {
+   "key": "floor_planks_01",
+   "x": 80,
+   "y": 241,
+   "w": 456,
+   "h": 200,
+   "tileScale": 0.25
+  }
+ ],
+ "walkable": [
+  {
+   "x": 110,
+   "y": 241,
+   "w": 396,
+   "h": 120
+  },
+  {
+   "x": 140,
+   "y": 361,
+   "w": 336,
+   "h": 60
+  }
+ ],
+ "assetScale": {
+  "armchair_cecile_reading_01": 0.16,
+  "thomas_01": 0.36,
+  "cecile_01": 0.38,
+  "tichat_01": 0.28,
+  "table_reading_dressed_01": 0.22,
+  "rug_blue_oblique_01": 0.31,
+  "rug_red_oblique_01": 0.31,
+  "rug_red_fringe_01": 0.3,
+  "plant_palm_pot_01": 0.23,
+  "plant_monstera_urn_01": 0.25,
+  "planter_ivy_trellis_01": 0.2,
+  "plant_fern_urn_01": 0.25,
+  "sofa_red_01": 0.21,
+  "statue_bust_01": 0.15,
+  "statue_knight_horse_01": 0.14,
+  "statue_wizard_01": 0.145,
+  "lantern_wall_plaque_01": 0.085,
+  "candelabra_brass_01": 0.1,
+  "candles_cluster_01": 0.09,
+  "table_wood_front_01": 0.13,
+  "lantern_books_quill_01": 0.12,
+  "map_scrolls_compass_01": 0.12,
+  "satchel_leather_01": 0.14,
+  "potions_herbs_01": 0.12,
+  "candelabra_inkwell_01": 0.12,
+  "wall_top_h_long_01": 0.25,
+  "wall_top_h_short_01": 0.25,
+  "wall_top_v_long_01": 0.25,
+  "wall_top_v_short_01": 0.25,
+  "wall_top_corner_nw_01": 0.25,
+  "wall_top_corner_ne_01": 0.25,
+  "wall_top_corner_sw_01": 0.25,
+  "wall_top_corner_se_01": 0.25,
+  "wall_top_t_down_01": 0.25,
+  "wall_top_t_up_01": 0.25,
+  "wall_top_t_left_01": 0.25,
+  "wall_top_t_right_01": 0.25,
+  "wall_top_cross_01": 0.25,
+  "wall_top_end_w_01": 0.25,
+  "wall_top_end_e_01": 0.25,
+  "wall_top_end_n_01": 0.25,
+  "wall_top_end_s_01": 0.25,
+  "bookcase_09_ivy_orrery": 0.22,
+  "bookcase_10_bust_globe": 0.21,
+  "desk_drawers_01": 0.3,
+  "desk_long_01": 0.28,
+  "post_wood_tall_01": 0.2,
+  "rug_medallion_01": 0.4,
+  "wall_back_plain_01": 0.5,
+  "wall_back_alcove_01": 0.5,
+  "wall_low_01": 0.5,
+  "wall_step_left_01": 0.5,
+  "wall_step_right_01": 0.5,
+  "doorway_steps_01": 0.5,
+  "wall_side_left_01": 0.5,
+  "wall_side_right_01": 0.5,
+  "wall_corner_inner_01": 0.5,
+  "wall_corner_inner_02": 0.5,
+  "bookcase_side_right_01": 0.34,
+  "bookcase_side_left_01": 0.34,
+  "fireplace_side_right_01": 0.4,
+  "fireplace_side_left_01": 0.4,
+  "armchair_blue_right_01": 0.4,
+  "armchair_blue_left_01": 0.4,
+  "chair_green_left_01": 0.27,
+  "chair_green_right_01": 0.27,
+  "table_reading_long_01": 0.4,
+  "table_reading_long_front_01": 0.2,
+  "desk_small_01": 0.5,
+  "table_round_side_01": 0.4,
+  "lamp_table_shade_02": 0.3,
+  "lamp_desk_green_02": 0.3,
+  "ladder_wood_01": 0.5,
+  "globe_stand_01": 0.45,
+  "armillary_sphere_01": 0.4,
+  "trunk_stack_blue_01": 0.45,
+  "book_pile_leather_01": 0.3,
+  "book_pile_leather_02": 0.3,
+  "book_pile_leather_03": 0.3,
+  "painting_landscape_01": 0.35,
+  "map_world_01": 0.35,
+  "rug_red_long_01": 0.5,
+  "rug_red_entrance_01": 0.8,
+  "rug_round_red_02": 0.5,
+  "bookcase_04_arch_niche": 0.9,
+  "bookcase_07_tall": 0.9,
+  "bookcase_08_tall_ivy": 0.9,
+  "bookcase_03_globe": 0.9,
+  "bookcase_05_ivy": 0.9,
+  "desk_study_01": 0.9,
+  "pouf_blue_01": 1.2,
+  "plant_palm_01": 0.9,
+  "cat_01": 1.1,
+  "cat_02": 1.1,
+  "plant_fern_05": 0.9,
+  "lantern_wall_01": 1.0,
+  "desk_historian_01": 0.4,
+  "wall_stone_back_plain_01": 0.4,
+  "wall_stone_back_plain_02": 0.4,
+  "wall_stone_back_door_01": 0.4,
+  "wall_stone_side_left_01": 0.4,
+  "wall_stone_side_right_01": 0.4,
+  "wall_stone_low_01": 0.4,
+  "banner_compass_01": 0.25,
+  "sconce_candle_wall_01": 0.2,
+  "bookcase_secret_closed_01": 0.36,
+  "bookcase_secret_open_01": 0.36,
+  "bookcase_archive_scrolls_01": 0.36,
+  "chest_iron_bound_01": 0.22,
+  "crates_stack_01": 0.25,
+  "vase_scrolls_blue_01": 0.22,
+  "cabinet_drawers_candles_01": 0.28,
+  "map_star_chart_01": 0.3,
+  "rug_blue_flat_01": 0.5,
+  "rug_red_flat_01": 0.5,
+  "rug_red_compass_flat_01": 0.8,
+  "papers_floor_01": 0.16,
+  "papers_floor_02": 0.16,
+  "papers_floor_03": 0.16,
+  "wall_stone_back_window_01": 0.42,
+  "wall_stone_back_niche_book_01": 0.42,
+  "wall_stone_back_niche_compass_01": 0.42,
+  "wall_stone_side_left_window_01": 0.42,
+  "wall_stone_side_right_window_01": 0.42,
+  "column_stone_round_01": 0.4,
+  "column_broken_candles_01": 0.3,
+  "ivy_wall_hanging_01": 0.4
+ },
+ "player": {
+  "x": 308,
+  "y": 400,
+  "speed": 150,
+  "face": "up"
+ },
+ "objects": [
+  {
+   "key": "wall_stone_back_niche_book_01",
+   "x": 153.0,
+   "y": 240,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_back_window_01",
+   "x": 308.0,
+   "y": 240,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_back_niche_compass_01",
+   "x": 463.0,
+   "y": 240,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_left_window_01",
+   "x": 73,
+   "y": 320,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_right_window_01",
+   "x": 543,
+   "y": 320,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_left_window_01",
+   "x": 73,
+   "y": 450,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_side_right_window_01",
+   "x": 543,
+   "y": 450,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 170,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 308,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_stone_low_01",
+   "x": 446,
+   "y": 528,
+   "layer": "wall"
+  },
+  {
+   "key": "rug_red_flat_01",
+   "x": 308,
+   "y": 400,
+   "layer": "floor"
+  },
+  {
+   "key": "ivy_wall_hanging_01",
+   "x": 511,
+   "y": 215,
+   "layer": "walldecor"
+  },
+  {
+   "key": "column_broken_candles_01",
+   "x": 135,
+   "y": 425
+  }
+ ],
+ "npcs": [],
+ "lights": [
+  {
+   "x": 308,
+   "y": 225,
+   "r": 170,
+   "a": 0.7
+  }
+ ]
+}
