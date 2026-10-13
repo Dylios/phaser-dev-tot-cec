@@ -48,6 +48,18 @@
     });
     window.__game = game;
 
+    // bouton « recommencer » : efface la progression de ce navigateur et repart du début
+    const rb = document.getElementById('reset');
+    if (rb) rb.addEventListener('click', function () {
+      if (!window.confirm('Recommencer le jeu depuis le début ?\nLa progression sera effacée.')) return;
+      try { localStorage.removeItem('exp2028:flags'); } catch (e) { /* tant pis */ }
+      const keep = new URLSearchParams();
+      if (params.has('debug')) keep.set('debug', '');
+      if (params.has('brouillon')) keep.set('brouillon', '');
+      const q = keep.toString().replace(/=(&|$)/g, '$1');
+      location.href = location.pathname + (q ? '?' + q : '');
+    });
+
     // bandeau quand on joue le brouillon
     if (draft && !edit) {
       const bar = document.createElement('div');

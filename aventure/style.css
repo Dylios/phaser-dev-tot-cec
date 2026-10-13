@@ -96,7 +96,7 @@ html,body{
 #draftbar a{color:var(--or)}
 
 /* ---------- éditeur (?edit) ---------- */
-body.edit #quest, body.edit #frags, body.edit #toast, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dlg, body.edit #vignette{display:none !important}
+body.edit #quest, body.edit #frags, body.edit #reset, body.edit #toast, body.edit #joy, body.edit #act, body.edit #hint, body.edit #dlg, body.edit #vignette{display:none !important}
 #ed{
   position:fixed;z-index:20;top:0;right:0;bottom:0;width:340px;display:flex;flex-direction:column;
   background:#1d130e;border-left:2px solid var(--or);color:var(--ivoire);font:14px/1.35 system-ui,Georgia,serif;
@@ -215,3 +215,12 @@ body.edit #quest, body.edit #frags, body.edit #toast, body.edit #joy, body.edit 
 #toast img{width:46px;height:46px;object-fit:contain}
 #toast b{display:block;color:var(--or);font-size:15px}
 #toast span{display:block;font-size:13px;font-style:italic;opacity:.9}
+
+/* ---- bouton « recommencer » ---- */
+#reset{
+  position:fixed;top:max(46px,calc(env(safe-area-inset-top) + 38px));right:max(8px,env(safe-area-inset-right));
+  width:30px;height:30px;padding:0;border-radius:50%;
+  background:#2a1b14cc;border:1px solid #6b5a3a;color:var(--or);
+  font:18px/1 Georgia,serif;cursor:pointer;opacity:.75;
+}
+#reset:hover,#reset:active{opacity:1;border-color:var(--or)}
