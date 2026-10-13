@@ -150,3 +150,17 @@ Pour qu'un personnage ait son portrait, ajoute dans `data/bibliotheque.json`, su
     "portrait": "portraits/thomas.png"
 
 Une réplique peut aussi avoir son propre `"portrait"` (par exemple une autre expression). Sans portrait, la boîte reste comme avant. Sur téléphone en paysage, la boîte se place en bas, entre le joystick et « Agir ».
+
+## Plusieurs pièces, passages secrets, progression
+
+- **Pièces** : une pièce = un fichier `data/<id>.json`. `?piece=reserve` ouvre la réserve (`?piece=reserve&edit` dans l'éditeur).
+- **Sorties** : dans le JSON d'une pièce, la liste `"exits"` relie les pièces. Quand le joueur entre dans le rectangle, fondu au noir, puis arrivée dans l'autre pièce :
+
+      "exits": [{ "x": 335, "y": 186, "w": 50, "h": 14, "to": "reserve",
+                  "spawn": { "x": 210, "y": 250, "face": "up" },
+                  "when": { "needs": "passage" } }]
+
+  `spawn` = où le joueur arrive dans l'autre pièce (il doit être HORS du rectangle de sortie de cette pièce, sinon retour immédiat). `?debug` dessine les sorties en orange.
+- **Drapeaux** : une réplique avec `"sets": "passage"` lève le drapeau « passage » quand elle se termine. Les drapeaux sont gardés dans ce navigateur (localStorage), donc la progression survit au rechargement. **`?reset`** dans l'adresse remet tout à zéro (à utiliser pour tester).
+- **Éléments conditionnels** : n'importe quel objet, PNJ ou lumière peut avoir `"when": { "needs": "passage" }` (visible seulement quand le drapeau est levé) et/ou `"not": "passage"` (visible tant qu'il ne l'est pas). Un élément caché n'est ni solide ni utilisable. L'éditeur montre toujours tout (pour pouvoir les placer). Le champ `when` et les `exits` se modifient dans le JSON : l'éditeur les conserve mais n'a pas encore de champ pour eux.
+- **Le passage de la bibliothèque** : le globe (`globe_stand_01`) lève le drapeau « passage ». La bibliothèque fermée (`bookcase_07_tall`, x=360) disparaît et `bookcase_secret_open_01` apparaît ; en la rejoignant, on arrive dans la réserve. Tant que l'image `bookcase_secret_open_01.png` n'existe pas, un rectangle noir la remplace. Dès qu'elle est dans `assets/bookcases/` (et `python tools/make_assets_json.py` relancé), elle prend sa place ; règle son échelle dans l'éditeur (la bibliothèque ouverte doit avoir la taille de l'ancienne).

@@ -205,7 +205,10 @@
   {
    "key": "bookcase_07_tall",
    "x": 360,
-   "y": 186
+   "y": 186,
+   "when": {
+    "not": "passage"
+   }
   },
   {
    "key": "desk_small_01",
@@ -250,7 +253,24 @@
   {
    "key": "globe_stand_01",
    "x": 705,
-   "y": 200
+   "y": 200,
+   "label": "Tourner",
+   "talk": [
+    {
+     "not": "passage",
+     "text": [
+      "Le globe tourne… puis s'immobilise avec un déclic.",
+      "Quelque part dans la pièce, un mécanisme s'est enclenché."
+     ],
+     "sets": "passage"
+    },
+    {
+     "needs": "passage",
+     "text": [
+      "Le globe est calé sur une constellation. Il ne bouge plus."
+     ]
+    }
+   ]
   },
   {
    "key": "bookcase_08_tall_ivy",
@@ -507,6 +527,16 @@
    "y": 250,
    "layer": "wall",
    "order": 0
+  },
+  {
+   "key": "bookcase_secret_open_01",
+   "x": 360,
+   "y": 186,
+   "solid": false,
+   "shadow": false,
+   "when": {
+    "needs": "passage"
+   }
   }
  ],
  "npcs": [
@@ -610,6 +640,30 @@
    "y": 360,
    "r": 60,
    "a": 0.5
+  }
+ ],
+ "placeholders": {
+  "bookcase_secret_open_01": {
+   "w": 101,
+   "h": 157,
+   "color": "#0a0608"
+  }
+ },
+ "exits": [
+  {
+   "x": 335,
+   "y": 186,
+   "w": 50,
+   "h": 14,
+   "to": "reserve",
+   "spawn": {
+    "x": 210,
+    "y": 250,
+    "face": "up"
+   },
+   "when": {
+    "needs": "passage"
+   }
   }
  ]
 }

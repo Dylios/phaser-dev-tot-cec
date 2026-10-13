@@ -23,7 +23,8 @@
       this.fromDraft = !!data.fromDraft;
       this.chars = data.chars || {};          // personnages animés (data/characters.json)
       this.actors = new Set();
-      this.flags = {};
+      this.flags = this.loadFlags();
+      this.transitioning = false;
       this.lines = null;
       this.entry = null;
       this.speaker = '';
@@ -31,6 +32,55 @@
       this.placeholders = new Set();
       this.solids = [];
       this.talkables = [];
+    }
+
+    /* ---------- progression (drapeaux) : gardée dans ce navigateur ---------- */
+    loadFlags() {
+      if (this.edit) return {};
+      try {
+        if (new URLSearchParams(location.search).has('reset')) localStorage.removeItem('exp2028:flags');
+        return JSON.parse(localStorage.getItem('exp2028:flags') || '{}') || {};
+      } catch (e) { return {}; }
+    }
+
+    saveFlags() {
+      try { localStorage.setItem('exp2028:flags', JSON.stringify(this.flags)); } catch (e) { /* navigation privée : pas grave */ }
+    }
+
+    setFlag(name) {
+      if (!name || this.flags[name]) return;
+      this.flags[name] = true;
+      this.saveFlags();
+      this.refreshAll();
+    }
+
+    /* Condition {needs, not} : vraie si le drapeau requis est levé et l'interdit ne l'est pas. */
+    condOk(w) {
+      if (!w || this.edit) return true;                  // l'éditeur montre tout
+      const f = this.flags;
+      return (!w.needs || !!f[w.needs]) && (!w.not || !f[w.not]);
+    }
+
+    /* Affiche, cache, rend solide ou non un élément selon son champ "when". */
+    refreshState(e) {
+      if (!e || !e._parts) return;
+      const on = this.condOk(e.when);
+      e._parts.forEach((p) => { if (p && p.scene) p.setVisible(on); });
+      if (e.rect) {
+        const i = this.solids.indexOf(e.rect), want = on && e._solid;
+        if (want && i < 0) this.solids.push(e.rect);
+        if (!want && i >= 0) this.solids.splice(i, 1);
+      }
+      if (e.talk) {
+        const t = this.talkables.indexOf(e);
+        if (on && t < 0) this.talkables.push(e);
+        if (!on && t >= 0) this.talkables.splice(t, 1);
+      }
+    }
+
+    refreshAll() {
+      const c = this.cfg;
+      [].concat(c.objects || [], c.npcs || [], c.lights || []).forEach((e) => this.refreshState(e));
     }
 
     /* ---------- chargement ---------- */
@@ -146,6 +196,7 @@
       (cfg.npcs || []).forEach((n) => this.addNpc(n));
       this.addPlayer();
       (cfg.lights || []).forEach((L) => this.addLight(L));
+      this.refreshAll();
     }
 
     /* Détruit tout le contenu (avant de recharger une autre version de la pièce). */
@@ -333,6 +384,7 @@
           .setDisplaySize(w, clamp(w * 0.2, 6, 20)).setAlpha(0.5).setDepth(depth - 0.5));
       }
 
+      o._solid = layer === 'object' && o.solid !== false;
       if (layer === 'object' && o.solid !== false) {
         const w = o.fp ? o.fp[0] : Math.min(img.displayWidth * 0.8, 260);
         const h = o.fp ? o.fp[1] : clamp(img.displayHeight * 0.16, 6, 16);
@@ -357,6 +409,7 @@
       n._parts = [img, sh];
       const w = n.fp ? n.fp[0] : 16, h = n.fp ? n.fp[1] : 8;
       n.rect = { x: n.x - w / 2, y: n.y - h, w, h };
+      n._solid = n.solid !== false;
       if (n.solid !== false) this.solids.push(n.rect);
       if (n.talk) this.talkables.push(n);
     }
@@ -395,12 +448,12 @@
       const cam = this.cameras.main;
       cam.setBackgroundColor(this.cfg.background || '#0b0705');
       cam.setBounds(0, 0, W, H);
-      if (!this.edit) cam.startFollow(this.player, true, 0.12, 0.12);
+      if (!this.edit) { cam.stopFollow(); cam.startFollow(this.player, true, 0.12, 0.12); }
       cam.roundPixels = false;
       if (this.edit) { cam.removeBounds(); return; }
       this.applyZoom();
       cam.centerOn(this.player.x, this.player.y);
-      this.scale.on('resize', () => this.applyZoom());
+      if (!this._resizeBound) { this._resizeBound = true; this.scale.on('resize', () => this.applyZoom()); }
     }
 
     applyZoom() {
@@ -457,6 +510,7 @@
     /* ---------- boucle ---------- */
     update(time, delta) {
       if (this.edit) { window.Controls.act = false; return; }
+      if (this.transitioning) { window.Controls.act = false; this.setPlayerMoving(false, 0, 0); this.tickActors(delta); return; }
       const K = Phaser.Input.Keyboard.JustDown, k = this.keys;
       let act = window.Controls.act || K(k.SPACE) || K(k.ENTER) || K(k.E);
       window.Controls.act = false;
@@ -509,7 +563,72 @@
       }
       if (act && best) this.talk(best);
 
+      this.checkExits();
       if (this.debug) this.updateDebug();
+    }
+
+    /* ---------- sorties : passer d'une pièce à l'autre ----------
+     * "exits": [{ x, y, w, h, to: "reserve", spawn: { x, y, face }, when: { needs, not } }]
+     * Quand le joueur entre dans le rectangle, fondu, puis arrivée à "spawn" dans la pièce "to".
+     * "spawn" doit être HORS du rectangle de sortie de l'autre pièce, sinon retour immédiat. */
+    checkExits() {
+      const list = this.cfg.exits;
+      if (!list || this.transitioning) return;
+      const p = this.player;
+      for (const x of list) {
+        if (!this.condOk(x.when)) continue;
+        if (p.x >= x.x && p.x <= x.x + x.w && p.y >= x.y && p.y <= x.y + x.h) { this.goToRoom(x.to, x.spawn); return; }
+      }
+    }
+
+    goToRoom(id, spawn) {
+      if (this.transitioning) return;
+      this.transitioning = true;
+      const cam = this.cameras.main;
+      this.setPlayerMoving(false, 0, 0);
+      $('act').classList.remove('on');
+      if (this.hint) this.hint.box.hidden = true;
+      const wanted = fetch('data/' + id + '.json').then((r) => { if (!r.ok) throw new Error(id + ' introuvable'); return r.json(); });
+      cam.once('camerafadeoutcomplete', () => {
+        wanted.then((room) => this.enterRoom(room, spawn))
+          .catch((e) => { console.error(e); cam.fadeIn(250, 11, 7, 5); this.transitioning = false; });
+      });
+      cam.fadeOut(300, 11, 7, 5);
+    }
+
+    enterRoom(room, spawn) {
+      if (this.fromDraft) {
+        try { const d = localStorage.getItem('exp2028:draft:' + room.id); if (d) room = JSON.parse(d); } catch (e) { /* tant pis */ }
+      }
+      this.clearWorld();
+      this.cfg = room;
+      room.assetScale = room.assetScale || {}; room.walkable = room.walkable || []; room.floors = room.floors || [];
+      room.lights = room.lights || []; room.npcs = room.npcs || []; room.objects = room.objects || [];
+      room.player = room.player || { x: 100, y: 100 };
+      if (spawn) { room.player.x = spawn.x; room.player.y = spawn.y; if (spawn.face) room.player.face = spawn.face; }
+      this.near = null; this.talkTarget = null;
+
+      const keys = new Set();
+      room.floors.forEach((f) => keys.add(f.key));
+      room.objects.forEach((o) => keys.add(o.key));
+      room.npcs.forEach((n) => n.key && keys.add(n.key));
+      if (room.player.key) keys.add(room.player.key);
+      let todo = 0;
+      keys.forEach((k) => {
+        const d = this.chars[k];
+        if (d && !this.textures.exists(k + '__sheet')) { this.load.spritesheet(k + '__sheet', d.sheet, { frameWidth: d.cell[0], frameHeight: d.cell[1] }); todo++; }
+        if (this.textures.exists(k)) return;
+        const path = this.assetMap[k];
+        if (path) { this.load.image(k, path); todo++; } else this.missing.add(k);
+      });
+      const go = () => {
+        this.buildWorld();
+        this.setupCamera();
+        this.updateQuest();
+        this.cameras.main.fadeIn(350, 11, 7, 5);
+        this.transitioning = false;
+      };
+      if (todo) { this.load.once('complete', go); this.load.start(); } else go();
     }
 
     /* ---------- dialogues et quête ---------- */
@@ -554,7 +673,7 @@
       $('dlg').hidden = true;
       const tt = this.talkTarget; this.talkTarget = null;
       if (tt && tt._actor) { tt._actor.face = tt.face || 'down'; this.applyActor(tt); }
-      if (this.entry && this.entry.sets) this.flags[this.entry.sets] = true;
+      if (this.entry && this.entry.sets) this.setFlag(this.entry.sets);
       this.lines = null;
       this.entry = null;
       this.updateQuest();
@@ -582,6 +701,8 @@
       this.solids.forEach((r) => g.strokeRect(r.x, r.y, r.w, r.h));
       g.lineStyle(1, 0x5599ff, 0.9);
       (this.cfg.walkable || []).forEach((r) => g.strokeRect(r.x, r.y, r.w, r.h));
+      g.lineStyle(1, 0xffaa33, 0.95);
+      (this.cfg.exits || []).forEach((r) => g.strokeRect(r.x, r.y, r.w, r.h));
       const p = this.input.activePointer;
       $('debug').textContent =
         'joueur  x:' + Math.round(this.player.x) + ' y:' + Math.round(this.player.y) + '\n' +

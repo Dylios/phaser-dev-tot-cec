@@ -1,0 +1,351 @@
+{
+ "id": "reserve",
+ "world": {
+  "width": 690,
+  "height": 450
+ },
+ "background": "#0b0705",
+ "camera": {
+  "minZoom": 0.85,
+  "maxZoom": 3.2
+ },
+ "floors": [
+  {
+   "key": "floor_planks_01",
+   "x": 40,
+   "y": 170,
+   "w": 610,
+   "h": 215,
+   "tileScale": 0.25
+  }
+ ],
+ "walkable": [
+  {
+   "x": 56,
+   "y": 186,
+   "w": 578,
+   "h": 114
+  },
+  {
+   "x": 150,
+   "y": 300,
+   "w": 390,
+   "h": 72
+  }
+ ],
+ "assetScale": {
+  "armchair_cecile_reading_01": 0.16,
+  "thomas_01": 0.36,
+  "cecile_01": 0.38,
+  "tichat_01": 0.28,
+  "table_reading_dressed_01": 0.22,
+  "rug_blue_oblique_01": 0.31,
+  "rug_red_oblique_01": 0.31,
+  "rug_red_fringe_01": 0.3,
+  "plant_palm_pot_01": 0.23,
+  "plant_monstera_urn_01": 0.25,
+  "planter_ivy_trellis_01": 0.2,
+  "plant_fern_urn_01": 0.25,
+  "sofa_red_01": 0.21,
+  "statue_bust_01": 0.15,
+  "statue_knight_horse_01": 0.14,
+  "statue_wizard_01": 0.145,
+  "lantern_wall_plaque_01": 0.085,
+  "candelabra_brass_01": 0.1,
+  "candles_cluster_01": 0.09,
+  "table_wood_front_01": 0.13,
+  "lantern_books_quill_01": 0.12,
+  "map_scrolls_compass_01": 0.12,
+  "satchel_leather_01": 0.14,
+  "potions_herbs_01": 0.12,
+  "candelabra_inkwell_01": 0.12,
+  "wall_top_h_long_01": 0.25,
+  "wall_top_h_short_01": 0.25,
+  "wall_top_v_long_01": 0.25,
+  "wall_top_v_short_01": 0.25,
+  "wall_top_corner_nw_01": 0.25,
+  "wall_top_corner_ne_01": 0.25,
+  "wall_top_corner_sw_01": 0.25,
+  "wall_top_corner_se_01": 0.25,
+  "wall_top_t_down_01": 0.25,
+  "wall_top_t_up_01": 0.25,
+  "wall_top_t_left_01": 0.25,
+  "wall_top_t_right_01": 0.25,
+  "wall_top_cross_01": 0.25,
+  "wall_top_end_w_01": 0.25,
+  "wall_top_end_e_01": 0.25,
+  "wall_top_end_n_01": 0.25,
+  "wall_top_end_s_01": 0.25,
+  "bookcase_09_ivy_orrery": 0.22,
+  "bookcase_10_bust_globe": 0.21,
+  "desk_drawers_01": 0.3,
+  "desk_long_01": 0.28,
+  "post_wood_tall_01": 0.2,
+  "rug_medallion_01": 0.4,
+  "wall_back_plain_01": 0.5,
+  "wall_back_alcove_01": 0.5,
+  "wall_low_01": 0.5,
+  "wall_step_left_01": 0.5,
+  "wall_step_right_01": 0.5,
+  "doorway_steps_01": 0.5,
+  "wall_side_left_01": 0.5,
+  "wall_side_right_01": 0.5,
+  "wall_corner_inner_01": 0.5,
+  "wall_corner_inner_02": 0.5,
+  "bookcase_side_right_01": 0.34,
+  "bookcase_side_left_01": 0.34,
+  "fireplace_side_right_01": 0.4,
+  "fireplace_side_left_01": 0.4,
+  "armchair_blue_right_01": 0.4,
+  "armchair_blue_left_01": 0.4,
+  "chair_green_left_01": 0.27,
+  "chair_green_right_01": 0.27,
+  "table_reading_long_01": 0.4,
+  "table_reading_long_front_01": 0.2,
+  "desk_small_01": 0.5,
+  "table_round_side_01": 0.4,
+  "lamp_table_shade_02": 0.3,
+  "lamp_desk_green_02": 0.3,
+  "ladder_wood_01": 0.5,
+  "globe_stand_01": 0.45,
+  "armillary_sphere_01": 0.4,
+  "trunk_stack_blue_01": 0.45,
+  "book_pile_leather_01": 0.3,
+  "book_pile_leather_02": 0.3,
+  "book_pile_leather_03": 0.3,
+  "painting_landscape_01": 0.35,
+  "map_world_01": 0.35,
+  "rug_red_long_01": 0.5,
+  "rug_red_entrance_01": 0.8,
+  "rug_round_red_02": 0.5,
+  "bookcase_04_arch_niche": 0.9,
+  "bookcase_07_tall": 0.9,
+  "bookcase_08_tall_ivy": 0.9,
+  "bookcase_03_globe": 0.9,
+  "bookcase_05_ivy": 0.9,
+  "desk_study_01": 0.9,
+  "pouf_blue_01": 1.2,
+  "plant_palm_01": 0.9,
+  "cat_01": 1.1,
+  "cat_02": 1.1,
+  "plant_fern_05": 0.9,
+  "lantern_wall_01": 1.0,
+  "desk_historian_01": 0.4
+ },
+ "player": {
+  "x": 210,
+  "y": 250,
+  "speed": 150,
+  "face": "up"
+ },
+ "objects": [
+  {
+   "key": "wall_back_plain_01",
+   "x": 75,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_alcove_01",
+   "x": 210,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 345,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 480,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_back_plain_01",
+   "x": 615,
+   "y": 185,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 110,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 230,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 350,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 470,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_low_01",
+   "x": 590,
+   "y": 440,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_side_left_01",
+   "x": 50,
+   "y": 378,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_side_right_01",
+   "x": 640,
+   "y": 378,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_side_left_01",
+   "x": 50,
+   "y": 250,
+   "layer": "wall"
+  },
+  {
+   "key": "wall_side_right_01",
+   "x": 640,
+   "y": 250,
+   "layer": "wall"
+  },
+  {
+   "key": "lantern_wall_01",
+   "x": 210,
+   "y": 120,
+   "layer": "walldecor"
+  },
+  {
+   "key": "map_world_01",
+   "x": 480,
+   "y": 110,
+   "layer": "walldecor"
+  },
+  {
+   "key": "rug_red_long_01",
+   "x": 345,
+   "y": 352,
+   "layer": "floor"
+  },
+  {
+   "key": "bookcase_10_bust_globe",
+   "x": 100,
+   "y": 186
+  },
+  {
+   "key": "bookcase_09_ivy_orrery",
+   "x": 590,
+   "y": 186
+  },
+  {
+   "key": "desk_historian_01",
+   "x": 425,
+   "y": 300,
+   "fp": [
+    230,
+    120
+   ],
+   "portrait": "portraits/historien.png",
+   "name": "L'historien",
+   "label": "Parler",
+   "talk": [
+    {
+     "who": "L'historien",
+     "not": "indice",
+     "text": [
+      "Tiens, un visiteur… Personne ne trouve cette salle, d'habitude.",
+      "Tu cherches la page manquante, n'est-ce pas ? Je ne l'ai pas, mais je sais où regarder.",
+      "[Texte provisoire : l'indice de la quête secondaire viendra ici.]"
+     ],
+     "sets": "indice"
+    },
+    {
+     "who": "L'historien",
+     "needs": "indice",
+     "text": [
+      "Alors, ça avance ? Méfie-toi : les livres sont de mauvais conseillers."
+     ]
+    }
+   ]
+  },
+  {
+   "key": "trunk_stack_blue_01",
+   "x": 585,
+   "y": 335
+  },
+  {
+   "key": "plant_fern_05",
+   "x": 95,
+   "y": 330,
+   "shadow": false,
+   "scale": 1.3,
+   "solid": false
+  },
+  {
+   "key": "book_pile_leather_01",
+   "x": 160,
+   "y": 330,
+   "sortY": 359,
+   "shadow": false,
+   "solid": false
+  },
+  {
+   "key": "armillary_sphere_01",
+   "x": 520,
+   "y": 350,
+   "sortY": 380,
+   "solid": false
+  }
+ ],
+ "npcs": [],
+ "lights": [
+  {
+   "x": 425,
+   "y": 210,
+   "r": 150,
+   "a": 0.7,
+   "flicker": true
+  },
+  {
+   "x": 210,
+   "y": 150,
+   "r": 80,
+   "a": 0.6,
+   "flicker": true
+  },
+  {
+   "x": 590,
+   "y": 240,
+   "r": 110,
+   "a": 0.5
+  }
+ ],
+ "exits": [
+  {
+   "x": 185,
+   "y": 186,
+   "w": 50,
+   "h": 14,
+   "to": "bibliotheque",
+   "spawn": {
+    "x": 360,
+    "y": 235,
+    "face": "down"
+   }
+  }
+ ]
+}
