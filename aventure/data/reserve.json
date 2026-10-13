@@ -146,7 +146,13 @@
   "crates_stack_01": 0.25,
   "vase_scrolls_blue_01": 0.22,
   "cabinet_drawers_candles_01": 0.28,
-  "map_star_chart_01": 0.3
+  "map_star_chart_01": 0.3,
+  "rug_blue_flat_01": 0.5,
+  "rug_red_flat_01": 0.5,
+  "rug_red_compass_flat_01": 0.8,
+  "papers_floor_01": 0.16,
+  "papers_floor_02": 0.16,
+  "papers_floor_03": 0.16
  },
  "player": {
   "x": 210,
@@ -258,9 +264,9 @@
    "layer": "walldecor"
   },
   {
-   "key": "rug_red_long_01",
-   "x": 345,
-   "y": 352,
+   "key": "rug_red_compass_flat_01",
+   "x": 268,
+   "y": 345,
    "layer": "floor"
   },
   {
@@ -338,6 +344,27 @@
    "key": "chest_iron_bound_01",
    "x": 300,
    "y": 368
+  },
+  {
+   "key": "papers_floor_01",
+   "x": 175,
+   "y": 262,
+   "layer": "floor",
+   "order": 1
+  },
+  {
+   "key": "papers_floor_02",
+   "x": 425,
+   "y": 352,
+   "layer": "floor",
+   "order": 1
+  },
+  {
+   "key": "papers_floor_03",
+   "x": 262,
+   "y": 335,
+   "layer": "floor",
+   "order": 1
   }
  ],
  "npcs": [],

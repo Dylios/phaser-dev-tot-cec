@@ -40,7 +40,8 @@ aventure/
     ├── lighting/         lampes, lanternes, bougeoirs        (lot 1 + planche 3)
     ├── props/            globe, échelle, coffres, livres…    (lot 1 + planche 3)
     ├── wall_decor/       tableaux et cartes                  (lot 1 + planche 3)
-    ├── rugs/             tapis                               (lot 1 + planche 4)
+    ├── rugs/             tapis                               (lot 1 + planche 4 + tapis plats)
+    ├── floor_decor/      feuilles et autres éléments posés au sol
     ├── plants/           plantes et lierres                  (lot 1)
     └── characters/       joueur, PNJ, Ti Chat                (à venir)
 ```

@@ -13,9 +13,9 @@
   const CATS = {
     walls: 'Murs', bookcases: 'Bibliothèques', architecture: 'Architecture', seating: 'Assises',
     furniture: 'Meubles', lighting: 'Luminaires', props: 'Accessoires', wall_decor: 'Déco murale',
-    rugs: 'Tapis', plants: 'Plantes', statues: 'Statues', characters: 'Personnages'
+    rugs: 'Tapis', floor_decor: 'Sol (déco)', plants: 'Plantes', statues: 'Statues', characters: 'Personnages'
   };
-  const LAYER_BY_CAT = { walls: 'wall', wall_decor: 'walldecor', rugs: 'floor' };
+  const LAYER_BY_CAT = { walls: 'wall', wall_decor: 'walldecor', rugs: 'floor', floor_decor: 'floor' };
   const BIG_CATS = { walls: 1, rugs: 1, architecture: 1, bookcases: 1 };
   const LAYERS = [
     ['object', 'Objet (trié selon Y)'], ['floor', 'Au sol (tapis)'],
