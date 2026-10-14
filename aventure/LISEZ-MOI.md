@@ -178,8 +178,8 @@ Une réplique peut aussi avoir son propre `"portrait"` (par exemple une autre ex
 - Un objet sans réplique disponible (conditions `needs` / `not` non remplies) est inerte : pas d'icône « Agir ».
 - Pour tester : `?flags=grimoire_vu,compagnons,passage` lève des drapeaux, `?reset` efface la progression.
 
+## Textes variables et écran fixe (prologue)
 
-## Conseils des compagnons (champ `tip`)
-
-Sur n'importe quel objet : `"tip": {"needs":"grimoire_vu","not":"passage","sets":"tip_globe","reach":45,"text":[{"who":"Thomas","t":"…"}]}`.
-Se joue tout seul, une seule fois (le drapeau `sets` est obligatoire), quand le joueur passe à moins de `reach` pixels de l'objet.
+- `"vars": {"date":"…","lieu":"…"}` dans le JSON d'une pièce : les textes peuvent contenir `{date}` et `{lieu}`. Pour changer la date ou le lieu, il suffit de modifier ces deux valeurs.
+- `"card": {"title","lines":[…],"button"}` : écran fixe affiché par l'action `{"do":"card"}` (`**gras**` accepté).
+- `"fragments": false` cache le tableau des fragments ; `"quest": []` cache l'objectif.

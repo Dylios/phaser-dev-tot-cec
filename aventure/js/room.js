@@ -537,6 +537,7 @@
         if (S.mode === 'line') { if (act) this.advanceSeq(); }
         else if (S.mode === 'wait') { S.t -= delta; if (S.t <= 0) this.advanceSeq(); }
         else if (S.mode === 'move') { if (!this.moves.length) this.advanceSeq(); }
+        else if (S.mode === 'card') { S.t -= delta; if (act && S.t <= 0) { $('card').hidden = true; this.advanceSeq(); } }
         return;
       }
 
@@ -729,6 +730,7 @@
       switch (it.do) {
         case 'wait': hide(); S.mode = 'wait'; S.t = it.ms || 600; return true;
         case 'set': this.setFlag(it.flag); return false;
+        case 'card': hide(); this.showCard(S); return true;
         case 'fragment': hide(); this.giveFragment(it.flag); S.mode = 'wait'; S.t = it.ms || 1800; return true;
         case 'move': {
           hide();
@@ -754,6 +756,27 @@
       }
     }
 
+    /* Remplace {date}, {lieu}… par les valeurs du champ "vars" de la pièce. */
+    sub(t) {
+      const v = this.cfg.vars || {};
+      return String(t).replace(/\{(\w+)\}/g, (m, k) => (v[k] != null ? v[k] : m));
+    }
+
+    /* Écran fixe (date et lieu…) : champ "card" de la pièce = { title, lines:[…], button } */
+    showCard(S) {
+      const c = this.cfg.card || {};
+      let el = $('card');
+      if (!el) { el = document.createElement('div'); el.id = 'card'; document.body.appendChild(el); }
+      el.innerHTML = '';
+      const inner = document.createElement('div'); inner.className = 'card-in';
+      if (c.title) { const h = document.createElement('h2'); h.textContent = this.sub(c.title); inner.appendChild(h); }
+      (c.lines || []).forEach((l) => { const p = document.createElement('p'); p.innerHTML = this.sub(l).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); inner.appendChild(p); });
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = c.button || 'Fermer';
+      b.onclick = () => { if (this.seq === S && S.mode === 'card' && S.t <= 0) { el.hidden = true; this.advanceSeq(); } };
+      inner.appendChild(b); el.appendChild(inner); el.hidden = false;
+      S.mode = 'card'; S.t = 400;
+    }
+
     showLine(it) {
       let who = this.defWho, portrait = this.defPortrait, text;
       if (typeof it === 'string') text = it;
@@ -763,6 +786,7 @@
         if (it.off) portrait = '';
         if (it.portrait != null) portrait = it.portrait;
       }
+      text = this.sub(text);
       const d = $('dlg');
       d.textContent = '';
       d.classList.toggle('has-portrait', !!portrait);
@@ -911,10 +935,11 @@
       $('quest').textContent = q ? q.text : '';
       $('quest').hidden = !q;
       // tableau des fragments
-      const fr = this.game.fragments || [];
+      const fr = this.cfg.fragments === false ? [] : (this.game.fragments || []);
       let box = $('frags');
       if (!box && fr.length) { box = document.createElement('div'); box.id = 'frags'; document.body.appendChild(box); }
       if (box) {
+        box.hidden = !fr.length;
         box.innerHTML = '';
         fr.forEach((x) => {
           const on = !!f[x.flag], path = this.assetMap[x.icon];

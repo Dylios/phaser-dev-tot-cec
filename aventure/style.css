@@ -224,3 +224,20 @@ body.edit #quest, body.edit #frags, body.edit #reset, body.edit #toast, body.edi
   font:18px/1 Georgia,serif;cursor:pointer;opacity:.75;
 }
 #reset:hover,#reset:active{opacity:1;border-color:var(--or)}
+
+
+/* ---- écran fixe (date et lieu du Save the Date) ---- */
+#card{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:#0b0705d9;padding:16px}
+#card[hidden]{display:none}
+#card .card-in{
+  max-width:min(440px,92vw);padding:26px 28px 22px;text-align:center;
+  background:linear-gradient(#3a2518,#2a1b14);border:2px solid var(--or);border-radius:10px;
+  box-shadow:0 0 40px #c9a24a55,inset 0 0 0 5px #2a1b14,inset 0 0 0 6px #c9a24a66;
+}
+#card h2{margin:0 0 14px;color:var(--or);font-size:20px;letter-spacing:.12em;text-transform:uppercase}
+#card p{margin:10px 0;font-size:17px;line-height:1.4}
+#card p b{color:var(--or);font-size:21px}
+#card button{
+  margin-top:14px;padding:9px 26px;background:var(--bois-clair);border:1px solid var(--or);border-radius:4px;
+  color:var(--ivoire);font:bold 14px Georgia,serif;cursor:pointer;
+}
