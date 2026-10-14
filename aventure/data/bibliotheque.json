@@ -712,7 +712,27 @@
    "scale": 1.076,
    "when": {
     "not": "compagnons"
-   }
+   },
+   "label": "Parler",
+   "talk": [
+    {
+     "who": "Thomas",
+     "not": "thomas_parle",
+     "sets": "thomas_parle",
+     "text": [
+      "Chut. Dernier boss, dernière barre de vie, et je viens juste d'avoir mon attaque Gradient.",
+      "Si tu cherches quelque chose à faire, va voir le gros livre au milieu. Il grommelle depuis ce matin.",
+      "Moi, je vous rejoins dès que ce combat est fini."
+     ]
+    },
+    {
+     "who": "Thomas",
+     "needs": "thomas_parle",
+     "text": [
+      "Encore une minute. Le boss a beaucoup trop de points de vie."
+     ]
+    }
+   ]
   },
   {
    "key": "sofa_green_empty_01",
@@ -735,7 +755,26 @@
    "scale": 0.75,
    "when": {
     "not": "compagnons"
-   }
+   },
+   "label": "Parler",
+   "talk": [
+    {
+     "who": "Cécile",
+     "not": "cecile_parle",
+     "sets": "cecile_parle",
+     "text": [
+      "Oh, tu es là. Attends, je finis ma page.",
+      "Le grimoire, au milieu de la salle, te cherchait, je crois. Il a l'air de s'ennuyer."
+     ]
+    },
+    {
+     "who": "Cécile",
+     "needs": "cecile_parle",
+     "text": [
+      "Deux minutes. Trois, maximum."
+     ]
+    }
+   ]
   },
   {
    "key": "armchair_cecile_empty_01",
@@ -818,6 +857,14 @@
          ]
         ]
        }
+      },
+      {
+       "who": "Thomas",
+       "t": "Bon, de toute façon, le boss avait une phase 2 et je me suis fait éclater…"
+      },
+      {
+       "who": "Cécile",
+       "t": "Trop démotivant, là… Une pause me fera du bien."
       },
       "Vous voilà, tous les trois. Parfait, je commençais à m'ennuyer.",
       "Ma dernière page est vierge. Ça arrive aux meilleurs livres, mais ça ne se dit pas.",
@@ -963,6 +1010,14 @@
         ]
        }
       },
+      {
+       "who": "Thomas",
+       "t": "Bon, de toute façon, le boss avait une phase 2 et je me suis fait éclater…"
+      },
+      {
+       "who": "Cécile",
+       "t": "Trop démotivant, là… Une pause me fera du bien."
+      },
       "Vous voilà, tous les trois. Parfait, je commençais à m'ennuyer.",
       "Ma dernière page est vierge. Ça arrive aux meilleurs livres, mais ça ne se dit pas.",
       {
@@ -1105,6 +1160,14 @@
          ]
         ]
        }
+      },
+      {
+       "who": "Thomas",
+       "t": "Bon, de toute façon, le boss avait une phase 2 et je me suis fait éclater…"
+      },
+      {
+       "who": "Cécile",
+       "t": "Trop démotivant, là… Une pause me fera du bien."
       },
       "Vous voilà, tous les trois. Parfait, je commençais à m'ennuyer.",
       "Ma dernière page est vierge. Ça arrive aux meilleurs livres, mais ça ne se dit pas.",
