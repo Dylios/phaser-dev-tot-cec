@@ -241,3 +241,23 @@ body.edit #quest, body.edit #frags, body.edit #reset, body.edit #toast, body.edi
   margin-top:14px;padding:9px 26px;background:var(--bois-clair);border:1px solid var(--or);border-radius:4px;
   color:var(--ivoire);font:bold 14px Georgia,serif;cursor:pointer;
 }
+
+
+/* ---- le grand grimoire (prologue) ---- */
+#book{position:fixed;inset:0;z-index:55;display:grid;place-items:center;background:#0b0705c2;opacity:0;transition:opacity .45s;touch-action:none;cursor:pointer}
+#book[hidden]{display:none}
+#book.in{opacity:1}
+#book.out{opacity:0}
+#book-in{position:relative;width:min(94vw,calc(88vh * 1.4398));transform:scale(.82);transition:transform .55s cubic-bezier(.2,.9,.3,1.1);filter:drop-shadow(0 0 28px #ffcc6a66)}
+#book.in #book-in{transform:scale(1)}
+#book-img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;pointer-events:none}
+#book-page{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;font-family:Georgia,"Times New Roman",serif;font-style:italic;color:#3b2412;line-height:1.35;pointer-events:none}
+#book-page b{color:#8a3a12;font-style:normal}
+#book-page .bk-in{animation:bk-in .6s ease both}
+#book-page .bk-line{margin:0}
+#book-page h2{margin:0 0 .7em;font-size:1.05em;letter-spacing:.14em;text-transform:uppercase;color:#8a3a12;font-style:normal}
+#book-page .bk-card p{margin:.55em 0}
+#book-page .bk-card p b{font-size:1.15em}
+@keyframes bk-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+#book-next{position:absolute;right:17%;bottom:13%;color:#8a3a12;font-size:min(3.6vw,5.5vh);font-weight:bold;animation:bk-blink 1.2s infinite;pointer-events:none}
+@keyframes bk-blink{50%{opacity:.25}}

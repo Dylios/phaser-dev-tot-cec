@@ -537,7 +537,7 @@
         if (S.mode === 'line') { if (act) this.advanceSeq(); }
         else if (S.mode === 'wait') { S.t -= delta; if (S.t <= 0) this.advanceSeq(); }
         else if (S.mode === 'move') { if (!this.moves.length) this.advanceSeq(); }
-        else if (S.mode === 'card') { S.t -= delta; if (act && S.t <= 0) { $('card').hidden = true; this.advanceSeq(); } }
+        else if (S.mode === 'card') { S.t -= delta; if (act && S.t <= 0) { const cd = $('card'); if (cd) cd.hidden = true; this.advanceSeq(); } }
         return;
       }
 
@@ -695,8 +695,11 @@
       this.defWho = e.who || t.name || '';
       this.defPortrait = e.portrait || t.portrait || '';
       if (this.hint) this.hint.box.hidden = true;
-      this.startSeq((e.text || []).slice(), () => {
+      let items = (e.text || []).slice();
+      if (e.book) items = [{ do: 'glow' }, { do: 'bookopen' }].concat(items);
+      this.startSeq(items, () => {
         $('dlg').hidden = true;
+        if (this.bookOpen) this.closeBook();
         const tt = this.talkTarget; this.talkTarget = null;
         if (tt && tt._actor) { tt._actor.face = tt.face || 'down'; this.applyActor(tt); }
         if (e.sets) this.setFlag(e.sets);
@@ -731,6 +734,8 @@
         case 'wait': hide(); S.mode = 'wait'; S.t = it.ms || 600; return true;
         case 'set': this.setFlag(it.flag); return false;
         case 'card': hide(); this.showCard(S); return true;
+        case 'glow': hide(); this.startGlow(); S.mode = 'wait'; S.t = it.ms || 1100; return true;
+        case 'bookopen': hide(); this.openBook(); S.mode = 'wait'; S.t = it.ms || 700; return true;
         case 'fragment': hide(); this.giveFragment(it.flag); S.mode = 'wait'; S.t = it.ms || 1800; return true;
         case 'move': {
           hide();
@@ -756,6 +761,54 @@
       }
     }
 
+    bold(t) { return String(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); }
+
+    /* ---- le grand livre : le texte s'écrit sur la page de droite ---- */
+    startGlow() {
+      const t = this.talkTarget, g = (this.entry && this.entry.glow) || [0, -78];
+      if (!t) return;
+      if (!this.textures.exists('glow_gold')) {
+        const c = this.textures.createCanvas('glow_gold', 256, 256), x = c.getContext();
+        const gr = x.createRadialGradient(128, 128, 0, 128, 128, 128);
+        gr.addColorStop(0, 'rgba(255,236,160,1)'); gr.addColorStop(.35, 'rgba(255,200,90,.55)'); gr.addColorStop(1, 'rgba(255,170,40,0)');
+        x.fillStyle = gr; x.fillRect(0, 0, 256, 256); c.refresh();
+      }
+      if (this.glow) this.glow.destroy();
+      this.glow = this.add.image(t.x + g[0], t.y + g[1], 'glow_gold').setBlendMode(Phaser.BlendModes.ADD).setDepth(99998).setAlpha(0).setScale(0.35);
+      this.tweens.add({ targets: this.glow, alpha: 1, scale: 1.1, duration: 800, ease: 'Sine.easeOut' });
+      this.tweens.add({ targets: this.glow, scale: 1.3, duration: 700, yoyo: true, repeat: -1, delay: 800, ease: 'Sine.easeInOut' });
+    }
+
+    openBook() {
+      const b = this.cfg.book || {};
+      let el = $('book');
+      if (!el) {
+        el = document.createElement('div'); el.id = 'book';
+        el.innerHTML = '<div id="book-in"><img id="book-img" alt=""><div id="book-page"></div><span id="book-next">▾</span></div>';
+        document.body.appendChild(el);
+        el.addEventListener('pointerdown', (ev) => { ev.preventDefault(); window.Controls.act = true; });
+        window.addEventListener('resize', () => this.fitBook());
+      }
+      const img = $('book-img'), pg = $('book-page'), tx = b.text || { x: .54, y: .13, w: .31, h: .66 };
+      img.src = b.image || 'assets/ui/grimoire_livre_ouvert_01.png';
+      pg.style.left = tx.x * 100 + '%'; pg.style.top = tx.y * 100 + '%'; pg.style.width = tx.w * 100 + '%'; pg.style.height = tx.h * 100 + '%';
+      pg.innerHTML = '';
+      el.hidden = false; el.classList.remove('out');
+      void el.offsetWidth; el.classList.add('in');
+      this.bookOpen = true; this.fitBook();
+    }
+
+    fitBook() {
+      const img = $('book-img'), pg = $('book-page');
+      if (pg && img) pg.style.fontSize = Math.max(9, img.clientWidth * 0.037) + 'px';
+    }
+
+    closeBook() {
+      const el = $('book'); this.bookOpen = false;
+      if (el) { el.classList.remove('in'); el.classList.add('out'); setTimeout(() => { if (!this.bookOpen) el.hidden = true; }, 450); }
+      if (this.glow) { const g = this.glow; this.glow = null; this.tweens.killTweensOf(g); this.tweens.add({ targets: g, alpha: 0, duration: 500, onComplete: () => g.destroy() }); }
+    }
+
     /* Remplace {date}, {lieu}… par les valeurs du champ "vars" de la pièce. */
     sub(t) {
       const v = this.cfg.vars || {};
@@ -765,6 +818,13 @@
     /* Écran fixe (date et lieu…) : champ "card" de la pièce = { title, lines:[…], button } */
     showCard(S) {
       const c = this.cfg.card || {};
+      if (this.bookOpen) {
+        const pg = $('book-page'); pg.innerHTML = '';
+        const w = document.createElement('div'); w.className = 'bk-card bk-in';
+        if (c.title) { const h = document.createElement('h2'); h.textContent = this.sub(c.title); w.appendChild(h); }
+        (c.lines || []).forEach((l) => { const p = document.createElement('p'); p.innerHTML = this.bold(this.sub(l)); w.appendChild(p); });
+        pg.appendChild(w); S.mode = 'card'; S.t = 400; return;
+      }
       let el = $('card');
       if (!el) { el = document.createElement('div'); el.id = 'card'; document.body.appendChild(el); }
       el.innerHTML = '';
@@ -787,6 +847,11 @@
         if (it.portrait != null) portrait = it.portrait;
       }
       text = this.sub(text);
+      if (this.bookOpen) {
+        const pg = $('book-page'); pg.innerHTML = '';
+        const p = document.createElement('p'); p.className = 'bk-line bk-in'; p.innerHTML = this.bold(text);
+        pg.appendChild(p); $('dlg').hidden = true; return;
+      }
       const d = $('dlg');
       d.textContent = '';
       d.classList.toggle('has-portrait', !!portrait);

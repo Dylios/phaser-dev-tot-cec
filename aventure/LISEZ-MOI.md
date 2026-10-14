@@ -183,3 +183,7 @@ Une réplique peut aussi avoir son propre `"portrait"` (par exemple une autre ex
 - `"vars": {"date":"…","lieu":"…"}` dans le JSON d'une pièce : les textes peuvent contenir `{date}` et `{lieu}`. Pour changer la date ou le lieu, il suffit de modifier ces deux valeurs.
 - `"card": {"title","lines":[…],"button"}` : écran fixe affiché par l'action `{"do":"card"}` (`**gras**` accepté).
 - `"fragments": false` cache le tableau des fragments ; `"quest": []` cache l'objectif.
+
+## Grand grimoire (prologue)
+
+Une réplique `talk` avec `"book": true` : l'objet s'illumine, le grand livre apparaît, et chaque réplique s'écrit sur la page de droite (un toucher passe à la suivante). `{"do":"card"}` y affiche l'écran date et lieu. Réglages dans le JSON de la pièce : `"book": {"image":"assets/ui/…","text":{"x","y","w","h"}}` (zone de texte en fractions de l'image) ; `"glow":[dx,dy]` sur la réplique place la lueur.

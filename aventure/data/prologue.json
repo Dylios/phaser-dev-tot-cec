@@ -286,13 +286,18 @@
    "talk": [
     {
      "who": "Grimoire",
+     "book": true,
+     "glow": [
+      0,
+      -80
+     ],
      "not": "grimoire_lu",
      "sets": "grimoire_lu",
      "text": [
       "Tiens, un visiteur. Je n'attendais personne, mais je ne suis pas difficile.",
       "Une expédition se prépare, et ton nom figure sur la liste.",
-      "Départ : {date}.",
-      "Destination : {lieu}. Je suis un livre discret.",
+      "Départ : **{date}**.",
+      "Destination : **{lieu}**. Je suis un livre discret.",
       "Note ça quelque part. Je ne suis pas un agenda.",
       "Les détails arrivent.",
       "Cire tes chaussures et repasse ton costume ou ta robe.",
@@ -303,8 +308,12 @@
     },
     {
      "who": "Grimoire",
+     "book": true,
+     "glow": [
+      0,
+      -80
+     ],
      "needs": "grimoire_lu",
-     "label": "Relire",
      "text": [
       {
        "do": "card"
@@ -506,5 +515,14 @@
    "Les détails arrivent."
   ],
   "button": "Fermer"
+ },
+ "book": {
+  "image": "assets/ui/grimoire_livre_ouvert_01.png",
+  "text": {
+   "x": 0.54,
+   "y": 0.13,
+   "w": 0.31,
+   "h": 0.66
+  }
  }
 }
