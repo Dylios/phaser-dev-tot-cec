@@ -35,10 +35,10 @@
    "h": 114
   },
   {
-   "x": 150,
+   "x": 87,
    "y": 300,
-   "w": 660,
-   "h": 72
+   "w": 787,
+   "h": 73
   },
   {
    "x": 310,
@@ -234,10 +234,10 @@
    "key": "lamp_table_shade_02",
    "x": 143,
    "y": 232,
-   "sortY": 295,
    "shadow": false,
    "solid": false,
-   "scale": 0.529
+   "scale": 0.462,
+   "sortY": 274
   },
   {
    "key": "pouf_blue_01",
@@ -248,32 +248,27 @@
   {
    "key": "wall_low_01",
    "x": 153,
-   "y": 441,
-   "layer": "wall"
+   "y": 441
   },
   {
    "key": "wall_low_01",
    "x": 290,
-   "y": 441,
-   "layer": "wall"
+   "y": 441
   },
   {
    "key": "wall_low_01",
    "x": 673,
-   "y": 443,
-   "layer": "wall"
+   "y": 443
   },
   {
    "key": "wall_low_01",
    "x": 810,
-   "y": 443,
-   "layer": "wall"
+   "y": 443
   },
   {
    "key": "doorway_steps_01",
    "x": 480,
-   "y": 506,
-   "layer": "wall"
+   "y": 506
   },
   {
    "key": "wall_side_right_01",
@@ -287,7 +282,6 @@
    "key": "wall_side_right_01",
    "x": 378,
    "y": 482,
-   "layer": "wall",
    "scale": 0.65
   },
   {
@@ -379,7 +373,6 @@
    "key": "wall_side_left_01",
    "x": 579,
    "y": 484,
-   "layer": "wall",
    "scale": 0.65
   },
   {
@@ -421,11 +414,10 @@
   },
   {
    "key": "trunk_stack_blue_01",
-   "x": 849,
-   "y": 385,
+   "x": 848,
+   "y": 398,
    "scale": 0.61,
-   "sortY": 313,
-   "layer": "floor"
+   "sortY": 326
   },
   {
    "key": "rug_round_red_02",
@@ -542,7 +534,6 @@
    "key": "wall_step_left_01",
    "x": 105,
    "y": 445,
-   "layer": "wall",
    "scale": 0.85,
    "order": 1
   },
@@ -635,14 +626,14 @@
    "key": "plant_fern_urn_01",
    "x": 540,
    "y": 194,
-   "scale": 0.47,
-   "sortY": 248
+   "scale": 0.47
   },
   {
    "key": "statue_wizard_01",
    "x": 480,
    "y": 143,
-   "scale": 0.57
+   "scale": 0.57,
+   "layer": "walldecor"
   },
   {
    "key": "rug_red_fringe_01",
@@ -720,8 +711,7 @@
   {
    "key": "sofa_thomas_gaming_01",
    "x": 212,
-   "y": 303,
-   "scale": 1.076,
+   "y": 297,
    "when": {
     "not": "compagnons"
    },
@@ -744,24 +734,28 @@
       "Encore une minute. Le boss a beaucoup trop de points de vie."
      ]
     }
-   ]
+   ],
+   "scale": 1.055
   },
   {
    "key": "sofa_green_empty_01",
-   "x": 212,
-   "y": 303,
-   "scale": 1.058,
+   "x": 209,
+   "y": 294,
+   "scale": 0.972,
    "when": {
     "needs": "compagnons"
-   }
+   },
+   "fp": [
+    99,
+    50
+   ]
   },
   {
    "key": "armchair_cecile_reading_01",
-   "x": 77,
-   "y": 294,
-   "sortY": 324,
+   "x": 91,
+   "y": 296,
    "fp": [
-    63,
+    82,
     50
    ],
    "scale": 0.75,
@@ -790,14 +784,13 @@
   },
   {
    "key": "armchair_cecile_empty_01",
-   "x": 77,
-   "y": 294,
-   "sortY": 324,
+   "x": 82,
+   "y": 292,
    "fp": [
-    63,
+    79,
     50
    ],
-   "scale": 0.79,
+   "scale": 0.656,
    "when": {
     "needs": "compagnons"
    }
