@@ -444,13 +444,6 @@
    ]
   },
   {
-   "key": "map_world_01",
-   "x": 260,
-   "y": 129,
-   "layer": "walldecor",
-   "scale": 0.79
-  },
-  {
    "key": "ladder_wood_01",
    "x": 924,
    "y": 220,
@@ -499,8 +492,8 @@
   },
   {
    "key": "globe_stand_01",
-   "x": 311,
-   "y": 199,
+   "x": 665,
+   "y": 286,
    "scale": 0.51,
    "label": "Tourner",
    "talk": [
@@ -622,16 +615,16 @@
   },
   {
    "key": "plant_palm_pot_01",
-   "x": 703,
-   "y": 287,
+   "x": 427,
+   "y": 195,
    "scale": 0.51
   },
   {
    "key": "plant_fern_urn_01",
-   "x": 222,
-   "y": 190,
+   "x": 540,
+   "y": 194,
    "scale": 0.47,
-   "sortY": 244
+   "sortY": 248
   },
   {
    "key": "statue_wizard_01",
@@ -653,7 +646,7 @@
    "scale": 1.647,
    "fp": [
     190,
-    80
+    72
    ]
   },
   {
@@ -685,8 +678,8 @@
   },
   {
    "key": "bookcase_secret_open_01",
-   "x": 825.6048,
-   "y": 190.1349,
+   "x": 825,
+   "y": 189,
    "scale": 0.667,
    "solid": false,
    "shadow": false,
@@ -1206,8 +1199,8 @@
   },
   {
    "key": "banner_compass_01",
-   "x": 142,
-   "y": 170,
+   "x": 147,
+   "y": 168,
    "layer": "walldecor",
    "label": "Lire",
    "talk": [
@@ -1217,17 +1210,14 @@
       "Expédition : toujours un pas de plus."
      ]
     }
-   ]
+   ],
+   "reach": 34
   },
   {
-   "key": "cupboard_ajar_01",
-   "x": 792,
-   "y": 368,
-   "scale": 0.9,
-   "fp": [
-    48,
-    16
-   ],
+   "key": "cupboard_ajar_02",
+   "x": 255,
+   "y": 192,
+   "scale": 1.235,
    "label": "Examiner",
    "talk": [
     {
