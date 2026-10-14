@@ -372,7 +372,18 @@
    ],
    "scale": 0.758,
    "solid": false,
-   "sortY": 16
+   "sortY": 16,
+   "tip": {
+    "needs": "historien_vu",
+    "sets": "tip_marquepage",
+    "reach": 50,
+    "text": [
+     {
+      "who": "Cécile",
+      "t": "Un marque-page ? Je me demande si je n'en ai pas utilisé un pour faire une pause dans mon auteur préféré…"
+     }
+    ]
+   }
   },
   {
    "key": "crates_stack_01",

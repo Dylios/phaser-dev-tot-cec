@@ -36,7 +36,7 @@
       this.missing = new Set();
       this.placeholders = new Set();
       this.solids = [];
-      this.talkables = [];
+      this.talkables = []; this.tipObjs = [];
     }
 
     /* ---------- progression (drapeaux) : gardée dans ce navigateur ---------- */
@@ -199,7 +199,7 @@
     buildWorld() {
       const cfg = this.cfg;
       this.solids = [];
-      this.talkables = [];
+      this.talkables = []; this.tipObjs = [];
       (cfg.floors || []).forEach((f) => this.addFloor(f));
       cfg.objects.forEach((o) => this.addObject(o));
       (cfg.npcs || []).forEach((n) => this.addNpc(n));
@@ -217,7 +217,7 @@
       [].concat(cfg.floors || [], cfg.objects || [], cfg.npcs || [], cfg.lights || [], [cfg.player])
         .forEach((e) => e && this.destroyEntity(e));
       this.solids = [];
-      this.talkables = [];
+      this.talkables = []; this.tipObjs = [];
     }
 
     /* Détruit les éléments graphiques d'une entité (objet, pnj, lumière, sol…). */
@@ -406,6 +406,7 @@
         o.rect = { x: o.x - 6, y: o.y - 6, w: 12, h: 6 };
       }
       if (o.talk) this.talkables.push(o);
+      if (o.tip) this.tipObjs.push(o);
     }
 
     addNpc(n) {
@@ -581,6 +582,24 @@
         if (best) this.hint.label.textContent = best.label || 'Examiner';
       }
       if (act && best) this.talk(best);
+
+      // conseils des compagnons : se déclenchent tout seuls, une seule fois, quand on passe près de l'objet
+      if (!this.seq) {
+        for (const o of this.tipObjs) {
+          const tp = o.tip, f = this.flags;
+          if (!tp.sets || f[tp.sets]) continue;
+          if (tp.needs && !f[tp.needs]) continue;
+          if (tp.not && f[tp.not]) continue;
+          if (!this.condOk(o.when)) continue;
+          const r = o.rect, pad = tp.reach || 40;
+          if (p.x < r.x - pad || p.x > r.x + r.w + pad || p.y < r.y - pad || p.y > r.y + r.h + pad) continue;
+          this.defWho = tp.who || ''; this.defPortrait = '';
+          if (this.hint) this.hint.box.hidden = true;
+          this.setFlag(tp.sets);
+          this.startSeq((tp.text || []).slice(), () => { $('dlg').hidden = true; this.updateQuest(); });
+          break;
+        }
+      }
 
       this.checkExits();
       if (this.debug) this.updateDebug();

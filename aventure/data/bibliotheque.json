@@ -517,7 +517,19 @@
       "Un très beau globe. Il tourne, mais rien de plus pour l'instant."
      ]
     }
-   ]
+   ],
+   "tip": {
+    "needs": "grimoire_vu",
+    "not": "passage",
+    "sets": "tip_globe",
+    "reach": 45,
+    "text": [
+     {
+      "who": "Thomas",
+      "t": "Hmm… ce globe m'a toujours paru étrange, à vrai dire."
+     }
+    ]
+   }
   },
   {
    "key": "lamp_desk_green_02",
@@ -807,6 +819,7 @@
      "who": "Grimoire",
      "not": "grimoire_vu",
      "text": [
+      "Ah, te voilà. Il ne me manque plus que les deux autres, quand ils daigneront quitter leurs fauteuils.",
       {
        "do": "summon",
        "from": {
@@ -959,6 +972,7 @@
      "who": "Grimoire",
      "not": "grimoire_vu",
      "text": [
+      "Ah, te voilà. Il ne me manque plus que les deux autres, quand ils daigneront quitter leurs fauteuils.",
       {
        "do": "summon",
        "from": {
@@ -1110,6 +1124,7 @@
      "who": "Grimoire",
      "not": "grimoire_vu",
      "text": [
+      "Ah, te voilà. Il ne me manque plus que les deux autres, quand ils daigneront quitter leurs fauteuils.",
       {
        "do": "summon",
        "from": {
