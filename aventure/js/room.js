@@ -734,6 +734,7 @@
         case 'wait': hide(); S.mode = 'wait'; S.t = it.ms || 600; return true;
         case 'set': this.setFlag(it.flag); return false;
         case 'card': hide(); this.showCard(S); return true;
+        case 'left': this.setLeft(it.img); return false;
         case 'glow': hide(); this.startGlow(); S.mode = 'wait'; S.t = it.ms || 1100; return true;
         case 'bookopen': hide(); this.openBook(); S.mode = 'wait'; S.t = it.ms || 700; return true;
         case 'fragment': hide(); this.giveFragment(it.flag); S.mode = 'wait'; S.t = it.ms || 1800; return true;
@@ -784,7 +785,7 @@
       let el = $('book');
       if (!el) {
         el = document.createElement('div'); el.id = 'book';
-        el.innerHTML = '<div id="book-in"><img id="book-img" alt=""><div id="book-page"></div><span id="book-next">▾</span></div>';
+        el.innerHTML = '<div id="book-in"><img id="book-img" alt=""><img id="book-full" alt=""><img id="book-left" alt=""><div id="book-page"></div><span id="book-next">▾</span></div>';
         document.body.appendChild(el);
         el.addEventListener('pointerdown', (ev) => { ev.preventDefault(); window.Controls.act = true; });
         window.addEventListener('resize', () => this.fitBook());
@@ -792,10 +793,28 @@
       const img = $('book-img'), pg = $('book-page'), tx = b.text || { x: .54, y: .13, w: .31, h: .66 };
       img.src = b.image || 'assets/ui/grimoire_livre_ouvert_01.png';
       pg.style.left = tx.x * 100 + '%'; pg.style.top = tx.y * 100 + '%'; pg.style.width = tx.w * 100 + '%'; pg.style.height = tx.h * 100 + '%';
-      pg.innerHTML = '';
+      pg.innerHTML = ''; this.setLeft(null);
       el.hidden = false; el.classList.remove('out');
       void el.offsetWidth; el.classList.add('in');
       this.bookOpen = true; this.fitBook();
+    }
+
+    /* page de gauche du grand livre : une illustration par page (ou aucune) */
+    setLeft(name) {
+      const b = this.cfg.book || {}, defs = b.left || {};
+      const full = $('book-full'), ov = $('book-left');
+      if (!full || !ov) return;
+      const def = name ? defs[name] : null;
+      full.style.opacity = def && def.full ? 1 : 0;
+      if (def && def.full) { if (full.getAttribute('src') !== def.src) full.src = def.src; ov.style.opacity = 0; return; }
+      if (!def) { ov.style.opacity = 0; return; }
+      const sl = b.leftSlot || { x: .125, y: .12, w: .33, h: .70 };
+      ov.style.left = sl.x * 100 + '%'; ov.style.top = sl.y * 100 + '%'; ov.style.width = sl.w * 100 + '%'; ov.style.height = sl.h * 100 + '%';
+      ov.onerror = () => { ov.style.opacity = 0; };
+      ov.onload = () => { if (ov.dataset.want === def.src) ov.style.opacity = 1; };
+      ov.dataset.want = def.src;
+      if (ov.getAttribute('src') === def.src && ov.complete && ov.naturalWidth) ov.style.opacity = 1;
+      else { ov.style.opacity = 0; ov.src = def.src; }
     }
 
     fitBook() {

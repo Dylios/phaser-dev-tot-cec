@@ -269,3 +269,7 @@ body.edit #quest, body.edit #frags, body.edit #reset, body.edit #toast, body.edi
 #book-page .bk-card h2{font-size:.86em;letter-spacing:.07em;white-space:nowrap;margin-bottom:.5em}
 #book-page .bk-card p{margin:.42em 0}
 #book-page .bk-card .lieu b{font-size:.98em}
+
+#book-full{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .7s;pointer-events:none;user-select:none}
+#book-left{position:absolute;object-fit:contain;opacity:0;transition:opacity .7s;mix-blend-mode:multiply;pointer-events:none;user-select:none;
+  -webkit-mask-image:radial-gradient(ellipse closest-side,#000 64%,transparent 100%);mask-image:radial-gradient(ellipse closest-side,#000 64%,transparent 100%)}

@@ -294,13 +294,45 @@
      "not": "grimoire_lu",
      "sets": "grimoire_lu",
      "text": [
+      {
+       "do": "left",
+       "img": "interrogation"
+      },
       "Tiens, un visiteur. Je n'attendais personne, mais je ne suis pas difficile.",
+      {
+       "do": "left",
+       "img": "plume"
+      },
       "Une expédition se prépare, et ton nom figure sur la liste.",
+      {
+       "do": "left",
+       "img": "transports"
+      },
       "Départ : **{date}**.",
+      {
+       "do": "left",
+       "img": "manoir"
+      },
       "Destination : **{lieu}**. Je suis un livre discret.",
+      {
+       "do": "left",
+       "img": null
+      },
       "Note ça quelque part. Je ne suis pas un agenda.",
+      {
+       "do": "left",
+       "img": null
+      },
       "Les détails arrivent.",
+      {
+       "do": "left",
+       "img": null
+      },
       "Cire tes chaussures et repasse ton costume ou ta robe.",
+      {
+       "do": "left",
+       "img": "couple"
+      },
       {
        "do": "card"
       }
@@ -315,6 +347,10 @@
      ],
      "needs": "grimoire_lu",
      "text": [
+      {
+       "do": "left",
+       "img": "couple"
+      },
       {
        "do": "card"
       }
@@ -504,12 +540,36 @@
   "button": "Fermer"
  },
  "book": {
-  "image": "assets/ui/grimoire_livre_ouvert_01.png",
+  "image": "assets/ui/grimoire_livre_ouvert_02_gauche_vide.png",
   "text": {
    "x": 0.54,
    "y": 0.13,
    "w": 0.31,
    "h": 0.66
+  },
+  "leftSlot": {
+   "x": 0.125,
+   "y": 0.12,
+   "w": 0.33,
+   "h": 0.7
+  },
+  "left": {
+   "couple": {
+    "src": "assets/ui/grimoire_livre_ouvert_01.png",
+    "full": true
+   },
+   "interrogation": {
+    "src": "assets/ui/gauche_interrogation_01.png"
+   },
+   "plume": {
+    "src": "assets/ui/gauche_plume_parchemin_01.png"
+   },
+   "transports": {
+    "src": "assets/ui/gauche_transports_01.png"
+   },
+   "manoir": {
+    "src": "assets/ui/gauche_manoir_01.png"
+   }
   }
  }
 }
