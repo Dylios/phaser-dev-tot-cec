@@ -489,16 +489,17 @@
  ],
  "vars": {
   "date": "22 juillet 2028",
-  "lieu": "à divulguer"
+  "lieu": "à divulguer",
+  "date_carte": "22 juillet"
  },
  "quest": [],
  "fragments": false,
  "card": {
   "title": "Expédition 2028",
   "lines": [
-   "Départ : **{date}**",
-   "Destination : **{lieu}**",
-   "Les détails arrivent."
+   "Départ :<br>**{date_carte}**",
+   "Destination :<br>**{lieu}**",
+   "*Les détails arrivent.*"
   ],
   "button": "Fermer"
  },

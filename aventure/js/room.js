@@ -761,7 +761,7 @@
       }
     }
 
-    bold(t) { return String(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); }
+    bold(t) { return String(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<i>$1</i>'); }
 
     /* ---- le grand livre : le texte s'écrit sur la page de droite ---- */
     startGlow() {
@@ -830,7 +830,7 @@
       el.innerHTML = '';
       const inner = document.createElement('div'); inner.className = 'card-in';
       if (c.title) { const h = document.createElement('h2'); h.textContent = this.sub(c.title); inner.appendChild(h); }
-      (c.lines || []).forEach((l) => { const p = document.createElement('p'); p.innerHTML = this.sub(l).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); inner.appendChild(p); });
+      (c.lines || []).forEach((l) => { const p = document.createElement('p'); p.innerHTML = this.bold(this.sub(l)); inner.appendChild(p); });
       const b = document.createElement('button'); b.type = 'button'; b.textContent = c.button || 'Fermer';
       b.onclick = () => { if (this.seq === S && S.mode === 'card' && S.t <= 0) { el.hidden = true; this.advanceSeq(); } };
       inner.appendChild(b); el.appendChild(inner); el.hidden = false;
