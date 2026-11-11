@@ -489,7 +489,7 @@
  ],
  "vars": {
   "date": "22 juillet 2028",
-  "lieu": "à divulguer",
+  "lieu": "Cap à l’ouest, jusqu’au hameau d’en haut",
   "date_carte": "22 juillet"
  },
  "quest": [],
@@ -498,7 +498,7 @@
   "title": "Expédition 2028",
   "lines": [
    "Départ :<br>**{date_carte}**",
-   "Destination :<br>**{lieu}**",
+   "Destination :<br><span class=\"lieu\">**{lieu}.**</span>",
    "*Les détails arrivent.*"
   ],
   "button": "Fermer"
