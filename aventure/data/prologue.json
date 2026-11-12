@@ -316,7 +316,7 @@
       "Destination : **{lieu}**. Je suis un livre discret.",
       {
        "do": "left",
-       "img": null
+       "img": "agenda"
       },
       "Note ça quelque part. Je ne suis pas un agenda.",
       {
@@ -569,6 +569,9 @@
    },
    "manoir": {
     "src": "assets/ui/gauche_manoir_02.png"
+   },
+   "agenda": {
+    "src": "assets/ui/gauche_agenda_01.png"
    }
   }
  }
