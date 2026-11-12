@@ -326,7 +326,7 @@
       "Les détails arrivent.",
       {
        "do": "left",
-       "img": null
+       "img": "tenue"
       },
       "Cire tes chaussures et repasse ton costume ou ta robe.",
       {
@@ -572,6 +572,9 @@
    },
    "agenda": {
     "src": "assets/ui/gauche_agenda_01.png"
+   },
+   "tenue": {
+    "src": "assets/ui/gauche_tenue_01.png"
    }
   }
  }
