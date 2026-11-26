@@ -328,5 +328,56 @@
   "walkRows": {
    "down": "walk_down"
   }
+ },
+ "invite_h55_02": {
+  "sheet": "sheets/invite_h55_02.png",
+  "cell": [
+   101,
+   199
+  ],
+  "frames": 8,
+  "counts": {
+   "down": 6,
+   "up": 8,
+   "left": 8,
+   "right": 8,
+   "walk_down": 8,
+   "stand_up": 6
+  },
+  "rows": {
+   "down": 0,
+   "stand_up": 1,
+   "walk_down": 2,
+   "up": 3,
+   "left": 4,
+   "right": 5
+  },
+  "walk": {
+   "fps": 10,
+   "bob": 0
+  },
+  "idle": {
+   "fps": 2,
+   "faces": [
+    "down"
+   ]
+  },
+  "stand": {
+   "up": [
+    "stand_up",
+    0
+   ],
+   "left": [
+    "left",
+    7
+   ],
+   "right": [
+    "right",
+    7
+   ]
+  },
+  "walkRows": {
+   "down": "walk_down"
+  }
  }
 }
