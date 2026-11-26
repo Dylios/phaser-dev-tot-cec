@@ -1,7 +1,10 @@
 /* Point d'entrée : charge la pièce (JSON) et la liste des assets, puis lance Phaser. */
-(function () {
-  const params = new URLSearchParams(location.search);
-  const roomId = params.get('piece') || 'bibliotheque';
+/* Version publique (save the date) : window.EXP_PUBLIC = true verrouille ?piece, ?edit, ?debug, ?brouillon et ?flags.
+   window.EXP_READY (promesse facultative) retarde le démarrage ; window.EXP_FLAGS_KEY nomme la clé de sauvegarde locale. */
+(window.EXP_READY || Promise.resolve()).catch(function () {}).then(function () {
+  const pub = !!window.EXP_PUBLIC;
+  const params = new URLSearchParams(pub ? '' : location.search);
+  const roomId = (pub && window.EXP_PIECE) || params.get('piece') || 'bibliotheque';
   const debug = params.has('debug');
   const edit = params.has('edit');                  // éditeur de pièce
   const draft = edit || params.has('brouillon');    // jouer / éditer le brouillon enregistré dans ce navigateur
@@ -52,7 +55,7 @@
     const rb = document.getElementById('reset');
     if (rb) rb.addEventListener('click', function () {
       if (!window.confirm('Recommencer le jeu depuis le début ?\nLa progression sera effacée.')) return;
-      try { localStorage.removeItem('exp2028:flags'); } catch (e) { /* tant pis */ }
+      try { localStorage.removeItem(window.EXP_FLAGS_KEY || 'exp2028:flags'); } catch (e) { /* tant pis */ }
       const keep = new URLSearchParams();
       if (params.has('debug')) keep.set('debug', '');
       if (params.has('brouillon')) keep.set('brouillon', '');
@@ -75,4 +78,4 @@
       'Ouvre le jeu via un serveur (GitHub Pages ou « python -m http.server »), pas en double-cliquant sur index.html.</pre>');
     console.error(e);
   });
-})();
+});

@@ -43,16 +43,17 @@
     loadFlags() {
       if (this.edit) return {};
       try {
-        const q = new URLSearchParams(location.search);
-        if (q.has('reset')) localStorage.removeItem('exp2028:flags');
-        const f = JSON.parse(localStorage.getItem('exp2028:flags') || '{}') || {};
+        const q = new URLSearchParams(window.EXP_PUBLIC ? '' : location.search);
+        const key = window.EXP_FLAGS_KEY || 'exp2028:flags';
+        if (q.has('reset')) localStorage.removeItem(key);
+        const f = JSON.parse(localStorage.getItem(key) || '{}') || {};
         if (q.get('flags')) q.get('flags').split(',').forEach((k) => { if (k) f[k] = true; });   // pour tester : ?flags=a,b
         return f;
       } catch (e) { return {}; }
     }
 
     saveFlags() {
-      try { localStorage.setItem('exp2028:flags', JSON.stringify(this.flags)); } catch (e) { /* navigation privée : pas grave */ }
+      try { localStorage.setItem(window.EXP_FLAGS_KEY || 'exp2028:flags', JSON.stringify(this.flags)); } catch (e) { /* navigation privée : pas grave */ }
     }
 
     setFlag(name) {
@@ -781,6 +782,7 @@
     }
 
     openBook() {
+      try { if (window.EXP_HOOKS && window.EXP_HOOKS.onGrimoire) window.EXP_HOOKS.onGrimoire(); } catch (e) { /* sans importance */ }
       const b = this.cfg.book || {};
       let el = $('book');
       if (!el) {
