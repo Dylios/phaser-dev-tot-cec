@@ -321,7 +321,7 @@
       "Note ça quelque part. Je ne suis pas un agenda.",
       {
        "do": "left",
-       "img": null
+       "img": "enveloppe"
       },
       "Les détails arrivent.",
       {
@@ -575,6 +575,9 @@
    },
    "tenue": {
     "src": "assets/ui/gauche_tenue_01.png"
+   },
+   "enveloppe": {
+    "src": "assets/ui/gauche_enveloppe_01.png"
    }
   }
  }
